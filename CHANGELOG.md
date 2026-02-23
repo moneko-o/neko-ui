@@ -2,6 +2,10 @@
 
 ## Last
 
+### ✨ Features
+
+- Popover 支持 encodeURIComponent 字符串 ([88d276b](https://github.com/moneko-o/neko-ui/commit/88d276ba60b7fffaf6f1ab4605141f8c26077759))
+
 ### 📚 Documentation
 
 - 更新文档 ([161e6f8](https://github.com/moneko-o/neko-ui/commit/161e6f8944a3636bbfa85b1c3b220c144bd95876))
