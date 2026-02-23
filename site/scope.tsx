@@ -78,7 +78,14 @@ export function NpmTabs(p: Props) {
             p[key] && {
               label: key,
               icon: icons[key as keyof typeof icons],
-              content: <n-md no-render={true} css={noShadowMd} text={p[key] as string} />,
+              content: (
+                <n-md
+                  no-render={true}
+                  css={noShadowMd}
+                  text={p[key] as string}
+                  code-classic={false}
+                />
+              ),
             }
           );
         })

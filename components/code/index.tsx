@@ -106,7 +106,7 @@ function Code(props: CodeProps) {
 
   async function fetchPrism() {
     if (!window.Prism) {
-      return (await import('../prism')).default;
+      return (await import('../prism')).default as unknown as Window['Prism'];
     }
     window.Prism.disableWorkerMessageHandler = true;
     window.Prism.manual = true;

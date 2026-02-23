@@ -1,5 +1,11 @@
 # Change log
 
+## Last
+
+### 📚 Documentation
+
+- 更新文档 ([170cd29](https://github.com/moneko-o/neko-ui/commit/170cd290ca4590f15b3f4f5dcead5a79c17ff4b2))
+
 ## [v2.14.12](https://github.com/moneko-o/neko-ui/compare/v2.14.11...v2.14.12) (2-14-2026)
 
 ### 🛠 Builds

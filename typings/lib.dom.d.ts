@@ -157,5 +157,7 @@ interface Window {
     disableWorkerMessageHandler: boolean;
     languages: Record<string, unknown>;
     highlight(code: string, langs: unknown, lang: string): string;
+    manual?: boolean;
+    tokenize(code: string, grammar: unknown): TokenStream;
   };
 }
