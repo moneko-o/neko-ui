@@ -7,7 +7,7 @@ const conf: Partial<ConfigType> = {
   fallbackCompPath: '@/components/fallback',
   devtool: isDev ? 'eval-cheap-module-source-map' : false,
   seo: {
-    domain: 'monako97.github.io',
+    domain: 'moneko-o.github.io',
     jekyll: false,
   },
   bar: false,

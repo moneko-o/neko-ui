@@ -197,7 +197,7 @@ import type {
 } from '.';
 
 /** 组件列表
- * @author monako97
+ * @author moneko-o
  * @ignore optional
  */
 interface CustomElementTags {

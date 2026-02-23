@@ -1,7 +1,7 @@
 ---
 type: 工程配套
 title: 环境变量
-subtitle: 'Env'
+subtitle: 'app:env'
 icon: 🔧
 order: 10
 ---
@@ -45,8 +45,16 @@ export default conf;
 1. 从 `app:env` 模块读取
 
 ```js
-import env from 'app:env';
-console.log(env);
+import { ENV_MODE } from 'app:env';
+console.log(ENV_MODE);
 ```
 
 2. 从 `process.env` 读取
+```js
+console.log(process.env.ENV_MODE);
+```
+
+3. 从 `import.meta.env` 读取
+```js
+console.log(import.meta.env.ENV_MODE);
+```

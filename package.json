@@ -31,14 +31,14 @@
   },
   "author": {
     "name": "moneko",
-    "url": "https://github.com/monako97",
+    "url": "https://github.com/moneko-o",
     "email": "poi.nyaa@qq.com"
   },
   "license": "MIT",
-  "homepage": "https://monako97.github.io/neko-ui",
+  "homepage": "https://moneko-o.github.io/neko-ui",
   "repository": {
     "type": "git",
-    "url": "https://github.com/monako97/neko-ui"
+    "url": "https://github.com/moneko-o/neko-ui"
   },
   "publishConfig": {
     "access": "public",
@@ -65,13 +65,13 @@
     "ui libraries"
   ],
   "devDependencies": {
-    "@moneko/core": "4.6.2",
+    "@moneko/core": "4.7.0",
     "@moneko/solid": "2.0.3",
     "@solidjs/testing-library": "0.8.10",
     "@swc/jest": "0.2.39",
     "@testing-library/jest-dom": "6.9.1",
     "@types/jest": "30.0.0",
-    "@types/prismjs": "1.26.5",
+    "@types/prismjs": "1.26.6",
     "jest": "30.2.0",
     "jest-environment-jsdom": "30.2.0",
     "n-code-live": "2.1.1",

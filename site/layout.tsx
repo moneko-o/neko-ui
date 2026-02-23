@@ -47,7 +47,7 @@ function App(p: RouteProps<string>) {
             <div class="n-md-body">{p.children}</div>
           </div>
           <site-sandbox-group name={getPathName(location)} />
-          <For each={doc()}>{(e) => e()}</For>
+          <For each={doc()}>{(Api) => <Api />}</For>
           <Show when={!getPathName(location)}>
             <div class="n-md-box">
               <div class="n-md-body">

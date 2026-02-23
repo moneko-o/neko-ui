@@ -133,22 +133,3 @@ html > body::before {
   margin-block-end: 0;
   empty-cells: hide;
 }
-
-.n-md-body n-skeleton + n-skeleton {
-  margin-block-start: 16px;
-}
-
-table td a {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-table td a n-img,
-table td a img {
-  display: inline-block;
-  overflow: hidden;
-  border-radius: var(--border-radius);
-  inline-size: 24px;
-  block-size: 24px;
-}

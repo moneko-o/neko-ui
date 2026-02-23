@@ -1,8 +1,8 @@
-[home-url]: https://monako97.github.io/neko-ui
+[home-url]: https://moneko-o.github.io/neko-ui
 [home-tag]: https://h5static.dewucdn.com/node-common/4eff4dcf-45bb-076d-abef-6e117f708d42.svg
-[jetbrains-tag]: https://cdn.statically.io/gh/monako97/cdn@main/image/202307281758090.svg
+[jetbrains-tag]: https://cdn.statically.io/gh/moneko-o/cdn@main/image/202307281758090.svg
 [jetbrains-url]: https://www.jetbrains.com/?from=monako
-[docs-url]: https://monako97.github.io/neko-ui
+[docs-url]: https://moneko-o.github.io/neko-ui
 [docs-tag]: https://h5static.dewucdn.com/node-common/75de0360-fb9b-cde5-0b4e-02b3df87915c.svg
 [npm-url]: https://npmjs.org/package/neko-ui
 [cli-url]: https://www.npmjs.com/package/create-mo
@@ -27,11 +27,10 @@
 [![install size][size-tag]][size-url]
 [![download][download-tag]][npm-url]
 ![x][x-tag]
-[![GitHub Actions CI](https://github.com/monako97/neko-ui/actions/workflows/cd.yml/badge.svg?style=flat-square)](https://github.com/monako97/neko-ui/actions/workflows/cd.yml)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmonako97%2Fneko-ui.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmonako97%2Fneko-ui?ref=badge_shield)
-
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmoneko-o%2Fneko-ui.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmoneko-o%2Fneko-ui?ref=badge_small)
 [![neko-ui][install-tag]][npm-url]
 [![Package Quality](https://packagequality.com/badge/neko-ui.png)](https://packagequality.com/#?package=neko-ui)
+![neko-ui](https://count.getloli.com/get/@neko-ui?theme=rule34)
 
 ## 安装
 

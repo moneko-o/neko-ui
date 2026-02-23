@@ -1,9 +1,8 @@
 import type { ConfigType } from '@moneko/core';
 
-const CDNHOST = 'https://cdn.statically.io https://img.picui.cn';
+const CDNHOST = 'https://cdn.statically.io';
 const conf: Partial<ConfigType> = {
   htmlPluginOption: {
-    favicon: './site/assets/images/favicon.ico',
     meta: {
       CSP: {
         'http-equiv': 'Content-Security-Policy',

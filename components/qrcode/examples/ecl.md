@@ -5,7 +5,7 @@ description: 通过设置 ECL（错误纠正等级）来调整二维码的容错
 
 ```html
 <n-qrcode ecl="l"></n-qrcode>
-<n-input value="https://github.com/monako97/neko-ui"></n-input>
+<n-input value="https://github.com/moneko-o/neko-ui"></n-input>
 <n-segmented default-value="l"></n-segmented>
 <script>
   const segmented = container.querySelector('n-segmented');
@@ -29,5 +29,5 @@ description: 通过设置 ECL（错误纠正等级）来调整二维码的容错
 ```
 
 ```jsx
-<n-qrcode value="https://github.com/monako97/neko-ui" ecl="l" />
+<n-qrcode value="https://github.com/moneko-o/neko-ui" ecl="l" />
 ```
