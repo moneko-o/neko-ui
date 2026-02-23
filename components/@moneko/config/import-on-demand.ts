@@ -5,6 +5,7 @@
 export interface SwcImportOnDemand {
   /** 要使用的库名称，而不是导入语句中指定的库名称。`member` 是替换的成员
    * @example
+   * ```ts
    * const conf = {
    *    importOnDemand: {
    *        'antd': {
@@ -17,6 +18,7 @@ export interface SwcImportOnDemand {
    * import { Button } from 'antd';
    * // to
    * import Button from 'antd/es/button'
+   * ```
    */
   transform: string;
   /** 设置转换时需要单独导入的样式，`member` 是替换的成员

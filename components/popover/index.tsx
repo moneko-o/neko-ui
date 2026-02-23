@@ -56,6 +56,8 @@ export interface PopoverProps {
    */
   size?: BasicConfig['size'];
   children?: JSXElement;
+  /** content 为 encodeURIComponent 字符串 */
+  encodeUri?: boolean;
 }
 
 export enum TriggerOption {
@@ -128,6 +130,7 @@ function Popover(props: PopoverProps) {
     'getPopupContainer',
     'children',
     'content',
+    'encodeUri',
   ]);
   let ref: HTMLDivElement | undefined;
   let childRef: HTMLSpanElement | undefined;
@@ -360,8 +363,14 @@ function Popover(props: PopoverProps) {
           <div ref={ref} on:animationend={exit} class={portalCls()} {...childrenProps()}>
             <Show when={!!local.content} fallback={<Empty />}>
               <Show when={typeof local.content === 'string'} fallback={<>{local.content}</>}>
-                {/* eslint-disable-next-line solid/no-innerhtml */}
-                <div innerHTML={local.content as string} />
+                <div
+                  // eslint-disable-next-line solid/no-innerhtml
+                  innerHTML={
+                    local.encodeUri
+                      ? decodeURIComponent(local.content as string)
+                      : (local.content as string)
+                  }
+                />
               </Show>
             </Show>
           </div>
@@ -388,6 +397,7 @@ export const defaultProps = {
   arrow: void 0,
   placement: void 0,
   dropdownMatchSelectWidth: void 0,
+  encodeUri: void 0,
 };
 Popover.registry = () => {
   customElement<PopoverProps>('n-popover', defaultProps, (_, opt) => {
