@@ -47,14 +47,28 @@ if (typeof URL.createObjectURL !== 'function') {
 
 if (typeof Worker === 'undefined') {
   (globalThis as Record<string, unknown>).Worker = class MockWorker {
-    onmessage: ((e: MessageEvent) => void) | null = null;
-    onerror: ((e: ErrorEvent) => void) | null = null;
+    private listeners: Record<string, Function[]> = {};
 
     constructor() {}
-    postMessage() {}
+    postMessage(data: unknown) {
+      const d = data as Record<string, unknown>;
+
+      setTimeout(() => {
+        const html = `<div>${d?.text || ''}</div>`;
+
+        this.listeners['message']?.forEach((fn) => fn({ data: html }));
+      }, 0);
+    }
     terminate() {}
-    addEventListener() {}
-    removeEventListener() {}
+    addEventListener(event: string, fn: Function) {
+      if (!this.listeners[event]) this.listeners[event] = [];
+      this.listeners[event].push(fn);
+    }
+    removeEventListener(event: string, fn: Function) {
+      if (this.listeners[event]) {
+        this.listeners[event] = this.listeners[event].filter((f) => f !== fn);
+      }
+    }
     dispatchEvent() {
       return true;
     }
