@@ -2,7 +2,6 @@
   "extends": "@moneko/init.d",
   "compilerOptions": {
     "baseUrl": ".",
-    "moduleResolution": "nodenext",
     "paths": {
       "@/*": ["site/*"],
       "@pkg/*": ["components/*"],

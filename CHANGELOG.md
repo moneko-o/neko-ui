@@ -2,6 +2,11 @@
 
 ## Last
 
+### 🐛 Bug Fixes
+
+- update GlassPanel component props and test cases for filter properties ([acae9c1](https://github.com/moneko-o/neko-ui/commit/acae9c18e716d87bbebfee4c8f43d3e479334c5e))
+- update jest config to use babel-jest and fix toBeCalled deprecation ([f0a262f](https://github.com/moneko-o/neko-ui/commit/f0a262fa38d5d2cad7ed469cb63d3144ada66e26))
+
 ### ♻️ Chores
 
 - upgrade @moneko/core from 4.7.2 to 4.7.7 ([26c2c8f](https://github.com/moneko-o/neko-ui/commit/26c2c8fef24088477260f3c8f706e0c764ec872f))
@@ -28,10 +33,6 @@
 ### 📚 Documentation
 
 - add AGENTS.md with cloud-specific dev instructions ([69f38f2](https://github.com/moneko-o/neko-ui/commit/69f38f2b7e8e3ef897935a989508d95e8314e928))
-
-### 🐛 Bug Fixes
-
-- update jest config to use babel-jest and fix toBeCalled deprecation ([f0a262f](https://github.com/moneko-o/neko-ui/commit/f0a262fa38d5d2cad7ed469cb63d3144ada66e26))
 
 ## [v2.14.14](https://github.com/moneko-o/neko-ui/compare/v2.14.13...v2.14.14) (2-23-2026)
 
