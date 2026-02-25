@@ -4,6 +4,7 @@
 
 ### 🚨 Tests
 
+- achieve 98.62% stmts, 100% funcs, 98.61% lines - test-only changes ([e97b466](https://github.com/moneko-o/neko-ui/commit/e97b46616406d87e385848f6de8747e048daf36e))
 - revert source changes, add direct-render tests for 100% coverage ([bf8e438](https://github.com/moneko-o/neko-ui/commit/bf8e438cd2680502eac2f27cd03878927311038b))
 - achieve 100% statement/function/line coverage ([8f85c7b](https://github.com/moneko-o/neko-ui/commit/8f85c7b8c1f5a0ada9d498da4aed8db642880c5b))
 - fix broken modal tests and improve dropdown/table to 100% ([af04cf9](https://github.com/moneko-o/neko-ui/commit/af04cf97be1168c5a589739ec14a31431697cdc6))
