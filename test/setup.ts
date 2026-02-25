@@ -39,3 +39,24 @@ const mockObserveFn = () => {
 
 window.IntersectionObserver =
   window.IntersectionObserver || jest.fn().mockImplementation(mockObserveFn);
+
+if (typeof URL.createObjectURL !== 'function') {
+  URL.createObjectURL = jest.fn(() => 'blob:mock');
+  URL.revokeObjectURL = jest.fn();
+}
+
+if (typeof Worker === 'undefined') {
+  (globalThis as Record<string, unknown>).Worker = class MockWorker {
+    onmessage: ((e: MessageEvent) => void) | null = null;
+    onerror: ((e: ErrorEvent) => void) | null = null;
+
+    constructor() {}
+    postMessage() {}
+    terminate() {}
+    addEventListener() {}
+    removeEventListener() {}
+    dispatchEvent() {
+      return true;
+    }
+  };
+}

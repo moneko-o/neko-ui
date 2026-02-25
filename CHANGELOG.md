@@ -2,6 +2,12 @@
 
 ## Last
 
+### ♻️ Chores
+
+- update ESLint and Jest configurations; remove unused transform-solid test file ([13250ea](https://github.com/moneko-o/neko-ui/commit/13250ea5eb1e2b917b86937143286d3177643946))
+- remove moduleResolution option from tsconfig.json ([53be65f](https://github.com/moneko-o/neko-ui/commit/53be65f91ec63c422bb516d89e6063bff00af6fc))
+- upgrade @moneko/core from 4.7.2 to 4.7.7 ([26c2c8f](https://github.com/moneko-o/neko-ui/commit/26c2c8fef24088477260f3c8f706e0c764ec872f))
+
 ### 📦 Code Refactoring
 
 - convert test/transform-solid to ESM (.mjs) ([92e440a](https://github.com/moneko-o/neko-ui/commit/92e440a08bd93bcd4fc595d6f8de25366f5dbc33))
@@ -26,11 +32,6 @@
 - add comprehensive test coverage for 17 neko-ui components ([378c79a](https://github.com/moneko-o/neko-ui/commit/378c79a0543abf8a70d9cf67cadf0bc9e0253ce3))
 - add test cases for 11 untested components ([395ab55](https://github.com/moneko-o/neko-ui/commit/395ab5541c275eb514b06509955e5c8d2ebd6612))
 - 添加 Jest 及相关测试库依赖 ([4bf2d33](https://github.com/moneko-o/neko-ui/commit/4bf2d3346d7745fce6339ba9671e4b1aee5e84ee))
-
-### ♻️ Chores
-
-- remove moduleResolution option from tsconfig.json ([53be65f](https://github.com/moneko-o/neko-ui/commit/53be65f91ec63c422bb516d89e6063bff00af6fc))
-- upgrade @moneko/core from 4.7.2 to 4.7.7 ([26c2c8f](https://github.com/moneko-o/neko-ui/commit/26c2c8fef24088477260f3c8f706e0c764ec872f))
 
 ### 🐛 Bug Fixes
 
