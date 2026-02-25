@@ -4,6 +4,7 @@
 
 ### 🚨 Tests
 
+- 100% coverage across all metrics (stmts/branches/funcs/lines) ([38f2291](https://github.com/moneko-o/neko-ui/commit/38f22911ea81ff3be5508b83c3b285bfa7ffd6b3))
 - 100% statements/functions/lines coverage - test-only changes ([f0e3e9f](https://github.com/moneko-o/neko-ui/commit/f0e3e9f84873fca3382dcf6826212b0cb7983bc0))
 - achieve 98.62% stmts, 100% funcs, 98.61% lines - test-only changes ([e97b466](https://github.com/moneko-o/neko-ui/commit/e97b46616406d87e385848f6de8747e048daf36e))
 - revert source changes, add direct-render tests for 100% coverage ([bf8e438](https://github.com/moneko-o/neko-ui/commit/bf8e438cd2680502eac2f27cd03878927311038b))

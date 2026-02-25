@@ -68,7 +68,7 @@
     "@babel/core": "^7.29.0",
     "@babel/preset-env": "^7.29.0",
     "@babel/preset-typescript": "^7.28.5",
-    "@moneko/core": "4.7.2",
+    "@moneko/core": "4.7.7",
     "@moneko/jsx-dom-expressions": "^0.7.2",
     "@moneko/solid": "2.0.3",
     "@moneko/transform-imports": "^1.4.0",
