@@ -2,6 +2,10 @@
 
 ## Last
 
+### 📦 Code Refactoring
+
+- convert test/transform-solid to ESM (.mjs) ([92e440a](https://github.com/moneko-o/neko-ui/commit/92e440a08bd93bcd4fc595d6f8de25366f5dbc33))
+
 ### 🚨 Tests
 
 - 100% coverage with @moneko/core transformSolidJs transformer ([31bf3b2](https://github.com/moneko-o/neko-ui/commit/31bf3b224149320057f0a2c73fb436f23e5fdb05))
