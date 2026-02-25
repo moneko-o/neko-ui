@@ -2,6 +2,12 @@
 
 ## Last
 
+### ✨ Features
+
+- add comprehensive test coverage for 17 neko-ui components ([378c79a](https://github.com/moneko-o/neko-ui/commit/378c79a0543abf8a70d9cf67cadf0bc9e0253ce3))
+- add test cases for 11 untested components ([395ab55](https://github.com/moneko-o/neko-ui/commit/395ab5541c275eb514b06509955e5c8d2ebd6612))
+- 添加 Jest 及相关测试库依赖 ([4bf2d33](https://github.com/moneko-o/neko-ui/commit/4bf2d3346d7745fce6339ba9671e4b1aee5e84ee))
+
 ### 🚨 Tests
 
 - add Jest tests for utils/registry, icon, and button/loading ([d701327](https://github.com/moneko-o/neko-ui/commit/d7013271fced3854c99a027689e3408ab0b24cfe))
@@ -9,11 +15,6 @@
 ### 📚 Documentation
 
 - add AGENTS.md with cloud-specific dev instructions ([69f38f2](https://github.com/moneko-o/neko-ui/commit/69f38f2b7e8e3ef897935a989508d95e8314e928))
-
-### ✨ Features
-
-- add test cases for 11 untested components ([395ab55](https://github.com/moneko-o/neko-ui/commit/395ab5541c275eb514b06509955e5c8d2ebd6612))
-- 添加 Jest 及相关测试库依赖 ([4bf2d33](https://github.com/moneko-o/neko-ui/commit/4bf2d3346d7745fce6339ba9671e4b1aee5e84ee))
 
 ### 🐛 Bug Fixes
 

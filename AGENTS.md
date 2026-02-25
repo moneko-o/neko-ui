@@ -25,4 +25,5 @@ See `package.json` `scripts` for the full list. The most important:
 - **Jest 30**: Uses `toHaveBeenCalled()` not `toBeCalled()` (removed in Jest 30).
 - **testPathIgnorePatterns**: The patterns `/components/code/` and `/components/md/` are intentionally excluded from tests. Use specific paths, not substrings (e.g. `code` would also match `qrcode`).
 - **Dev server HTTPS**: `pnpm start` launches an HTTPS dev server with a self-signed certificate. Browsers will show a certificate warning.
+- **Build/start memory**: Both `pnpm run build` and `pnpm start` may crash with "Aborted (core dumped)" under default Node.js memory limits. Use `NODE_OPTIONS="--max-old-space-size=4096"` if this happens.
 - **Pre-commit hooks**: The `prepare` script installs git hooks. Commits run `lint:commit` which includes ESLint, Stylelint, and changelog generation. Always lint before committing.

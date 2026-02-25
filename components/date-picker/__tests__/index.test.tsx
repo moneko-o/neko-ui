@@ -1,5 +1,8 @@
 import { fireEvent, render } from '@solidjs/testing-library';
-import { screen } from 'shadow-dom-testing-library';
+
+function portalRoot(container: HTMLElement) {
+  return container.parentElement!.lastElementChild!.shadowRoot!;
+}
 
 describe('DatePicker', () => {
   it('renders basic date picker', () => {
@@ -9,39 +12,29 @@ describe('DatePicker', () => {
   });
 
   it('renders with default value', () => {
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" default-value="2024-01-15" />
-    ));
+    const { container } = render(() => <n-data-picker default-value="2024-01-15" />);
 
-    expect(getByTestId('dp')).toBeInTheDocument();
+    expect(container).toBeInTheDocument();
   });
 
-  it('renders with value prop and updates', () => {
-    const { getByTestId } = render(() => <n-data-picker data-testid="dp" value="2024-06-20" />);
+  it('renders with value prop (controlled)', () => {
+    const { container } = render(() => <n-data-picker value="2024-06-20" />);
 
-    expect(getByTestId('dp')).toBeInTheDocument();
+    expect(container).toBeInTheDocument();
   });
 
   it('renders with placeholder', () => {
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" placeholder="Select date" />
-    ));
+    const { container } = render(() => <n-data-picker placeholder="Select date" />);
 
-    expect(getByTestId('dp')).toBeInTheDocument();
+    expect(container).toBeInTheDocument();
   });
 
   it('renders with custom format', () => {
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" format="YYYY/MM/DD" default-value="2024-03-15" />
+    const { container } = render(() => (
+      <n-data-picker format="YYYY/MM/DD" default-value="2024-03-15" />
     ));
 
-    expect(getByTestId('dp')).toBeInTheDocument();
-  });
-
-  it('format defaults for showTime', () => {
-    const { getByTestId } = render(() => <n-data-picker data-testid="dp" showTime={true} />);
-
-    expect(getByTestId('dp')).toBeInTheDocument();
+    expect(container).toBeInTheDocument();
   });
 
   it('format defaults for month type', () => {
@@ -56,27 +49,34 @@ describe('DatePicker', () => {
     expect(container).toBeInTheDocument();
   });
 
-  it('disabled date picker prevents opening', () => {
+  it('format defaults for showTime', () => {
+    const { container } = render(() => <n-data-picker show-time={true} />);
+
+    expect(container).toBeInTheDocument();
+  });
+
+  it('disabled prevents opening', () => {
     const openChange = jest.fn();
     const { getByTestId } = render(() => (
       <n-data-picker data-testid="dp" disabled={true} onOpenChange={openChange} />
     ));
-    const el = getByTestId('dp');
-    const nInput = el.shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
+    const nInput = getByTestId('dp').shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
 
-    if (nInput) {
-      fireEvent.focus(nInput);
-    }
+    if (nInput) fireEvent.focus(nInput);
     expect(openChange).not.toHaveBeenCalled();
   });
 
-  it('focus opens the picker and blur closes it', () => {
-    const change = jest.fn();
+  it('suffix and prefix icons', () => {
+    const { container } = render(() => <n-data-picker suffix-icon="📅" prefix-icon="🔍" />);
+
+    expect(container).toBeInTheDocument();
+  });
+
+  it('focus opens and blur closes the picker', () => {
     const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" onChange={change} default-value="2024-06-15" />
+      <n-data-picker data-testid="dp" default-value="2024-06-15" />
     ));
-    const el = getByTestId('dp');
-    const nInput = el.shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
+    const nInput = getByTestId('dp').shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
 
     if (nInput) {
       fireEvent.focus(nInput);
@@ -84,12 +84,11 @@ describe('DatePicker', () => {
     }
   });
 
-  it('inputMouseDown toggles open state', () => {
+  it('inputMouseDown toggles open', () => {
     const { getByTestId } = render(() => (
       <n-data-picker data-testid="dp" default-value="2024-06-15" />
     ));
-    const el = getByTestId('dp');
-    const nInput = el.shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
+    const nInput = getByTestId('dp').shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
 
     if (nInput) {
       fireEvent.mouseDown(nInput);
@@ -100,391 +99,336 @@ describe('DatePicker', () => {
   it('handleInputChange with valid date', () => {
     const change = jest.fn();
     const { getByTestId } = render(() => <n-data-picker data-testid="dp" onChange={change} />);
-    const el = getByTestId('dp');
-    const nInput = el.shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
+    const nInput = getByTestId('dp').shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
 
-    if (nInput) {
-      nInput.dispatchEvent(new CustomEvent('change', { detail: '2024-08-20' }));
-    }
+    if (nInput) nInput.dispatchEvent(new CustomEvent('change', { detail: '2024-08-20' }));
   });
 
   it('handleInputChange with empty detail', () => {
     const { getByTestId } = render(() => <n-data-picker data-testid="dp" />);
-    const el = getByTestId('dp');
-    const nInput = el.shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
+    const nInput = getByTestId('dp').shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
 
-    if (nInput) {
-      nInput.dispatchEvent(new CustomEvent('change', { detail: '' }));
-    }
+    if (nInput) nInput.dispatchEvent(new CustomEvent('change', { detail: '' }));
   });
 
   it('handleInputChange with invalid date', () => {
     const { getByTestId } = render(() => <n-data-picker data-testid="dp" />);
-    const el = getByTestId('dp');
-    const nInput = el.shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
+    const nInput = getByTestId('dp').shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
 
-    if (nInput) {
-      nInput.dispatchEvent(new CustomEvent('change', { detail: 'not-a-date' }));
-    }
+    if (nInput) nInput.dispatchEvent(new CustomEvent('change', { detail: 'not-a-date' }));
+  });
+
+  it('handleInputChange with controlled value', () => {
+    const change = jest.fn();
+    const { getByTestId } = render(() => (
+      <n-data-picker data-testid="dp" value="2024-06-15" onChange={change} />
+    ));
+    const nInput = getByTestId('dp').shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
+
+    if (nInput) nInput.dispatchEvent(new CustomEvent('change', { detail: '2024-08-20' }));
   });
 
   it('controlled open prop', () => {
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" open={true} default-value="2024-03-15" />
-    ));
+    const { container } = render(() => <n-data-picker open={true} default-value="2024-03-15" />);
 
-    expect(getByTestId('dp')).toBeInTheDocument();
+    expect(container).toBeInTheDocument();
   });
 
   it('open=false prop', () => {
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" open={false} default-value="2024-06-15" />
-    ));
+    const { container } = render(() => <n-data-picker open={false} default-value="2024-06-15" />);
 
-    expect(getByTestId('dp')).toBeInTheDocument();
+    expect(container).toBeInTheDocument();
   });
 
   it('onOpenChange fires on focus', () => {
     const openChange = jest.fn();
     const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" onOpenChange={openChange} default-value="2024-06-15" />
+      <n-data-picker data-testid="dp" onOpenChange={openChange} />
     ));
-    const el = getByTestId('dp');
-    const nInput = el.shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
+    const nInput = getByTestId('dp').shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
 
-    if (nInput) {
-      fireEvent.focus(nInput);
-    }
+    if (nInput) fireEvent.focus(nInput);
   });
 
-  it('showHeader=false hides header', () => {
+  it('show-header=false hides header', () => {
     const { container } = render(() => (
-      <n-data-picker showHeader={false} open={true} default-value="2024-06-15" />
+      <n-data-picker show-header={false} open={true} default-value="2024-06-15" />
     ));
+    const root = portalRoot(container);
 
-    expect(container).toBeInTheDocument();
+    expect(root.querySelector('.date-picker-header')).toBeFalsy();
   });
 
-  it('showToday=false hides today button', () => {
+  it('show-today=false hides today button', () => {
     const { container } = render(() => (
-      <n-data-picker showToday={false} open={true} default-value="2024-06-15" />
+      <n-data-picker show-today={false} open={true} default-value="2024-06-15" />
     ));
+    const root = portalRoot(container);
 
-    expect(container).toBeInTheDocument();
+    expect(root.querySelector('.date-picker-footer')).toBeFalsy();
   });
 
-  it('panel renders and interacts with date buttons via shadow DOM', () => {
+  it('clicks date day buttons including prev/next month days', () => {
     const change = jest.fn();
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" onChange={change} default-value="2024-06-15" open={true} />
+    const { container } = render(() => (
+      <n-data-picker onChange={change} default-value="2024-06-15" open={true} />
     ));
-    const el = getByTestId('dp');
+    const root = portalRoot(container);
+    const dateDays = root.querySelectorAll('.date-day');
 
-    expect(el).toBeInTheDocument();
+    expect(dateDays.length).toBe(42);
+    fireEvent.click(dateDays[10] as unknown as HTMLElement);
+    fireEvent.click(dateDays[20] as unknown as HTMLElement);
 
-    const todayBtns = screen.queryAllByShadowText('今日');
-
-    if (todayBtns.length) {
-      fireEvent.click(todayBtns[0]);
-    }
-  });
-
-  it('clicks prev/next month and year navigation buttons', () => {
-    const change = jest.fn();
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" onChange={change} default-value="2024-06-15" open={true} />
-    ));
-    const el = getByTestId('dp');
-
-    const prevYearBtns = screen.queryAllByShadowText('《');
-    const nextYearBtns = screen.queryAllByShadowText('》');
-    const prevMonthBtns = screen.queryAllByShadowText('〈');
-    const nextMonthBtns = screen.queryAllByShadowText('〉');
-
-    if (prevMonthBtns.length) fireEvent.click(prevMonthBtns[0]);
-    if (nextMonthBtns.length) fireEvent.click(nextMonthBtns[0]);
-    if (prevYearBtns.length) fireEvent.click(prevYearBtns[0]);
-    if (nextYearBtns.length) fireEvent.click(nextYearBtns[0]);
-
-    expect(el).toBeInTheDocument();
-  });
-
-  it('switches to year view from header', () => {
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" default-value="2024-06-15" open={true} />
-    ));
-    const el = getByTestId('dp');
-
-    const yearBtn = screen.queryAllByShadowText(/2024年/);
-
-    if (yearBtn.length) {
-      fireEvent.click(yearBtn[0]);
-    }
-
-    expect(el).toBeInTheDocument();
-  });
-
-  it('switches to month view from header', () => {
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" default-value="2024-06-15" open={true} />
-    ));
-    const el = getByTestId('dp');
-
-    const monthBtn = screen.queryAllByShadowText(/6月/);
-
-    if (monthBtn.length) {
-      fireEvent.click(monthBtn[0]);
-    }
-
-    expect(el).toBeInTheDocument();
-  });
-
-  it('date type clicks on date day buttons', () => {
-    const change = jest.fn();
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" onChange={change} default-value="2024-06-15" open={true} />
-    ));
-    const el = getByTestId('dp');
-
-    const dayBtns = document.body.querySelectorAll('.date-day');
-
-    dayBtns.forEach((btn) => {
-      fireEvent.click(btn as HTMLElement);
+    root.querySelectorAll('.date-opacity').forEach((d) => {
+      fireEvent.click(d as unknown as HTMLElement);
     });
-
-    expect(el).toBeInTheDocument();
   });
 
-  it('month type clicks on month buttons', () => {
+  it('clicks today button', () => {
     const change = jest.fn();
-    const { getByTestId } = render(() => (
-      <n-data-picker
-        data-testid="dp"
-        type="month"
-        onChange={change}
-        default-value="2024-06-01"
-        open={true}
-      />
+    const { container } = render(() => (
+      <n-data-picker onChange={change} default-value="2024-06-15" open={true} />
     ));
-    const el = getByTestId('dp');
+    const root = portalRoot(container);
+    const todayBtn = root.querySelector('.date-picker-footer n-button') as unknown as HTMLElement;
 
-    const monthBtns = document.body.querySelectorAll('.date-picker-month');
-
-    monthBtns.forEach((btn) => {
-      fireEvent.click(btn as HTMLElement);
-    });
-
-    expect(el).toBeInTheDocument();
+    expect(todayBtn).toBeTruthy();
+    fireEvent.click(todayBtn);
   });
 
-  it('year type clicks on year buttons', () => {
+  it('navigates prev/next month and year', () => {
+    const { container } = render(() => <n-data-picker default-value="2024-06-15" open={true} />);
+    const root = portalRoot(container);
+
+    const prevMonth = root.querySelector('.prev-month') as unknown as HTMLElement;
+    const nextMonth = root.querySelector('.next-month') as unknown as HTMLElement;
+    const prevYear = root.querySelector('.prev-year') as unknown as HTMLElement;
+    const nextYear = root.querySelector('.next-year') as unknown as HTMLElement;
+
+    if (prevMonth) fireEvent.click(prevMonth);
+    if (nextMonth) fireEvent.click(nextMonth);
+    if (prevYear) fireEvent.click(prevYear);
+    if (nextYear) fireEvent.click(nextYear);
+  });
+
+  it('switches to year view from header and navigates', () => {
+    const { container } = render(() => <n-data-picker default-value="2024-06-15" open={true} />);
+    const root = portalRoot(container);
+    const yearBtn = root.querySelector('.date-value n-button') as unknown as HTMLElement;
+
+    if (yearBtn) fireEvent.click(yearBtn);
+
+    const prevYear = root.querySelector('.prev-year') as unknown as HTMLElement;
+    const nextYear = root.querySelector('.next-year') as unknown as HTMLElement;
+
+    if (prevYear) fireEvent.click(prevYear);
+    if (nextYear) fireEvent.click(nextYear);
+    if (nextYear) fireEvent.click(nextYear);
+  });
+
+  it('switches to month view from header and clicks month', () => {
+    const { container } = render(() => <n-data-picker default-value="2024-06-15" open={true} />);
+    const root = portalRoot(container);
+    const btns = root.querySelector('.date-value')?.querySelectorAll('n-button');
+
+    if (btns && btns.length > 1) fireEvent.click(btns[1] as unknown as HTMLElement);
+
+    const monthBtns = root.querySelectorAll('.date-picker-month');
+
+    if (monthBtns.length > 3) fireEvent.click(monthBtns[3] as unknown as HTMLElement);
+  });
+
+  it('month type clicks month buttons', () => {
     const change = jest.fn();
-    const { getByTestId } = render(() => (
-      <n-data-picker
-        data-testid="dp"
-        type="year"
-        onChange={change}
-        default-value="2024-01-01"
-        open={true}
-      />
+    const { container } = render(() => (
+      <n-data-picker type="month" onChange={change} default-value="2024-06-01" open={true} />
     ));
-    const el = getByTestId('dp');
+    const root = portalRoot(container);
+    const monthBtns = root.querySelectorAll('.date-picker-month');
 
-    const yearBtns = document.body.querySelectorAll('.date-picker-month');
-
-    yearBtns.forEach((btn) => {
-      fireEvent.click(btn as HTMLElement);
-    });
-
-    expect(el).toBeInTheDocument();
+    expect(monthBtns.length).toBe(12);
+    fireEvent.click(monthBtns[3] as unknown as HTMLElement);
+    fireEvent.click(monthBtns[5] as unknown as HTMLElement);
   });
 
-  it('year type navigates prev/next year offset', () => {
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" type="year" default-value="2024-01-01" open={true} />
-    ));
-
-    const prevBtns = screen.queryAllByShadowText('《');
-    const nextBtns = screen.queryAllByShadowText('》');
-
-    if (prevBtns.length) fireEvent.click(prevBtns[0]);
-    if (nextBtns.length) fireEvent.click(nextBtns[0]);
-
-    expect(getByTestId('dp')).toBeInTheDocument();
-  });
-
-  it('showTime renders time picker with menus', () => {
+  it('year type clicks year buttons', () => {
     const change = jest.fn();
-    const { getByTestId } = render(() => (
+    const { container } = render(() => (
+      <n-data-picker type="year" onChange={change} default-value="2024-01-01" open={true} />
+    ));
+    const root = portalRoot(container);
+    const yearBtns = root.querySelectorAll('.date-picker-month');
+
+    expect(yearBtns.length).toBe(12);
+    fireEvent.click(yearBtns[0] as unknown as HTMLElement);
+    fireEvent.click(yearBtns[5] as unknown as HTMLElement);
+    fireEvent.click(yearBtns[11] as unknown as HTMLElement);
+  });
+
+  it('year type navigates offset with prev/next', () => {
+    const { container } = render(() => (
+      <n-data-picker type="year" default-value="2024-01-01" open={true} />
+    ));
+    const root = portalRoot(container);
+    const prevYear = root.querySelector('.prev-year') as unknown as HTMLElement;
+    const nextYear = root.querySelector('.next-year') as unknown as HTMLElement;
+
+    if (prevYear) fireEvent.click(prevYear);
+    if (nextYear) fireEvent.click(nextYear);
+  });
+
+  it('mousedown on date-picker panel when open', () => {
+    const { container } = render(() => <n-data-picker default-value="2024-06-15" open={true} />);
+    const root = portalRoot(container);
+    const datePicker = root.querySelector('.date-picker') as unknown as HTMLElement;
+
+    expect(datePicker).toBeTruthy();
+    fireEvent.mouseDown(datePicker);
+  });
+
+  it('showTime renders time picker and handles menu changes', () => {
+    const change = jest.fn();
+    const { container } = render(() => (
       <n-data-picker
-        data-testid="dp"
-        showTime={true}
-        showHour={true}
-        showMinute={true}
-        showSecond={true}
+        show-time={true}
+        show-hour={true}
+        show-minute={true}
+        show-second={true}
         onChange={change}
         default-value="2024-03-15 14:30:45"
         open={true}
       />
     ));
-    const el = getByTestId('dp');
+    const root = portalRoot(container);
 
-    expect(el).toBeInTheDocument();
+    expect(root.querySelector('.time-picker')).toBeTruthy();
 
-    const timeMenus = document.body.querySelectorAll('.time-picker-items n-menu');
+    const timeMenus = root.querySelectorAll('.time-picker-items n-menu');
 
-    timeMenus.forEach((menu) => {
-      const m = menu as unknown as HTMLElement;
+    expect(timeMenus.length).toBe(3);
 
-      if (m.shadowRoot) {
-        const items = m.shadowRoot.querySelectorAll('.item');
-
-        if (items.length > 2) {
-          fireEvent.click(items[2] as HTMLElement);
-        }
-      }
-    });
+    (timeMenus[0] as unknown as HTMLElement).dispatchEvent(
+      new CustomEvent('change', { detail: [5] }),
+    );
+    (timeMenus[1] as unknown as HTMLElement).dispatchEvent(
+      new CustomEvent('change', { detail: [15] }),
+    );
+    (timeMenus[2] as unknown as HTMLElement).dispatchEvent(
+      new CustomEvent('change', { detail: [30] }),
+    );
   });
 
-  it('showTime with showHour=false', () => {
+  it('showTime with show-hour=false', () => {
     const { container } = render(() => (
       <n-data-picker
-        showTime={true}
-        showHour={false}
-        showMinute={true}
-        showSecond={true}
+        show-time={true}
+        show-hour={false}
+        show-minute={true}
+        show-second={true}
         default-value="2024-03-15 10:30:45"
         open={true}
       />
     ));
+    const root = portalRoot(container);
 
-    expect(container).toBeInTheDocument();
+    expect(root.querySelectorAll('.time-picker-items n-menu').length).toBe(2);
   });
 
-  it('showTime with showMinute=false', () => {
+  it('showTime with show-minute=false', () => {
     const { container } = render(() => (
       <n-data-picker
-        showTime={true}
-        showHour={true}
-        showMinute={false}
-        showSecond={true}
+        show-time={true}
+        show-hour={true}
+        show-minute={false}
+        show-second={true}
         default-value="2024-03-15 10:30:45"
         open={true}
       />
     ));
+    const root = portalRoot(container);
 
-    expect(container).toBeInTheDocument();
+    expect(root.querySelectorAll('.time-picker-items n-menu').length).toBe(2);
   });
 
-  it('showTime with showSecond=false', () => {
+  it('showTime with show-second=false', () => {
     const { container } = render(() => (
       <n-data-picker
-        showTime={true}
-        showHour={true}
-        showMinute={true}
-        showSecond={false}
+        show-time={true}
+        show-hour={true}
+        show-minute={true}
+        show-second={false}
         default-value="2024-03-15 10:30:45"
         open={true}
       />
     ));
+    const root = portalRoot(container);
 
-    expect(container).toBeInTheDocument();
+    expect(root.querySelectorAll('.time-picker-items n-menu').length).toBe(2);
   });
 
-  it('handleChange with controlled value prop', () => {
+  it('panel handleChange with date type closes picker', () => {
     const change = jest.fn();
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" value="2024-06-15" onChange={change} />
+    const { getByTestId, container } = render(() => (
+      <n-data-picker data-testid="dp" onChange={change} default-value="2024-06-15" />
     ));
-    const el = getByTestId('dp');
-    const nInput = el.shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
+    const nInput = getByTestId('dp').shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
 
-    if (nInput) {
-      nInput.dispatchEvent(new CustomEvent('change', { detail: '2024-08-20' }));
-    }
+    if (nInput) fireEvent.focus(nInput);
+
+    const root = portalRoot(container);
+    const dateDays = root.querySelectorAll('.date-day:not(.date-opacity)');
+
+    if (dateDays.length > 5) fireEvent.click(dateDays[5] as unknown as HTMLElement);
   });
 
-  it('mousedown on the date-picker panel prevents default when open', () => {
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" default-value="2024-06-15" open={true} />
-    ));
+  it('panel handleChange with month view reverts to date type', () => {
+    const { container } = render(() => <n-data-picker default-value="2024-06-15" open={true} />);
+    const root = portalRoot(container);
+    const btns = root.querySelector('.date-value')?.querySelectorAll('n-button');
 
-    const datePicker = document.body.querySelector('.date-picker');
+    if (btns && btns.length > 1) fireEvent.click(btns[1] as unknown as HTMLElement);
 
-    if (datePicker) {
-      const event = new MouseEvent('mousedown', { bubbles: true });
+    const monthBtns = root.querySelectorAll('.date-picker-month');
 
-      datePicker.dispatchEvent(event);
-    }
-    expect(getByTestId('dp')).toBeInTheDocument();
+    if (monthBtns.length) fireEvent.click(monthBtns[0] as unknown as HTMLElement);
   });
 
-  it('suffix and prefix icons', () => {
-    const { container } = render(() => (
-      <n-data-picker suffixIcon="📅" prefixIcon="🔍" default-value="2024-06-15" />
-    ));
+  it('panel type effect resets offset when leaving year mode', () => {
+    const { container } = render(() => <n-data-picker default-value="2024-06-15" open={true} />);
+    const root = portalRoot(container);
+    const yearBtn = root.querySelector('.date-value n-button') as unknown as HTMLElement;
 
-    expect(container).toBeInTheDocument();
+    if (yearBtn) fireEvent.click(yearBtn);
+
+    const prevYear = root.querySelector('.prev-year') as unknown as HTMLElement;
+
+    if (prevYear) fireEvent.click(prevYear);
+
+    const yearBtns = root.querySelectorAll('.date-picker-month');
+
+    if (yearBtns.length > 2) fireEvent.click(yearBtns[2] as unknown as HTMLElement);
+  });
+
+  it('clicking current active date does not change', () => {
+    const { container } = render(() => <n-data-picker default-value="2024-06-15" open={true} />);
+    const root = portalRoot(container);
+    const activeDay = root.querySelector('.date-active') as unknown as HTMLElement;
+
+    if (activeDay) fireEvent.click(activeDay);
+  });
+
+  it('mousedown on date-picker when not open', () => {
+    const { container } = render(() => <n-data-picker default-value="2024-06-15" open={false} />);
+    const root = portalRoot(container);
+    const datePicker = root.querySelector('.date-picker') as unknown as HTMLElement;
+
+    if (datePicker) fireEvent.mouseDown(datePicker);
   });
 
   it('click interaction on element', () => {
     const { getByTestId } = render(() => <n-data-picker data-testid="dp" />);
 
-    expect(getByTestId('dp')).toBeInTheDocument();
     fireEvent.click(getByTestId('dp'));
-  });
-
-  it('panel handleChange closes picker when type matches', () => {
-    const change = jest.fn();
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" onChange={change} default-value="2024-06-15" />
-    ));
-    const el = getByTestId('dp');
-    const nInput = el.shadowRoot?.querySelector('n-input') as unknown as HTMLElement;
-
-    if (nInput) {
-      fireEvent.focus(nInput);
-    }
-
-    const todayBtns = screen.queryAllByShadowText('今日');
-
-    if (todayBtns.length) {
-      fireEvent.click(todayBtns[0]);
-    }
-  });
-
-  it('panel type effect resets offset', () => {
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" default-value="2024-06-15" open={true} />
-    ));
-    const el = getByTestId('dp');
-
-    const yearHeader = screen.queryAllByShadowText(/2024年/);
-
-    if (yearHeader.length) {
-      fireEvent.click(yearHeader[0]);
-    }
-
-    const prevBtns = screen.queryAllByShadowText('《');
-
-    if (prevBtns.length) {
-      fireEvent.click(prevBtns[0]);
-    }
-
-    const yearBtns = document.body.querySelectorAll('.date-picker-month');
-
-    if (yearBtns.length > 2) {
-      fireEvent.click(yearBtns[2] as HTMLElement);
-    }
-
-    expect(el).toBeInTheDocument();
-  });
-
-  it('panel effect sets type from prop', () => {
-    const { getByTestId } = render(() => (
-      <n-data-picker data-testid="dp" type="month" default-value="2024-06-15" open={true} />
-    ));
-
-    expect(getByTestId('dp')).toBeInTheDocument();
   });
 });
