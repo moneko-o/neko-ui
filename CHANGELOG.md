@@ -4,6 +4,7 @@
 
 ### 🚨 Tests
 
+- add full.test.tsx coverage tests for 9 components ([ee7e5f5](https://github.com/moneko-o/neko-ui/commit/ee7e5f53e84c3c1050b53b2dd102f299b3528ac7))
 - add direct-render tests for tree, menu, tabs, md ([1fa26ae](https://github.com/moneko-o/neko-ui/commit/1fa26ae02ad5393cf72c74cfb00f2c86aebd807d))
 - improve Worker mock to simulate message handling ([4b09171](https://github.com/moneko-o/neko-ui/commit/4b091717f6c81f2abf17ae5ea8bd2b88a53fe70e))
 - add targeted tests for color-palette, checkbox, and input to reach 100% line coverage ([511dcb4](https://github.com/moneko-o/neko-ui/commit/511dcb4114d0e15c809b5c16be26b0dc0752da37))
