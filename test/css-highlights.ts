@@ -1,18 +1,28 @@
 if (!CSS.highlights) {
+  const store = new Map<string, Highlight>();
+
   CSS.highlights = {
-    get: () => {
-      return {
-        add: () => {},
-      } as unknown as Highlight;
+    get: (key: string) => {
+      return (
+        store.get(key) ||
+        ({
+          add: () => {},
+          clear: () => {},
+        } as unknown as Highlight)
+      );
     },
-    set: () => CSS.highlights as unknown as HighlightRegistry,
-    keys: () => [][Symbol.iterator](),
-    delete: () => false,
-    has: () => false,
-    clear: () => {},
-    forEach: () => {},
-    entries: () => [][Symbol.iterator](),
-    values: () => [][Symbol.iterator](),
-    size: 0,
+    set: (key: string, value: Highlight) => {
+      store.set(key, value);
+      return CSS.highlights as unknown as HighlightRegistry;
+    },
+    keys: () => store.keys(),
+    delete: (key: string) => store.delete(key),
+    has: (key: string) => store.has(key),
+    clear: () => store.clear(),
+    forEach: (cb: (value: Highlight, key: string) => void) => store.forEach(cb),
+    entries: () => store.entries(),
+    values: () => store.values(),
+    size: store.size,
+    [Symbol.iterator]: () => store[Symbol.iterator](),
   } as unknown as HighlightRegistry;
 }
