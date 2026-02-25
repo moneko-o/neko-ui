@@ -203,4 +203,47 @@ describe('Dropdown', () => {
 
     getByTestId('set-val').click();
   });
+
+  it('internal menu change triggers dropdown onChange', () => {
+    jest.useFakeTimers();
+    const onChange = jest.fn();
+
+    render(() => (
+      <n-dropdown
+        data-testid="dd-change"
+        trigger="click"
+        items={[
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+        ]}
+        onChange={onChange}
+      >
+        <span>Trigger</span>
+      </n-dropdown>
+    ));
+
+    const dd = screen.getByTestId('dd-change');
+    const popover = dd.shadowRoot?.querySelector('.popover');
+
+    if (popover) {
+      fireEvent.mouseDown(popover);
+      jest.advanceTimersByTime(50);
+    }
+
+    const portals = document.querySelectorAll('body > div');
+
+    for (const p of portals) {
+      const menu = p.shadowRoot?.querySelector('n-menu');
+
+      if (menu) {
+        menu.dispatchEvent(
+          new CustomEvent('change', { detail: [['a'], { value: 'a', label: 'A' }] }),
+        );
+        menu.dispatchEvent(new CustomEvent('openchange', { detail: ['sub1'] }));
+        break;
+      }
+    }
+
+    jest.useRealTimers();
+  });
 });

@@ -138,7 +138,7 @@ describe('Table', () => {
     expect(container).toBeInTheDocument();
   });
 
-  it('pagination with onChange', () => {
+  it('pagination with onChange triggers handlePageChange', () => {
     const onChange = jest.fn();
 
     render(() => (
@@ -150,7 +150,15 @@ describe('Table', () => {
       />
     ));
 
-    expect(screen.getByTestId('page-table')).toBeInTheDocument();
+    const tableEl = screen.getByTestId('page-table');
+
+    expect(tableEl).toBeInTheDocument();
+    const pagination = tableEl.shadowRoot?.querySelector('n-pagination');
+
+    if (pagination) {
+      pagination.dispatchEvent(new CustomEvent('change', { detail: [2, 10] }));
+      expect(onChange).toHaveBeenCalledWith(2, 10);
+    }
   });
 
   it('table with title', () => {

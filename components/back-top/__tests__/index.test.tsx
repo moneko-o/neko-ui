@@ -2,6 +2,21 @@ import { For } from 'solid-js';
 import { fireEvent, render } from '@solidjs/testing-library';
 import { screen } from 'shadow-dom-testing-library';
 
+function findBackTopInPortals(): Element | null {
+  const children = Array.from(document.body.children);
+
+  for (let i = children.length - 1; i >= 0; i--) {
+    const child = children[i];
+
+    if (child.shadowRoot) {
+      const found = child.shadowRoot.querySelector('.back-top');
+
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
 describe('BackTop', () => {
   it('basic', () => {
     render(() => <n-back-top mount={document.body} target={document.body} />);
@@ -97,7 +112,36 @@ describe('BackTop', () => {
     document.body.removeChild(targetEl);
   });
 
-  it('animationend handler sets show to null when show is false', () => {
+  it('handleBackTop scrolls target to top on click', () => {
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      value: 100,
+    });
+    Object.defineProperty(HTMLElement.prototype, 'scrollTop', {
+      configurable: true,
+      get() {
+        return 500;
+      },
+    });
+
+    const scrollToMock = jest.fn();
+
+    document.body.scrollTo = scrollToMock;
+
+    render(() => (
+      <n-back-top visibility-height={100} target={document.body} mount={document.body} />
+    ));
+
+    fireEvent.scroll(document.body);
+
+    const backTopDiv = findBackTopInPortals();
+
+    expect(backTopDiv).not.toBeNull();
+    backTopDiv!.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    expect(scrollToMock).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
+  });
+
+  it('exit sets show to null on animationend when show is false', () => {
     Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
       configurable: true,
       value: 100,
@@ -110,15 +154,14 @@ describe('BackTop', () => {
     });
 
     render(() => (
-      <n-back-top
-        data-testid="back-top-anim"
-        visibility-height={50}
-        target={document.body}
-        mount={document.body}
-      />
+      <n-back-top visibility-height={100} target={document.body} mount={document.body} />
     ));
 
     fireEvent.scroll(document.body);
+
+    let backTopDiv = findBackTopInPortals();
+
+    expect(backTopDiv).not.toBeNull();
 
     Object.defineProperty(HTMLElement.prototype, 'scrollTop', {
       configurable: true,
@@ -129,13 +172,9 @@ describe('BackTop', () => {
 
     fireEvent.scroll(document.body);
 
-    const backTopEl = screen.getByTestId('back-top-anim');
-    const portalRoot = backTopEl.parentElement?.lastElementChild;
-    const inner = portalRoot?.shadowRoot?.querySelector('.back-top');
-
-    if (inner) {
-      fireEvent.animationEnd(inner);
-    }
+    backTopDiv = findBackTopInPortals();
+    expect(backTopDiv).not.toBeNull();
+    backTopDiv!.dispatchEvent(new Event('animationend', { bubbles: true }));
   });
 
   it('visibilityHeight threshold boundary', () => {

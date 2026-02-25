@@ -201,4 +201,24 @@ describe('CaptureScreen', () => {
       fireEvent.click(screen.getByShadowText('开始录制'));
     });
   });
+
+  it('onErrorRecorder dispatches errorrecorder custom event', async () => {
+    mockMedia(true);
+
+    const errorHandler = jest.fn();
+    const { container } = render(() => <n-capture-screen recorder={true} />);
+    const el = container.querySelector('n-capture-screen');
+
+    el?.addEventListener('errorrecorder', errorHandler);
+
+    await waitFor(async () => {
+      fireEvent.click(screen.getByShadowText('捕获屏幕'));
+    });
+
+    const mockResults = (window.MediaRecorder as jest.Mock).mock.results;
+    const recorderInstance = mockResults[mockResults.length - 1].value;
+
+    recorderInstance.onerror(new Event('error'));
+    expect(errorHandler).toHaveBeenCalled();
+  });
 });
