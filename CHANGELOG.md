@@ -2,6 +2,10 @@
 
 ## Last
 
+### 🐛 Bug Fixes
+
+- update jest config to use babel-jest and fix toBeCalled deprecation ([f0a262f](https://github.com/moneko-o/neko-ui/commit/f0a262fa38d5d2cad7ed469cb63d3144ada66e26))
+
 ### ✨ Features
 
 - 添加 Jest 及相关测试库依赖 ([4bf2d33](https://github.com/moneko-o/neko-ui/commit/4bf2d3346d7745fce6339ba9671e4b1aee5e84ee))
