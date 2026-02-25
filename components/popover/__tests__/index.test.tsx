@@ -223,12 +223,13 @@ describe('Popover', () => {
     expect(container).toBeInTheDocument();
   });
 
-  it('getPopupContainer', () => {
+  it('getPopupContainer with open=true', () => {
     const mountEl = document.createElement('div');
+    const getContainer = jest.fn(() => mountEl);
 
     document.body.appendChild(mountEl);
     render(() => (
-      <n-popover content="Container" getPopupContainer={() => mountEl}>
+      <n-popover content="Container" open={true} getPopupContainer={getContainer}>
         Custom
       </n-popover>
     ));

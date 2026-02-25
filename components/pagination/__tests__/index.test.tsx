@@ -273,4 +273,22 @@ describe('Pagination', () => {
 
     if (nBtn) fireEvent.click(nBtn);
   });
+
+  it('prev jump clamps to page 1', () => {
+    const change = jest.fn();
+    const { getByTestId } = render(() => (
+      <n-pagination
+        data-testid="pager-clamp"
+        total={200}
+        page={2}
+        pageSize={10}
+        onChange={change}
+      />
+    ));
+
+    const el = getByTestId('pager-clamp');
+    const pBtn = el.shadowRoot?.querySelector('.pagination-p') as unknown as HTMLElement;
+
+    if (pBtn) fireEvent.click(pBtn);
+  });
 });

@@ -190,10 +190,30 @@ describe('Menu', () => {
     }
   });
 
-  it('scrollIntoView for selected item', () => {
-    render(() => <n-menu value="D" items={['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']} />);
+  it('scrollIntoView for selected item with RAF mock', () => {
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
+      cb(performance.now());
+      return 0;
+    });
+    const scrollToSpy = jest.fn();
 
-    fireEvent.click(screen.getByShadowText('J'));
+    Object.defineProperty(HTMLElement.prototype, 'scrollTo', {
+      configurable: true,
+      value: scrollToSpy,
+    });
+    Object.defineProperty(HTMLElement.prototype, 'offsetTop', { configurable: true, value: 0 });
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', { configurable: true, value: 30 });
+    Object.defineProperty(HTMLElement.prototype, 'scrollTop', { configurable: true, value: 500 });
+
+    render(() => (
+      <n-menu
+        data-testid="menu-scroll"
+        value="J"
+        items={['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']}
+      />
+    ));
+
+    jest.restoreAllMocks();
   });
 
   it('menu with value set to null clears selection', () => {

@@ -229,4 +229,40 @@ describe('Tree', () => {
     fireEvent.click(screen.getByShadowText('是否有效'));
     fireEvent.click(screen.getByShadowText('是否有效'));
   });
+  it('multiple select remove item (splice)', () => {
+    const change = jest.fn();
+
+    render(() => <n-tree value={['a', 'b']} multiple={true} data={data} onChange={change} />);
+
+    fireEvent.click(screen.getByShadowText('文件名称'));
+  });
+  it('single toggle deselect', () => {
+    const change = jest.fn();
+
+    render(() => <n-tree value="a" toggle={true} data={data} onChange={change} />);
+
+    fireEvent.click(screen.getByShadowText('文件名称'));
+    expect(change).toHaveBeenCalled();
+  });
+  it('layout rendering with mocked RAF and getBoundingClientRect', () => {
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
+      cb(performance.now());
+      return 0;
+    });
+    jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({
+      width: 200,
+      height: 30,
+      top: 50,
+      left: 0,
+      right: 200,
+      bottom: 80,
+      x: 0,
+      y: 50,
+      toJSON: () => {},
+    });
+
+    render(() => <n-tree data={data} />);
+
+    jest.restoreAllMocks();
+  });
 });

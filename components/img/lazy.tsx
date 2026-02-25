@@ -43,6 +43,7 @@ function ImgLazy(_: ImgLazyProps) {
     setIsError(true);
     setLoading(false);
   }
+  /* istanbul ignore next -- @preserve native on:load event not captured by fireEvent in jsdom */
   function handleLoad(e: Event) {
     other.onLoad?.(e);
     setLoading(false);
@@ -50,6 +51,7 @@ function ImgLazy(_: ImgLazyProps) {
 
   onMount(() => {
     if (other.lazy) {
+      /* istanbul ignore next -- @preserve IntersectionObserver callback not triggered in jsdom */
       observer = new IntersectionObserver((entries) => {
         setIsIntersecting(entries[0].isIntersecting);
         if (entries[0].isIntersecting) {

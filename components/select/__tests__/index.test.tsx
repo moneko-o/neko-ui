@@ -172,4 +172,43 @@ describe('Select', () => {
 
     expect(getByTestId('select-multi-ph')).toBeInTheDocument();
   });
+
+  it('blur closes open dropdown', () => {
+    const { getByTestId } = render(() => (
+      <n-select data-testid="select-blur" options={['X', 'Y', 'Z']} />
+    ));
+
+    const select = getByTestId('select-blur').shadowRoot!.querySelector('.select')!;
+
+    fireEvent.focus(select);
+    fireEvent.blur(select);
+  });
+
+  it('multiple deleteValue via tag close', () => {
+    const { container, getByTestId } = render(() => (
+      <n-select
+        data-testid="select-del"
+        value={['C']}
+        multiple={true}
+        options={[
+          { value: 'C', suffix: '🤔' },
+          { value: 'D', suffix: '😄' },
+        ]}
+        onChange={(e) => {
+          (e.target! as SelectMultipleElement).value = e.detail[0];
+        }}
+      />
+    ));
+
+    const select = getByTestId('select-del').shadowRoot!.querySelector('.select')!;
+
+    fireEvent.focus(select);
+    select.querySelectorAll('n-tag').forEach((e) => {
+      const closeEl = (e as unknown as HTMLElement).shadowRoot?.querySelector('.close');
+
+      if (closeEl) fireEvent.click(closeEl);
+    });
+    fireEvent.blur(select);
+    expect(container).toBeInTheDocument();
+  });
 });

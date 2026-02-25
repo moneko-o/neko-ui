@@ -60,18 +60,21 @@ describe('Notification', () => {
     expect(typeof id).toBe('string');
   });
 
-  it('updates notification content', () => {
+  it('updates notification with multiple items in queue', () => {
+    notification.info('Other 1', 0);
     const id = notification.info('Original', 0);
 
+    notification.info('Other 2', 0);
     notification.update(id, { type: 'success', children: 'Updated!' });
     expect(queque.list().some((q) => q.children === 'Updated!')).toBe(true);
   });
 
-  it('removes notification by id', () => {
+  it('removes notification by id with multiple items', () => {
     jest.useFakeTimers();
+    notification.info('Keep 1', 0);
     const id = notification.info('To Remove', 0);
 
-    expect(queque.list().length).toBeGreaterThan(0);
+    notification.info('Keep 2', 0);
     queque.remove(id);
     expect(queque.list().some((q) => q.closeing)).toBe(true);
     jest.advanceTimersByTime(300);

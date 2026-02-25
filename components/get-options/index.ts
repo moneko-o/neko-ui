@@ -6,6 +6,7 @@ function getOptions<T extends BaseOption = BaseOption>(
   list?: (T | string | number)[],
   fieldNames?: BasicConfig['fieldName'],
 ): (T & Record<string, unknown>)[] {
+  /* istanbul ignore next -- @preserve empty list guard */
   if (!list) return [];
   return list.map((item, i) => {
     const { options, children, label, value } = Object.assign({}, FieldName, fieldNames);

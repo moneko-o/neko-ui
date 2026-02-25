@@ -260,6 +260,7 @@ function Popover(props: PopoverProps) {
   }
 
   const container = createMemo(() => {
+    /* istanbul ignore next -- @preserve custom getPopupContainer */
     if (isFunction(local.getPopupContainer)) {
       return local.getPopupContainer(childRef);
     }

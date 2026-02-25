@@ -90,4 +90,34 @@ describe('ColorPicker', () => {
 
     expect(container).toBeInTheDocument();
   });
+
+  it('uncontrolled handleChange via internal palette event', async () => {
+    jest.useFakeTimers();
+    const onChange = jest.fn();
+
+    render(() => (
+      <n-color-picker data-testid="cp-internal" default-value="#ff0000" onChange={onChange} />
+    ));
+
+    const cp = document.querySelector('[data-testid="cp-internal"]');
+    const popover = cp?.shadowRoot?.querySelector('.popover');
+
+    if (popover) {
+      fireEvent.mouseDown(popover);
+      jest.advanceTimersByTime(50);
+    }
+
+    const portals = document.querySelectorAll('body > div');
+
+    for (const p of portals) {
+      const palette = p.shadowRoot?.querySelector('n-color-palette');
+
+      if (palette) {
+        palette.dispatchEvent(new CustomEvent('change', { detail: '#00ff00' }));
+        break;
+      }
+    }
+
+    jest.useRealTimers();
+  });
 });

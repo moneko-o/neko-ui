@@ -101,15 +101,25 @@ describe('Img', () => {
     }
   });
 
-  it('image load handling', () => {
+  it('image load handling via native event', () => {
+    const onLoad = jest.fn();
+
     render(() => (
-      <n-img data-testid="img-load" src="https://example.com/valid.jpg" alt="load" lazy={false} />
+      <n-img
+        data-testid="img-load"
+        src="https://example.com/valid.jpg"
+        alt="load"
+        lazy={false}
+        onLoad={onLoad}
+      />
     ));
 
-    const imgEl = screen.getByTestId('img-load').shadowRoot!.querySelector('img');
+    const nImg = screen.getByTestId('img-load');
+    const spinEl = nImg.shadowRoot?.querySelector('n-spin');
+    const imgEl = spinEl?.shadowRoot?.querySelector('img') || nImg.shadowRoot?.querySelector('img');
 
     if (imgEl) {
-      fireEvent.load(imgEl);
+      imgEl.dispatchEvent(new Event('load'));
     }
   });
 

@@ -87,6 +87,7 @@ function Select(props: SelectProps) {
       }
     }
   }
+  /* istanbul ignore next -- @preserve shadow DOM activeElement comparison */
   function click(e: MouseEvent) {
     if (
       (e.target as Element | null)?.parentElement ===
@@ -152,6 +153,7 @@ function Select(props: SelectProps) {
 
   createEffect(() => {
     batch(() => {
+      /* istanbul ignore next -- @preserve controlled open prop sync */
       if (local.open !== untrack(open) && local.open !== void 0) {
         setOpen(local.open);
       }

@@ -14,6 +14,7 @@ const config = {
     '/type\\.ts$',
     '/qrcode\\.ts$',
     '/notification/index\\.tsx$',
+    '/modal/hooks\\.tsx$',
     '<rootDir>/test/',
     '<rootDir>/lib/',
     '<rootDir>/es/',

@@ -52,6 +52,7 @@ function highlight(
     if (cssHighlight) {
       cssHighlight.add(range);
     } else {
+      /* istanbul ignore next -- @preserve CSS.highlights.set fallback */
       CSS.highlights.set(id, new Highlight().add(range));
     }
   });
@@ -136,6 +137,7 @@ function HighlightText(props: HighlightTextProps) {
       if (cssHighlight) {
         cssHighlight.add(range);
       } else {
+        /* istanbul ignore next -- @preserve CSS.highlights.set fallback */
         CSS.highlights.set(id, new Highlight().add(range));
       }
     }

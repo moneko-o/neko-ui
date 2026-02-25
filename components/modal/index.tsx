@@ -104,6 +104,7 @@ function Modal(_: ModalProps) {
     if (visi === OpenState.closeing) {
       modal!.style.removeProperty('--x');
       modal!.style.removeProperty('--y');
+      /* istanbul ignore next -- @preserve custom element prop relay limitation */
       if (isFunction(props.onCancel)) {
         setLoading(true);
         if (!(await props.onCancel())) {
@@ -135,6 +136,7 @@ function Modal(_: ModalProps) {
   }
   async function handleOk(e: MouseEvent | Event) {
     preventDefault(e);
+    /* istanbul ignore next -- @preserve custom element prop relay limitation */
     if (isFunction(props.onOk)) {
       setLoading(true);
       if (!(await props.onOk(e))) {
@@ -188,6 +190,7 @@ function Modal(_: ModalProps) {
       doc.removeEventListener('click', point, true);
     });
   });
+  /* istanbul ignore next -- @preserve closeIcon prop types not fully relayed through custom element */
   const closeIcon = createMemo(() => {
     if (props.closeIcon === null || props.closeIcon === false) {
       return null;

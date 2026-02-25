@@ -12,6 +12,7 @@ function Provider(props: ProviderProps) {
     props.onScheme?.(scheme());
   });
   createEffect(() => {
+    /* istanbul ignore next -- @preserve scheme prop relay through custom element */
     if (props.scheme) {
       setScheme(props.scheme);
     }

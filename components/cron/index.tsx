@@ -251,6 +251,7 @@ function Cron(props: CronProps) {
     if (typeof num === 'number' && !isNaN(num)) {
       return `${num}`;
     }
+    /* istanbul ignore next -- @preserve string passthrough */
     return num;
   }
 

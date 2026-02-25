@@ -53,13 +53,7 @@ describe('Modal', () => {
     const openChange = jest.fn();
 
     render(() => (
-      <n-modal
-        open="open"
-        title="Mask"
-        content="C"
-        maskClosable={true}
-        onOpenChange={openChange}
-      />
+      <n-modal open="open" title="Mask" content="C" maskClosable={true} onOpenChange={openChange} />
     ));
 
     const portalDiv = getPortalShadow()?.querySelector('.portal');
@@ -68,9 +62,7 @@ describe('Modal', () => {
   });
 
   it('ok and cancel buttons', () => {
-    render(() => (
-      <n-modal open="open" title="Btns" content="C" okText="OK" cancelText="Cancel" />
-    ));
+    render(() => <n-modal open="open" title="Btns" content="C" okText="OK" cancelText="Cancel" />);
 
     const shadow = getPortalShadow();
 
@@ -167,9 +159,7 @@ describe('Modal', () => {
   });
 
   it('closeIcon as string', () => {
-    const { container } = render(() => (
-      <n-modal open="open" closeIcon="✕" title="S" content="C" />
-    ));
+    const { container } = render(() => <n-modal open="open" closeIcon="✕" title="S" content="C" />);
 
     expect(container).toBeInTheDocument();
   });
