@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@solidjs/testing-library';
+import { render } from '@solidjs/testing-library';
 
 import Img from '../index';
 import ImgLazy from '../lazy';

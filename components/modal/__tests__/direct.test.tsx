@@ -121,9 +121,7 @@ describe('Modal (direct render)', () => {
   });
 
   it('closeIcon=null hides close button', () => {
-    render(() => (
-      <Modal open="open" closeIcon={null} title="No Close" content="Content" />
-    ));
+    render(() => <Modal open="open" closeIcon={null} title="No Close" content="Content" />);
 
     const shadow = getPortalShadow();
 
@@ -131,9 +129,7 @@ describe('Modal (direct render)', () => {
   });
 
   it('closeIcon=false hides close button', () => {
-    render(() => (
-      <Modal open="open" closeIcon={false} title="No Close" content="Content" />
-    ));
+    render(() => <Modal open="open" closeIcon={false} title="No Close" content="Content" />);
 
     const shadow = getPortalShadow();
 
@@ -166,9 +162,7 @@ describe('Modal (direct render)', () => {
   });
 
   it('closeIcon as string renders button with text', () => {
-    render(() => (
-      <Modal open="open" closeIcon="✕" title="Str Close" content="Content" />
-    ));
+    render(() => <Modal open="open" closeIcon="✕" title="Str Close" content="Content" />);
 
     const shadow = getPortalShadow();
     const closeBtn = shadow?.querySelector('.modal-close');
