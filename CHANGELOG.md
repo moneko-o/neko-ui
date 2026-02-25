@@ -4,6 +4,12 @@
 
 ### ✨ Features
 
+- 添加 Jest 及相关测试库依赖 ([4bf2d33](https://github.com/moneko-o/neko-ui/commit/4bf2d3346d7745fce6339ba9671e4b1aee5e84ee))
+
+## [v2.14.14](https://github.com/moneko-o/neko-ui/compare/v2.14.13...v2.14.14) (2-23-2026)
+
+### ✨ Features
+
 - Popover 支持 encodeURIComponent 字符串 ([88d276b](https://github.com/moneko-o/neko-ui/commit/88d276ba60b7fffaf6f1ab4605141f8c26077759))
 
 ### 📚 Documentation
