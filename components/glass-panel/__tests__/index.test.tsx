@@ -13,7 +13,7 @@ describe('GlassPanel', () => {
 
   it('renders with blur property', () => {
     const { container } = render(() => (
-      <n-glass-panel blur="20">
+      <n-glass-panel filter-blur="20px">
         <div>Blurred Content</div>
       </n-glass-panel>
     ));
@@ -23,7 +23,13 @@ describe('GlassPanel', () => {
 
   it('renders with multiple filter properties', () => {
     const { container } = render(() => (
-      <n-glass-panel blur="10" brightness="1.2" contrast="1.1" opacity="0.8" saturate="1.5">
+      <n-glass-panel
+        filter-blur="10px"
+        brightness="1.2"
+        contrast="1.1"
+        opacity="0.8"
+        saturate="1.5"
+      >
         <div>Filtered Content</div>
       </n-glass-panel>
     ));

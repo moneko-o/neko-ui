@@ -94,16 +94,7 @@ const config = {
     '\\?url$': '<rootDir>/test/file.mock.ts',
   },
   transform: {
-    '^.+\\.[jt]sx?$': [
-      'babel-jest',
-      {
-        presets: [
-          ['@babel/preset-env', { targets: { node: 'current' } }],
-          '@babel/preset-typescript',
-          ['babel-preset-solid', { generate: 'dom', hydratable: false }],
-        ],
-      },
-    ],
+    '^.+\\.[jt]sx?$': '<rootDir>/test/transform-solid.ts',
   },
 };
 

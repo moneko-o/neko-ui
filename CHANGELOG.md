@@ -2,6 +2,10 @@
 
 ## Last
 
+### ♻️ Chores
+
+- upgrade @moneko/core from 4.7.2 to 4.7.7 ([26c2c8f](https://github.com/moneko-o/neko-ui/commit/26c2c8fef24088477260f3c8f706e0c764ec872f))
+
 ### 🚨 Tests
 
 - 100% coverage across all metrics (stmts/branches/funcs/lines) ([38f2291](https://github.com/moneko-o/neko-ui/commit/38f22911ea81ff3be5508b83c3b285bfa7ffd6b3))

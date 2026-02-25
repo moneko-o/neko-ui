@@ -29,9 +29,9 @@ export interface GlassPanelProps {
   class?: string;
   /**
    * 模糊值
-   * @default 16
+   * @default '16px'
    */
-  blur?: string;
+  filterBlur?: string;
   /**
    * 亮度
    * @since 2.12.3
@@ -83,13 +83,13 @@ export interface GlassPanelProps {
 }
 
 const GlassPanel = (_: GlassPanelProps) => {
-  const props = mergeProps({ filterBlur: 16 }, _);
+  const props = mergeProps({ filterBlur: '16px' }, _);
   const [local] = splitProps(props, [
     'css',
     'filter',
     'feTurbulence',
     'feDisplacementMap',
-    'blur',
+    'filterBlur',
     'brightness',
     'contrast',
     'dropShadow',
@@ -104,7 +104,7 @@ const GlassPanel = (_: GlassPanelProps) => {
   const baseCss = createMemo(() => {
     const normal = cx(
       !!local.brightness && `brightness(${local.brightness})`,
-      !!local.blur && `blur(${local.blur})`,
+      !!local.filterBlur && `blur(${local.filterBlur})`,
       !!local.contrast && `contrast(${local.contrast})`,
       !!local.dropShadow && `drop-shadow(${local.dropShadow})`,
       !!local.grayscale && `grayscale(${local.grayscale})`,
@@ -172,7 +172,7 @@ GlassPanel.registry = () => {
       class: void 0,
       css: void 0,
       brightness: void 0,
-      blur: void 0,
+      filterBlur: void 0,
       contrast: void 0,
       dropShadow: void 0,
       grayscale: void 0,
