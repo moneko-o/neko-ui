@@ -52,9 +52,7 @@ describe('Img full coverage', () => {
   });
 
   it('srcFull in viewer', () => {
-    render(() => (
-      <Img src="thumb.jpg" srcFull="full.jpg" alt="test" lazy={false} open={true} />
-    ));
+    render(() => <Img src="thumb.jpg" srcFull="full.jpg" alt="test" lazy={false} open={true} />);
   });
 
   it('onLoad callback relay in custom element', () => {
@@ -62,9 +60,7 @@ describe('Img full coverage', () => {
   });
 
   it('animationend on portal destroys viewer', () => {
-    const { container } = render(() => (
-      <Img src="test.jpg" alt="test" lazy={false} />
-    ));
+    const { container } = render(() => <Img src="test.jpg" alt="test" lazy={false} />);
     const img = container.querySelector('.img') || container.querySelector('img');
 
     if (img) fireEvent.click(img);

@@ -130,7 +130,11 @@ describe('Code full coverage', () => {
       ...((window as Record<string, unknown>).Prism as object),
       tokenize: () => ['var x;'],
     };
-    render(() => <n-code language="javascript" theme="dark">{'var x;'}</n-code>);
+    render(() => (
+      <n-code language="javascript" theme="dark">
+        {'var x;'}
+      </n-code>
+    ));
     await flush();
   });
 
@@ -139,7 +143,11 @@ describe('Code full coverage', () => {
       ...((window as Record<string, unknown>).Prism as object),
       tokenize: () => ['var y;'],
     };
-    render(() => <n-code language="javascript" theme="light">{'var y;'}</n-code>);
+    render(() => (
+      <n-code language="javascript" theme="light">
+        {'var y;'}
+      </n-code>
+    ));
     await flush();
   });
 
@@ -148,7 +156,11 @@ describe('Code full coverage', () => {
       ...((window as Record<string, unknown>).Prism as object),
       tokenize: () => ['var z;'],
     };
-    render(() => <n-code language="javascript" css="pre{color:red}">{'var z;'}</n-code>);
+    render(() => (
+      <n-code language="javascript" css="pre{color:red}">
+        {'var z;'}
+      </n-code>
+    ));
     await flush();
   });
 
@@ -157,14 +169,17 @@ describe('Code full coverage', () => {
       ...((window as Record<string, unknown>).Prism as object),
       tokenize: () => ['var w;'],
     };
-    render(() => <n-code language="javascript" classic={true}>{'var w;'}</n-code>);
+    render(() => (
+      <n-code language="javascript" classic={true}>
+        {'var w;'}
+      </n-code>
+    ));
     await flush();
   });
 
   it('cleanup on unmount', async () => {
-    const { unmount } = render(() => (
-      <n-code language="javascript">{'const q = 1;'}</n-code>
-    ));
+    const { unmount } = render(() => <n-code language="javascript">{'const q = 1;'}</n-code>);
+
     await flush();
     unmount();
   });

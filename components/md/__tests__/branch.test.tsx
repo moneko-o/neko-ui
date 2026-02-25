@@ -55,9 +55,7 @@ describe('Md (direct render)', () => {
   });
 
   it('renders with codeTheme and codeClassic', () => {
-    render(() => (
-      <Md text={'```js\nvar x;\n```'} codeTheme="dark" codeClassic={true} />
-    ));
+    render(() => <Md text={'```js\nvar x;\n```'} codeTheme="dark" codeClassic={true} />);
     jest.advanceTimersByTime(500);
   });
 

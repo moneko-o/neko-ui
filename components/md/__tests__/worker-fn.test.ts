@@ -6,7 +6,7 @@ describe('MD Worker internal function coverage', () => {
     blobs = [];
     URL.createObjectURL = jest.fn((blob: Blob) => {
       blobs.push(blob);
-      return 'blob:mock-' + blobs.length;
+      return `blob:mock-${blobs.length}`;
     });
   });
   afterEach(() => {
@@ -34,17 +34,14 @@ describe('MD Worker internal function coverage', () => {
           importScripts: jest.fn(),
           postMessage: jest.fn(),
           addEventListener: jest.fn(),
-          marked: Object.assign(
-            (text: string, opts: Record<string, unknown>) => `<p>${text}</p>`,
-            {
-              Renderer: class {
-                katexBlock = jest.fn();
-                katexInline = jest.fn();
-                image = jest.fn();
-                code = jest.fn();
-              },
+          marked: Object.assign((text: string, opts: Record<string, unknown>) => `<p>${text}</p>`, {
+            Renderer: class {
+              katexBlock = jest.fn();
+              katexInline = jest.fn();
+              image = jest.fn();
+              code = jest.fn();
             },
-          ),
+          }),
         };
 
         try {

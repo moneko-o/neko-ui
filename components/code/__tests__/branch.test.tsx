@@ -64,9 +64,7 @@ describe('Code branches', () => {
 
   it('renders with git language (multi-grammar)', () => {
     const { container } = render(() => (
-      <n-code language="git">
-        {'+ added line\n- removed line'}
-      </n-code>
+      <n-code language="git">{'+ added line\n- removed line'}</n-code>
     ));
 
     jest.advanceTimersByTime(200);

@@ -26,7 +26,10 @@ describe('Md direct render', () => {
 
   it('renders with TOC text', async () => {
     render(() => (
-      <Md text="[TOC]\n## Section A\n## Section B\nContent" getAnchorContainer={() => document.body} />
+      <Md
+        text="[TOC]\n## Section A\n## Section B\nContent"
+        getAnchorContainer={() => document.body}
+      />
     ));
     await flush();
   });

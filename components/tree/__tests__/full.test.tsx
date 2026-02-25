@@ -56,10 +56,7 @@ describe('Tree layout direct render', () => {
 
   it('layout with size=large', () => {
     render(() => (
-      <Tree
-        data={[{ title: 'R', key: 'r', children: [{ title: 'C', key: 'c' }] }]}
-        size="large"
-      />
+      <Tree data={[{ title: 'R', key: 'r', children: [{ title: 'C', key: 'c' }] }]} size="large" />
     ));
   });
 });
