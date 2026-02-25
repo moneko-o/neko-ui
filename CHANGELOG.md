@@ -4,6 +4,9 @@
 
 ### 🚨 Tests
 
+- add direct-render tests for tree, menu, tabs, md ([1fa26ae](https://github.com/moneko-o/neko-ui/commit/1fa26ae02ad5393cf72c74cfb00f2c86aebd807d))
+- improve Worker mock to simulate message handling ([4b09171](https://github.com/moneko-o/neko-ui/commit/4b091717f6c81f2abf17ae5ea8bd2b88a53fe70e))
+- add targeted tests for color-palette, checkbox, and input to reach 100% line coverage ([511dcb4](https://github.com/moneko-o/neko-ui/commit/511dcb4114d0e15c809b5c16be26b0dc0752da37))
 - continue improving coverage - md worker, code, img tests ([dfb067c](https://github.com/moneko-o/neko-ui/commit/dfb067ca43bcfddb9b27fb4e3549b5ef79c83f81))
 - improve coverage to 95.85% - code, md, img direct tests ([b10f2ca](https://github.com/moneko-o/neko-ui/commit/b10f2ca868d52cc879c3b0c556b97e81d5111f45))
 - add worker.test.ts, code branch tests, improve CSS.highlights mock ([c68fe73](https://github.com/moneko-o/neko-ui/commit/c68fe7355426dfa28068fc86794ae9348a3f4e11))
