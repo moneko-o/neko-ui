@@ -2,14 +2,22 @@
 
 ## Last
 
+### ✨ Features
+
+- replace babel-jest with @moneko/core transformSolidJs ([13e92fc](https://github.com/moneko-o/neko-ui/commit/13e92fc3b8bea3d33d62b478035665b39436ed47))
+- add comprehensive test coverage for 17 neko-ui components ([378c79a](https://github.com/moneko-o/neko-ui/commit/378c79a0543abf8a70d9cf67cadf0bc9e0253ce3))
+- add test cases for 11 untested components ([395ab55](https://github.com/moneko-o/neko-ui/commit/395ab5541c275eb514b06509955e5c8d2ebd6612))
+- 添加 Jest 及相关测试库依赖 ([4bf2d33](https://github.com/moneko-o/neko-ui/commit/4bf2d3346d7745fce6339ba9671e4b1aee5e84ee))
+
+### ♻️ Chores
+
+- remove moduleResolution option from tsconfig.json ([53be65f](https://github.com/moneko-o/neko-ui/commit/53be65f91ec63c422bb516d89e6063bff00af6fc))
+- upgrade @moneko/core from 4.7.2 to 4.7.7 ([26c2c8f](https://github.com/moneko-o/neko-ui/commit/26c2c8fef24088477260f3c8f706e0c764ec872f))
+
 ### 🐛 Bug Fixes
 
 - update GlassPanel component props and test cases for filter properties ([acae9c1](https://github.com/moneko-o/neko-ui/commit/acae9c18e716d87bbebfee4c8f43d3e479334c5e))
 - update jest config to use babel-jest and fix toBeCalled deprecation ([f0a262f](https://github.com/moneko-o/neko-ui/commit/f0a262fa38d5d2cad7ed469cb63d3144ada66e26))
-
-### ♻️ Chores
-
-- upgrade @moneko/core from 4.7.2 to 4.7.7 ([26c2c8f](https://github.com/moneko-o/neko-ui/commit/26c2c8fef24088477260f3c8f706e0c764ec872f))
 
 ### 🚨 Tests
 
@@ -23,12 +31,6 @@
 - enhance coverage for modal, popover, notification, tree, prism ([fddbc5c](https://github.com/moneko-o/neko-ui/commit/fddbc5cbb8d86a7c5faece63ec724f1b822c05b7))
 - fix lint errors in test files and update AGENTS.md ([5bc3cac](https://github.com/moneko-o/neko-ui/commit/5bc3cac10b7cb276a8ab4eb4b3464c5c2155a2d9))
 - add Jest tests for utils/registry, icon, and button/loading ([d701327](https://github.com/moneko-o/neko-ui/commit/d7013271fced3854c99a027689e3408ab0b24cfe))
-
-### ✨ Features
-
-- add comprehensive test coverage for 17 neko-ui components ([378c79a](https://github.com/moneko-o/neko-ui/commit/378c79a0543abf8a70d9cf67cadf0bc9e0253ce3))
-- add test cases for 11 untested components ([395ab55](https://github.com/moneko-o/neko-ui/commit/395ab5541c275eb514b06509955e5c8d2ebd6612))
-- 添加 Jest 及相关测试库依赖 ([4bf2d33](https://github.com/moneko-o/neko-ui/commit/4bf2d3346d7745fce6339ba9671e4b1aee5e84ee))
 
 ### 📚 Documentation
 
