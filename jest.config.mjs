@@ -8,6 +8,7 @@ const ignorePatterns = [
 
 const config = {
   coverageDirectory: 'coverage',
+  coverageProvider: 'v8',
   testEnvironment: 'jsdom',
   roots: ['components'],
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
