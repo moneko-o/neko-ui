@@ -2,13 +2,18 @@
 
 ## Last
 
-### 🐛 Bug Fixes
+### 📚 Documentation
 
-- update jest config to use babel-jest and fix toBeCalled deprecation ([f0a262f](https://github.com/moneko-o/neko-ui/commit/f0a262fa38d5d2cad7ed469cb63d3144ada66e26))
+- add AGENTS.md with cloud-specific dev instructions ([69f38f2](https://github.com/moneko-o/neko-ui/commit/69f38f2b7e8e3ef897935a989508d95e8314e928))
 
 ### ✨ Features
 
+- add test cases for 11 untested components ([395ab55](https://github.com/moneko-o/neko-ui/commit/395ab5541c275eb514b06509955e5c8d2ebd6612))
 - 添加 Jest 及相关测试库依赖 ([4bf2d33](https://github.com/moneko-o/neko-ui/commit/4bf2d3346d7745fce6339ba9671e4b1aee5e84ee))
+
+### 🐛 Bug Fixes
+
+- update jest config to use babel-jest and fix toBeCalled deprecation ([f0a262f](https://github.com/moneko-o/neko-ui/commit/f0a262fa38d5d2cad7ed469cb63d3144ada66e26))
 
 ## [v2.14.14](https://github.com/moneko-o/neko-ui/compare/v2.14.13...v2.14.14) (2-23-2026)
 
