@@ -2,18 +2,11 @@
 
 ## Last
 
-### ♻️ Chores
-
-- update ESLint and Jest configurations; remove unused transform-solid test file ([13250ea](https://github.com/moneko-o/neko-ui/commit/13250ea5eb1e2b917b86937143286d3177643946))
-- remove moduleResolution option from tsconfig.json ([53be65f](https://github.com/moneko-o/neko-ui/commit/53be65f91ec63c422bb516d89e6063bff00af6fc))
-- upgrade @moneko/core from 4.7.2 to 4.7.7 ([26c2c8f](https://github.com/moneko-o/neko-ui/commit/26c2c8fef24088477260f3c8f706e0c764ec872f))
-
-### 📦 Code Refactoring
-
-- convert test/transform-solid to ESM (.mjs) ([92e440a](https://github.com/moneko-o/neko-ui/commit/92e440a08bd93bcd4fc595d6f8de25366f5dbc33))
-
 ### 🚨 Tests
 
+- continue improving coverage - md worker, code, img tests ([dfb067c](https://github.com/moneko-o/neko-ui/commit/dfb067ca43bcfddb9b27fb4e3549b5ef79c83f81))
+- improve coverage to 95.85% - code, md, img direct tests ([b10f2ca](https://github.com/moneko-o/neko-ui/commit/b10f2ca868d52cc879c3b0c556b97e81d5111f45))
+- add worker.test.ts, code branch tests, improve CSS.highlights mock ([c68fe73](https://github.com/moneko-o/neko-ui/commit/c68fe7355426dfa28068fc86794ae9348a3f4e11))
 - 100% coverage with @moneko/core transformSolidJs transformer ([31bf3b2](https://github.com/moneko-o/neko-ui/commit/31bf3b224149320057f0a2c73fb436f23e5fdb05))
 - 100% coverage across all metrics (stmts/branches/funcs/lines) ([38f2291](https://github.com/moneko-o/neko-ui/commit/38f22911ea81ff3be5508b83c3b285bfa7ffd6b3))
 - 100% statements/functions/lines coverage - test-only changes ([f0e3e9f](https://github.com/moneko-o/neko-ui/commit/f0e3e9f84873fca3382dcf6826212b0cb7983bc0))
@@ -26,17 +19,28 @@
 - fix lint errors in test files and update AGENTS.md ([5bc3cac](https://github.com/moneko-o/neko-ui/commit/5bc3cac10b7cb276a8ab4eb4b3464c5c2155a2d9))
 - add Jest tests for utils/registry, icon, and button/loading ([d701327](https://github.com/moneko-o/neko-ui/commit/d7013271fced3854c99a027689e3408ab0b24cfe))
 
+### 🐛 Bug Fixes
+
+- resolve jest Worker/URL.createObjectURL/CSS.highlights errors ([47fbd3f](https://github.com/moneko-o/neko-ui/commit/47fbd3f7528c7aa00beb56ebdede76a118026abd))
+- update GlassPanel component props and test cases for filter properties ([acae9c1](https://github.com/moneko-o/neko-ui/commit/acae9c18e716d87bbebfee4c8f43d3e479334c5e))
+- update jest config to use babel-jest and fix toBeCalled deprecation ([f0a262f](https://github.com/moneko-o/neko-ui/commit/f0a262fa38d5d2cad7ed469cb63d3144ada66e26))
+
+### ♻️ Chores
+
+- update ESLint and Jest configurations; remove unused transform-solid test file ([13250ea](https://github.com/moneko-o/neko-ui/commit/13250ea5eb1e2b917b86937143286d3177643946))
+- remove moduleResolution option from tsconfig.json ([53be65f](https://github.com/moneko-o/neko-ui/commit/53be65f91ec63c422bb516d89e6063bff00af6fc))
+- upgrade @moneko/core from 4.7.2 to 4.7.7 ([26c2c8f](https://github.com/moneko-o/neko-ui/commit/26c2c8fef24088477260f3c8f706e0c764ec872f))
+
+### 📦 Code Refactoring
+
+- convert test/transform-solid to ESM (.mjs) ([92e440a](https://github.com/moneko-o/neko-ui/commit/92e440a08bd93bcd4fc595d6f8de25366f5dbc33))
+
 ### ✨ Features
 
 - replace babel-jest with @moneko/core transformSolidJs ([13e92fc](https://github.com/moneko-o/neko-ui/commit/13e92fc3b8bea3d33d62b478035665b39436ed47))
 - add comprehensive test coverage for 17 neko-ui components ([378c79a](https://github.com/moneko-o/neko-ui/commit/378c79a0543abf8a70d9cf67cadf0bc9e0253ce3))
 - add test cases for 11 untested components ([395ab55](https://github.com/moneko-o/neko-ui/commit/395ab5541c275eb514b06509955e5c8d2ebd6612))
 - 添加 Jest 及相关测试库依赖 ([4bf2d33](https://github.com/moneko-o/neko-ui/commit/4bf2d3346d7745fce6339ba9671e4b1aee5e84ee))
-
-### 🐛 Bug Fixes
-
-- update GlassPanel component props and test cases for filter properties ([acae9c1](https://github.com/moneko-o/neko-ui/commit/acae9c18e716d87bbebfee4c8f43d3e479334c5e))
-- update jest config to use babel-jest and fix toBeCalled deprecation ([f0a262f](https://github.com/moneko-o/neko-ui/commit/f0a262fa38d5d2cad7ed469cb63d3144ada66e26))
 
 ### 📚 Documentation
 
