@@ -1,4 +1,4 @@
-const { transformSolidJsSync, transformSolidJs } = require('@moneko/core');
+import { transformSolidJsSync, transformSolidJs } from '@moneko/core';
 
 const jsxOptions = {
   moduleName: 'solid-js/web',
@@ -41,7 +41,7 @@ function transformAsync(source, filename, transformerConfig) {
   });
 }
 
-exports.createTransformer = () => ({
+export const createTransformer = () => ({
   canInstrument: false,
   getCacheKey(source, path, opt) {
     return JSON.stringify([path, source, opt]);
@@ -56,3 +56,5 @@ exports.createTransformer = () => ({
     return transformAsync(source, path, opt.transformerConfig || {});
   },
 });
+
+export default { createTransformer };

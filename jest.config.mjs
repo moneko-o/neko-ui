@@ -102,7 +102,7 @@ const config = {
     '\\?url$': '<rootDir>/test/file.mock.ts',
   },
   transform: {
-    '^.+\\.[jt]sx?$': '<rootDir>/test/transform-solid.js',
+    '^.+\\.[jt]sx?$': '<rootDir>/test/transform-solid.mjs',
   },
 };
 

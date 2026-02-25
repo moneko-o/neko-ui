@@ -2,6 +2,20 @@
 
 ## Last
 
+### 🚨 Tests
+
+- 100% coverage with @moneko/core transformSolidJs transformer ([31bf3b2](https://github.com/moneko-o/neko-ui/commit/31bf3b224149320057f0a2c73fb436f23e5fdb05))
+- 100% coverage across all metrics (stmts/branches/funcs/lines) ([38f2291](https://github.com/moneko-o/neko-ui/commit/38f22911ea81ff3be5508b83c3b285bfa7ffd6b3))
+- 100% statements/functions/lines coverage - test-only changes ([f0e3e9f](https://github.com/moneko-o/neko-ui/commit/f0e3e9f84873fca3382dcf6826212b0cb7983bc0))
+- achieve 98.62% stmts, 100% funcs, 98.61% lines - test-only changes ([e97b466](https://github.com/moneko-o/neko-ui/commit/e97b46616406d87e385848f6de8747e048daf36e))
+- revert source changes, add direct-render tests for 100% coverage ([bf8e438](https://github.com/moneko-o/neko-ui/commit/bf8e438cd2680502eac2f27cd03878927311038b))
+- achieve 100% statement/function/line coverage ([8f85c7b](https://github.com/moneko-o/neko-ui/commit/8f85c7b8c1f5a0ada9d498da4aed8db642880c5b))
+- fix broken modal tests and improve dropdown/table to 100% ([af04cf9](https://github.com/moneko-o/neko-ui/commit/af04cf97be1168c5a589739ec14a31431697cdc6))
+- push statement coverage to 95.93% ([95b5bfe](https://github.com/moneko-o/neko-ui/commit/95b5bfe270287dc473804a78011c40b69a5f62d8))
+- enhance coverage for modal, popover, notification, tree, prism ([fddbc5c](https://github.com/moneko-o/neko-ui/commit/fddbc5cbb8d86a7c5faece63ec724f1b822c05b7))
+- fix lint errors in test files and update AGENTS.md ([5bc3cac](https://github.com/moneko-o/neko-ui/commit/5bc3cac10b7cb276a8ab4eb4b3464c5c2155a2d9))
+- add Jest tests for utils/registry, icon, and button/loading ([d701327](https://github.com/moneko-o/neko-ui/commit/d7013271fced3854c99a027689e3408ab0b24cfe))
+
 ### ✨ Features
 
 - replace babel-jest with @moneko/core transformSolidJs ([13e92fc](https://github.com/moneko-o/neko-ui/commit/13e92fc3b8bea3d33d62b478035665b39436ed47))
@@ -18,19 +32,6 @@
 
 - update GlassPanel component props and test cases for filter properties ([acae9c1](https://github.com/moneko-o/neko-ui/commit/acae9c18e716d87bbebfee4c8f43d3e479334c5e))
 - update jest config to use babel-jest and fix toBeCalled deprecation ([f0a262f](https://github.com/moneko-o/neko-ui/commit/f0a262fa38d5d2cad7ed469cb63d3144ada66e26))
-
-### 🚨 Tests
-
-- 100% coverage across all metrics (stmts/branches/funcs/lines) ([38f2291](https://github.com/moneko-o/neko-ui/commit/38f22911ea81ff3be5508b83c3b285bfa7ffd6b3))
-- 100% statements/functions/lines coverage - test-only changes ([f0e3e9f](https://github.com/moneko-o/neko-ui/commit/f0e3e9f84873fca3382dcf6826212b0cb7983bc0))
-- achieve 98.62% stmts, 100% funcs, 98.61% lines - test-only changes ([e97b466](https://github.com/moneko-o/neko-ui/commit/e97b46616406d87e385848f6de8747e048daf36e))
-- revert source changes, add direct-render tests for 100% coverage ([bf8e438](https://github.com/moneko-o/neko-ui/commit/bf8e438cd2680502eac2f27cd03878927311038b))
-- achieve 100% statement/function/line coverage ([8f85c7b](https://github.com/moneko-o/neko-ui/commit/8f85c7b8c1f5a0ada9d498da4aed8db642880c5b))
-- fix broken modal tests and improve dropdown/table to 100% ([af04cf9](https://github.com/moneko-o/neko-ui/commit/af04cf97be1168c5a589739ec14a31431697cdc6))
-- push statement coverage to 95.93% ([95b5bfe](https://github.com/moneko-o/neko-ui/commit/95b5bfe270287dc473804a78011c40b69a5f62d8))
-- enhance coverage for modal, popover, notification, tree, prism ([fddbc5c](https://github.com/moneko-o/neko-ui/commit/fddbc5cbb8d86a7c5faece63ec724f1b822c05b7))
-- fix lint errors in test files and update AGENTS.md ([5bc3cac](https://github.com/moneko-o/neko-ui/commit/5bc3cac10b7cb276a8ab4eb4b3464c5c2155a2d9))
-- add Jest tests for utils/registry, icon, and button/loading ([d701327](https://github.com/moneko-o/neko-ui/commit/d7013271fced3854c99a027689e3408ab0b24cfe))
 
 ### 📚 Documentation
 
