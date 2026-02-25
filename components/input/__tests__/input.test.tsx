@@ -78,4 +78,23 @@ describe('test Input', () => {
     });
     expect(screen.getByTestId('input-formatter')).toBeInTheDocument();
   });
+  it('number type with empty string', () => {
+    const handleChange = jest.fn();
+
+    render(() => <n-input data-testid="input-num" type="number" onChange={handleChange} />);
+
+    fireEvent.input(screen.getByTestId('input-num'), { target: { value: '' } });
+  });
+  it('parser as string', () => {
+    render(() => <n-input data-testid="input-parser" parser="static" />);
+
+    fireEvent.input(screen.getByTestId('input-parser'), { target: { value: 'x' } });
+  });
+  it('capsLockIcon with keyDown', () => {
+    render(() => <n-input data-testid="caps" capsLockIcon={true} onKeyDown={jest.fn()} />);
+
+    const el = screen.getByTestId('caps').shadowRoot!.querySelector('input')!;
+
+    fireEvent.keyDown(el, { getModifierState: () => true });
+  });
 });

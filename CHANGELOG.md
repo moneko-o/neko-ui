@@ -4,6 +4,7 @@
 
 ### 🚨 Tests
 
+- enhance coverage for modal, popover, notification, tree, prism ([fddbc5c](https://github.com/moneko-o/neko-ui/commit/fddbc5cbb8d86a7c5faece63ec724f1b822c05b7))
 - fix lint errors in test files and update AGENTS.md ([5bc3cac](https://github.com/moneko-o/neko-ui/commit/5bc3cac10b7cb276a8ab4eb4b3464c5c2155a2d9))
 - add Jest tests for utils/registry, icon, and button/loading ([d701327](https://github.com/moneko-o/neko-ui/commit/d7013271fced3854c99a027689e3408ab0b24cfe))
 

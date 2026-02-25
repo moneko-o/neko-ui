@@ -6,100 +6,107 @@ describe('Popover', () => {
     return container.parentElement!.lastElementChild!.shadowRoot!.querySelector(selector)!;
   }
 
-  it('renders with hover trigger (default)', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+    jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({
+      width: 200,
+      height: 40,
+      top: 100,
+      left: 300,
+      right: 500,
+      bottom: 140,
+      x: 300,
+      y: 100,
+      toJSON: () => {},
+    });
+    Object.defineProperty(HTMLElement.prototype, 'offsetWidth', { configurable: true, value: 200 });
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      value: 40,
+    });
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+    jest.restoreAllMocks();
+  });
+
+  it('hover trigger open/close', () => {
+    const onChange = jest.fn();
     const { container } = render(() => (
       <n-popover
         data-testid="tooltip"
-        content="Tooltip content"
-        class="tooltip-cls"
-        popup-css={{ padding: 8 }}
+        content="Content"
         dropdown-match-select-width={true}
-        onOpenChange={jest.fn()}
+        onOpenChange={onChange}
       >
-        Tooltip
+        Hover
       </n-popover>
     ));
 
     const el = screen.getByTestId('tooltip').shadowRoot!.querySelector('.popover')!;
 
     fireEvent.mouseEnter(el);
+    jest.advanceTimersByTime(50);
+    fireEvent.scroll(window);
+    jest.advanceTimersByTime(50);
     fireEvent.mouseLeave(el);
+    jest.advanceTimersByTime(400);
     fireEvent.animationEnd(portal(container, '.portal'));
   });
 
-  it('opens and closes on hover', () => {
-    const { container } = render(() => (
-      <n-popover data-testid="tooltip" content="Hover content" trigger="hover">
-        Hover me
-      </n-popover>
-    ));
+  it('click trigger open then close outside', () => {
+    const onChange = jest.fn();
 
-    const el = screen.getByTestId('tooltip').shadowRoot!.querySelector('.popover')!;
-
-    fireEvent.mouseEnter(el);
-    fireEvent.mouseLeave(el);
-    fireEvent.animationEnd(portal(container, '.portal'));
-  });
-
-  it('opens on click trigger', () => {
     render(() => (
-      <n-popover
-        data-testid="click-pop"
-        content="Click content"
-        trigger="click"
-        onOpenChange={jest.fn()}
-      >
-        Click me
+      <n-popover data-testid="click" content="Click" trigger="click" onOpenChange={onChange}>
+        Click
       </n-popover>
     ));
 
-    const el = screen.getByTestId('click-pop').shadowRoot!.querySelector('.popover')!;
+    const el = screen.getByTestId('click').shadowRoot!.querySelector('.popover')!;
 
     fireEvent.mouseDown(el);
+    jest.advanceTimersByTime(50);
     fireEvent.mouseDown(document.documentElement);
+    jest.advanceTimersByTime(50);
   });
 
-  it('opens on context menu', () => {
+  it('contextMenu trigger with scroll close', () => {
+    const onChange = jest.fn();
     const { container } = render(() => (
       <n-popover
         data-testid="ctx"
         trigger="contextMenu"
-        content="Context content"
-        onOpenChange={jest.fn()}
+        content="Ctx"
+        onOpenChange={onChange}
         placement="bottomLeft"
       >
-        Right click
+        Right
       </n-popover>
     ));
 
     const el = screen.getByTestId('ctx').shadowRoot!.querySelector('.popover')!;
 
-    fireEvent.contextMenu(el);
-    fireEvent.click(document.body);
+    fireEvent.contextMenu(el, { clientX: 100, clientY: 200 });
+    jest.advanceTimersByTime(50);
+    fireEvent.scroll(window);
+    jest.advanceTimersByTime(50);
     fireEvent.animationEnd(portal(container, '.portal'));
   });
 
-  it('renders with trigger=none', () => {
+  it('trigger=none with controlled open', () => {
     const { container } = render(() => (
-      <n-popover content="Static" trigger="none" open={true}>
+      <n-popover content="None" trigger="none" open={true}>
         Static
       </n-popover>
     ));
 
+    jest.advanceTimersByTime(50);
     expect(container).toBeInTheDocument();
   });
 
-  it('renders with arrow', () => {
-    const { container } = render(() => (
-      <n-popover content="Arrow" arrow={true}>
-        With arrow
-      </n-popover>
-    ));
-
-    expect(container).toBeInTheDocument();
-  });
-
-  it('renders disabled popover', () => {
+  it('disabled popover ignores events', () => {
     render(() => (
       <n-popover data-testid="disabled" content="Disabled" disabled={true}>
         Disabled
@@ -109,9 +116,10 @@ describe('Popover', () => {
     const el = screen.getByTestId('disabled').shadowRoot!.querySelector('.popover')!;
 
     fireEvent.mouseEnter(el);
+    jest.advanceTimersByTime(50);
   });
 
-  it('renders with destroyInactive=false', () => {
+  it('destroyInactive=false keeps portal', () => {
     const { container } = render(() => (
       <n-popover content="Persist" destroyInactive={false}>
         Persistent
@@ -121,59 +129,77 @@ describe('Popover', () => {
     expect(container).toBeInTheDocument();
   });
 
-  it('renders with placement=bottomRight', () => {
-    const { container } = render(() => (
-      <n-popover content="Bottom Right" placement="bottomRight">
+  it('placement bottomRight', () => {
+    render(() => (
+      <n-popover data-testid="br" content="BR" placement="bottomRight" trigger="click">
         BR
       </n-popover>
     ));
 
-    expect(container).toBeInTheDocument();
+    fireEvent.mouseDown(screen.getByTestId('br').shadowRoot!.querySelector('.popover')!);
+    jest.advanceTimersByTime(50);
   });
 
-  it('renders with placement=topLeft', () => {
-    const { container } = render(() => (
-      <n-popover content="Top Left" placement="topLeft">
+  it('placement topLeft', () => {
+    jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({
+      width: 200,
+      height: 40,
+      top: 500,
+      left: 100,
+      right: 300,
+      bottom: 540,
+      x: 100,
+      y: 500,
+      toJSON: () => {},
+    });
+
+    render(() => (
+      <n-popover data-testid="tl" content="TL" placement="topLeft" trigger="click" arrow={true}>
         TL
       </n-popover>
     ));
 
-    expect(container).toBeInTheDocument();
+    fireEvent.mouseDown(screen.getByTestId('tl').shadowRoot!.querySelector('.popover')!);
+    jest.advanceTimersByTime(50);
   });
 
-  it('renders with placement=topRight', () => {
-    const { container } = render(() => (
-      <n-popover content="Top Right" placement="topRight">
-        TR
-      </n-popover>
-    ));
-
-    expect(container).toBeInTheDocument();
-  });
-
-  it('renders with placement=left', () => {
-    const { container } = render(() => (
-      <n-popover content="Left" placement="left">
-        Left
-      </n-popover>
-    ));
-
-    expect(container).toBeInTheDocument();
-  });
-
-  it('renders with placement=right', () => {
-    const { container } = render(() => (
-      <n-popover content="Right" placement="right">
+  it('placement right', () => {
+    render(() => (
+      <n-popover data-testid="right" content="Right" placement="right" trigger="click">
         Right
       </n-popover>
     ));
 
-    expect(container).toBeInTheDocument();
+    fireEvent.mouseDown(screen.getByTestId('right').shadowRoot!.querySelector('.popover')!);
+    jest.advanceTimersByTime(50);
   });
 
-  it('renders with encodeUri content', () => {
+  it('placement top', () => {
+    jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({
+      width: 200,
+      height: 40,
+      top: 500,
+      left: 300,
+      right: 500,
+      bottom: 540,
+      x: 300,
+      y: 500,
+      toJSON: () => {},
+    });
+
+    render(() => (
+      <n-popover data-testid="top" content="Top" placement="top" trigger="click">
+        Top
+      </n-popover>
+    ));
+
+    fireEvent.mouseDown(screen.getByTestId('top').shadowRoot!.querySelector('.popover')!);
+    jest.advanceTimersByTime(50);
+  });
+
+  it('encodeUri content', () => {
     const { container } = render(() => (
-      <n-popover content={encodeURIComponent('<b>bold</b>')} encodeUri={true}>
+      <n-popover content={encodeURIComponent('<b>bold</b>')} encodeUri={true} open={true}>
         Encoded
       </n-popover>
     ));
@@ -181,63 +207,74 @@ describe('Popover', () => {
     expect(container).toBeInTheDocument();
   });
 
-  it('renders with string content (non-encoded)', () => {
-    const { container } = render(() => <n-popover content="<b>bold</b>">String</n-popover>);
+  it('empty content shows Empty fallback', () => {
+    const { container } = render(() => <n-popover open={true}>No content</n-popover>);
 
     expect(container).toBeInTheDocument();
   });
 
-  it('renders with empty content (fallback to Empty)', () => {
-    const { container } = render(() => <n-popover>No content</n-popover>);
-
-    expect(container).toBeInTheDocument();
-  });
-
-  it('renders with content as function', () => {
+  it('content as function', () => {
     const { container } = render(() => (
-      <n-popover content={() => <div>Dynamic</div>}>Function content</n-popover>
+      <n-popover content={() => <div>Dynamic</div>} open={true}>
+        Function
+      </n-popover>
     ));
 
     expect(container).toBeInTheDocument();
   });
 
-  it('handles getPopupContainer', () => {
-    const container = document.createElement('div');
+  it('getPopupContainer', () => {
+    const mountEl = document.createElement('div');
 
-    document.body.appendChild(container);
+    document.body.appendChild(mountEl);
     render(() => (
-      <n-popover content="Custom container" getPopupContainer={() => container}>
-        Custom mount
+      <n-popover content="Container" getPopupContainer={() => mountEl}>
+        Custom
       </n-popover>
     ));
 
-    document.body.removeChild(container);
+    document.body.removeChild(mountEl);
   });
 
-  it('handles scroll event when open', () => {
+  it('close with handle-closed=false', () => {
     render(() => (
-      <n-popover data-testid="scroll" content="Scroll" trigger="click">
-        Scroll test
+      <n-popover data-testid="hc" content="HC" trigger="click">
+        <span handle-closed="false">HC</span>
       </n-popover>
     ));
 
-    const el = screen.getByTestId('scroll').shadowRoot!.querySelector('.popover')!;
+    fireEvent.mouseDown(screen.getByTestId('hc').shadowRoot!.querySelector('.popover')!);
+    jest.advanceTimersByTime(50);
+    const target = document.createElement('span');
 
-    fireEvent.mouseDown(el);
-    fireEvent.scroll(window);
+    target.setAttribute('handle-closed', 'false');
+    document.body.appendChild(target);
+    fireEvent.mouseDown(target);
+    jest.advanceTimersByTime(50);
+    document.body.removeChild(target);
   });
 
-  it('handles controlled open prop', () => {
+  it('exit on animationend when closed', () => {
     const { container } = render(() => (
-      <n-popover content="Controlled" open={true} onOpenChange={jest.fn()}>
-        Controlled
+      <n-popover data-testid="exit" content="Exit" trigger="hover">
+        Exit
       </n-popover>
     ));
 
-    expect(container).toBeInTheDocument();
+    const el = screen.getByTestId('exit').shadowRoot!.querySelector('.popover')!;
+
+    fireEvent.mouseEnter(el);
+    jest.advanceTimersByTime(50);
+    fireEvent.mouseLeave(el);
+    jest.advanceTimersByTime(400);
+    const portalEl = portal(container, '.portal');
+
+    if (portalEl) {
+      fireEvent.animationEnd(portalEl);
+    }
   });
 
-  it('handles size prop', () => {
+  it('size prop', () => {
     const { container } = render(() => (
       <n-popover content="Small" size="small">
         Small
@@ -247,28 +284,13 @@ describe('Popover', () => {
     expect(container).toBeInTheDocument();
   });
 
-  it('close handler with handle-closed attribute', () => {
-    render(() => (
-      <n-popover data-testid="handled" content="Handled" trigger="click">
-        <span handle-closed="false">Handled close</span>
+  it('css and popupCss props', () => {
+    const { container } = render(() => (
+      <n-popover content="Styled" css="color: red;" popup-css="padding: 4px;" open={true}>
+        Styled
       </n-popover>
     ));
 
-    const el = screen.getByTestId('handled').shadowRoot!.querySelector('.popover')!;
-
-    fireEvent.mouseDown(el);
-  });
-
-  it('contextMenu scroll closes', () => {
-    render(() => (
-      <n-popover data-testid="ctx-scroll" trigger="contextMenu" content="Ctx scroll">
-        Ctx scroll
-      </n-popover>
-    ));
-
-    const el = screen.getByTestId('ctx-scroll').shadowRoot!.querySelector('.popover')!;
-
-    fireEvent.contextMenu(el);
-    fireEvent.scroll(window);
+    expect(container).toBeInTheDocument();
   });
 });

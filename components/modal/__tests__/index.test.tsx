@@ -2,6 +2,13 @@ import { fireEvent, render } from '@solidjs/testing-library';
 import { screen } from 'shadow-dom-testing-library';
 
 describe('Modal', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
   it('renders closed modal', () => {
     const { container } = render(() => (
       <n-modal open="closed" title="Test Modal" content="Modal Content" />
@@ -16,60 +23,6 @@ describe('Modal', () => {
     ));
 
     expect(screen.getByTestId('modal')).toBeInTheDocument();
-  });
-
-  it('renders with ok and cancel buttons and clicks them', () => {
-    const onOk = jest.fn(() => true);
-    const onCancel = jest.fn(() => true);
-
-    render(() => (
-      <n-modal
-        data-testid="modal"
-        open="open"
-        title="Action"
-        content="Content"
-        okText="OK"
-        cancelText="Cancel"
-        onOk={onOk}
-        onCancel={onCancel}
-        onOpenChange={jest.fn()}
-      />
-    ));
-
-    const modalEl = screen.getByTestId('modal');
-    const portal = modalEl.parentElement!.lastElementChild!.shadowRoot!;
-    const buttons = portal.querySelectorAll('n-button');
-
-    buttons.forEach((btn) => {
-      const inner = (btn as HTMLElement).shadowRoot?.querySelector('button');
-
-      if (inner) {
-        fireEvent.click(inner);
-      }
-    });
-  });
-
-  it('closes on mask click when maskClosable=true', () => {
-    const openChange = jest.fn();
-
-    render(() => (
-      <n-modal
-        data-testid="modal"
-        open="open"
-        title="Mask"
-        content="Content"
-        maskClosable={true}
-        onOpenChange={openChange}
-      />
-    ));
-
-    const modalEl = screen.getByTestId('modal');
-    const portal = modalEl.parentElement!.lastElementChild!.shadowRoot!;
-    const portalDiv = portal.querySelector('.portal');
-
-    if (portalDiv) {
-      fireEvent.click(portalDiv);
-    }
   });
 
   it('closes on Escape key when escClosable=true', () => {
@@ -87,69 +40,84 @@ describe('Modal', () => {
     ));
 
     fireEvent.keyDown(document.documentElement, { key: 'Escape' });
+    expect(openChange).toHaveBeenCalled();
   });
 
-  it('renders centered modal', () => {
-    const { container } = render(() => (
-      <n-modal open="open" centered={true} title="Centered" content="Content" />
-    ));
+  it('does not close on non-Escape key', () => {
+    const openChange = jest.fn();
 
-    expect(container).toBeInTheDocument();
-  });
-
-  it('renders without close icon when closeIcon=false', () => {
-    const { container } = render(() => (
-      <n-modal open="open" closeIcon={false} title="No Close" content="Content" />
-    ));
-
-    expect(container).toBeInTheDocument();
-  });
-
-  it('renders with closeIcon=null', () => {
-    const { container } = render(() => (
-      <n-modal open="open" closeIcon={null} title="Null Close" content="Content" />
-    ));
-
-    expect(container).toBeInTheDocument();
-  });
-
-  it('renders with custom closeIcon as function', () => {
-    const { container } = render(() => (
+    render(() => (
       <n-modal
+        data-testid="modal"
         open="open"
-        closeIcon={() => <span>X</span>}
-        title="Custom Close"
+        title="Key"
         content="Content"
+        escClosable={true}
+        onOpenChange={openChange}
       />
     ));
 
-    expect(container).toBeInTheDocument();
+    fireEvent.keyDown(document.documentElement, { key: 'Enter' });
   });
 
-  it('renders with custom closeIcon as element', () => {
-    const { container } = render(() => (
-      <n-modal open="open" closeIcon="✕" title="String Close" content="Content" />
+  it('closes on mask click when maskClosable=true', () => {
+    const openChange = jest.fn();
+
+    render(() => (
+      <n-modal
+        data-testid="modal"
+        open="open"
+        title="Mask"
+        content="Content"
+        maskClosable={true}
+        onOpenChange={openChange}
+      />
     ));
 
-    expect(container).toBeInTheDocument();
+    const portals = document.querySelectorAll('body > div');
+    const lastPortal = portals[portals.length - 1];
+    const shadowPortal = lastPortal?.shadowRoot?.querySelector('.portal');
+
+    if (shadowPortal) {
+      fireEvent.click(shadowPortal, { target: shadowPortal });
+    }
   });
 
-  it('renders with maskBlur', () => {
-    const { container } = render(() => (
-      <n-modal open="open" maskBlur={true} title="Blur" content="Content" />
+  it('handles ok button click', () => {
+    const onOk = jest.fn(() => true);
+    const openChange = jest.fn();
+
+    render(() => (
+      <n-modal
+        data-testid="modal"
+        open="open"
+        title="OK"
+        content="Content"
+        onOk={onOk}
+        okText="OK"
+        cancelText={false}
+        onOpenChange={openChange}
+      />
     ));
 
-    expect(container).toBeInTheDocument();
+    const portals = document.querySelectorAll('body > div');
+    const lastPortal = portals[portals.length - 1];
+    const okBtn = lastPortal?.shadowRoot?.querySelector('n-button[type="primary"]');
+    const inner = okBtn?.shadowRoot?.querySelector('button');
+
+    if (inner) {
+      fireEvent.click(inner);
+    }
   });
 
-  it('handles ok button with async onOk returning false', async () => {
+  it('handles ok button with onOk returning false', async () => {
     const onOk = jest.fn(() => Promise.resolve(false));
 
     render(() => (
       <n-modal
         data-testid="modal"
         open="open"
-        title="Async"
+        title="No OK"
         content="Content"
         onOk={onOk}
         okText="OK"
@@ -157,21 +125,20 @@ describe('Modal', () => {
       />
     ));
 
-    const modalEl = screen.getByTestId('modal');
-    const portal = modalEl.parentElement!.lastElementChild!.shadowRoot!;
-    const okBtn = portal.querySelector('n-button[type="primary"]');
+    const portals = document.querySelectorAll('body > div');
+    const lastPortal = portals[portals.length - 1];
+    const okBtn = lastPortal?.shadowRoot?.querySelector('n-button[type="primary"]');
+    const inner = okBtn?.shadowRoot?.querySelector('button');
 
-    if (okBtn) {
-      const inner = (okBtn as HTMLElement).shadowRoot?.querySelector('button');
-
-      if (inner) fireEvent.click(inner);
+    if (inner) {
+      fireEvent.click(inner);
     }
 
     await Promise.resolve();
   });
 
-  it('handles cancel with onCancel returning false', async () => {
-    const onCancel = jest.fn(() => Promise.resolve(false));
+  it('handles cancel via close button', () => {
+    const openChange = jest.fn();
 
     render(() => (
       <n-modal
@@ -179,32 +146,102 @@ describe('Modal', () => {
         open="open"
         title="Cancel"
         content="Content"
-        onCancel={onCancel}
-        cancelText="Cancel"
-        okText={false}
-        onOpenChange={jest.fn()}
+        onOpenChange={openChange}
       />
     ));
 
-    const modalEl = screen.getByTestId('modal');
-    const portal = modalEl.parentElement!.lastElementChild!.shadowRoot!;
-    const cancelBtn = portal.querySelector('.modal-close');
+    const portals = document.querySelectorAll('body > div');
+    const lastPortal = portals[portals.length - 1];
+    const closeBtn = lastPortal?.shadowRoot?.querySelector('.modal-close');
+    const inner = closeBtn?.shadowRoot?.querySelector('button');
 
-    if (cancelBtn) {
-      const inner = (cancelBtn as HTMLElement).shadowRoot?.querySelector('button');
+    if (inner) {
+      fireEvent.click(inner);
+    }
+  });
 
-      if (inner) fireEvent.click(inner);
+  it('handles onCancel returning false (prevents close)', async () => {
+    const onCancel = jest.fn(() => Promise.resolve(false));
+    const openChange = jest.fn();
+
+    render(() => (
+      <n-modal
+        data-testid="modal"
+        open="open"
+        title="NoCancel"
+        content="Content"
+        onCancel={onCancel}
+        onOpenChange={openChange}
+      />
+    ));
+
+    const portals = document.querySelectorAll('body > div');
+    const lastPortal = portals[portals.length - 1];
+    const closeBtn = lastPortal?.shadowRoot?.querySelector('.modal-close');
+    const inner = closeBtn?.shadowRoot?.querySelector('button');
+
+    if (inner) {
+      fireEvent.click(inner);
     }
 
     await Promise.resolve();
+    await Promise.resolve();
+  });
+
+  it('closeIcon=false hides default close button', () => {
+    const { container } = render(() => (
+      <n-modal open="open" closeIcon={false} title="No Close" content="C" />
+    ));
+
+    expect(container).toBeInTheDocument();
+  });
+
+  it('closeIcon=null hides close button', () => {
+    const { container } = render(() => (
+      <n-modal open="open" closeIcon={null} title="Null" content="C" />
+    ));
+
+    expect(container).toBeInTheDocument();
+  });
+
+  it('custom closeIcon as function', () => {
+    const { container } = render(() => (
+      <n-modal open="open" closeIcon={() => <span>X</span>} title="Fn" content="C" />
+    ));
+
+    expect(container).toBeInTheDocument();
+  });
+
+  it('custom closeIcon as string', () => {
+    const { container } = render(() => (
+      <n-modal open="open" closeIcon="✕" title="Str" content="C" />
+    ));
+
+    expect(container).toBeInTheDocument();
+  });
+
+  it('centered modal', () => {
+    const { container } = render(() => (
+      <n-modal open="open" centered={true} title="Centered" content="C" />
+    ));
+
+    expect(container).toBeInTheDocument();
+  });
+
+  it('maskBlur modal', () => {
+    const { container } = render(() => (
+      <n-modal open="open" maskBlur={true} title="Blur" content="C" />
+    ));
+
+    expect(container).toBeInTheDocument();
   });
 
   it('handles animationend for close transition', () => {
-    render(() => <n-modal data-testid="modal" open="open" title="Anim" content="Content" />);
+    render(() => <n-modal data-testid="modal" open="open" title="Anim" content="C" />);
 
-    const modalEl = screen.getByTestId('modal');
-    const portal = modalEl.parentElement!.lastElementChild!.shadowRoot!;
-    const portalDiv = portal.querySelector('.portal');
+    const portals = document.querySelectorAll('body > div');
+    const lastPortal = portals[portals.length - 1];
+    const portalDiv = lastPortal?.shadowRoot?.querySelector('.portal');
 
     if (portalDiv) {
       fireEvent.animationEnd(portalDiv);
@@ -212,11 +249,11 @@ describe('Modal', () => {
   });
 
   it('handles mouse drag on modal', () => {
-    render(() => <n-modal data-testid="modal" open="open" title="Drag" content="Content" />);
+    render(() => <n-modal data-testid="modal" open="open" title="Drag" content="C" />);
 
-    const modalEl = screen.getByTestId('modal');
-    const portal = modalEl.parentElement!.lastElementChild!.shadowRoot!;
-    const modalContent = portal.querySelector('.modal-content');
+    const portals = document.querySelectorAll('body > div');
+    const lastPortal = portals[portals.length - 1];
+    const modalContent = lastPortal?.shadowRoot?.querySelector('.modal-content');
 
     if (modalContent) {
       fireEvent.mouseDown(modalContent, { target: modalContent });
@@ -225,7 +262,7 @@ describe('Modal', () => {
     }
   });
 
-  it('renders with content as function', () => {
+  it('title and content as functions', () => {
     const { container } = render(() => (
       <n-modal open="open" title={() => 'Fn Title'} content={() => 'Fn Content'} />
     ));
@@ -235,25 +272,40 @@ describe('Modal', () => {
 
   it('hides footer when both okText and cancelText are falsy', () => {
     const { container } = render(() => (
-      <n-modal open="open" okText={false} cancelText={false} title="No Footer" content="Content" />
+      <n-modal open="open" okText={false} cancelText={false} title="No Footer" content="C" />
     ));
 
     expect(container).toBeInTheDocument();
   });
 
-  it('transitions from open to closeing', () => {
+  it('point function sets position on click', () => {
+    render(() => <n-modal data-testid="modal" open="closed" title="Point" content="C" />);
+
+    fireEvent.click(document.documentElement, { clientX: 100, clientY: 200 });
+  });
+
+  it('transition from open to closeing to closed', () => {
     const openChange = jest.fn();
-    const { container } = render(() => (
-      <n-modal open="open" onOpenChange={openChange} title="Close" content="Content" />
+
+    render(() => (
+      <n-modal
+        data-testid="modal"
+        open="open"
+        title="Transition"
+        content="C"
+        onOpenChange={openChange}
+      />
     ));
 
-    expect(container).toBeInTheDocument();
-  });
+    fireEvent.keyDown(document.documentElement, { key: 'Escape' });
 
-  it('handles controlled open prop change', () => {
-    const { container } = render(() => <n-modal open="closed" title="Ctrl" content="Content" />);
+    const portals = document.querySelectorAll('body > div');
+    const lastPortal = portals[portals.length - 1];
+    const portalDiv = lastPortal?.shadowRoot?.querySelector('.portal');
 
-    expect(container).toBeInTheDocument();
+    if (portalDiv) {
+      fireEvent.animationEnd(portalDiv);
+    }
   });
 });
 
