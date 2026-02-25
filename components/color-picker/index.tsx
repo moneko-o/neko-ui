@@ -50,7 +50,6 @@ function ColorPicker(props: ColorPickerProps) {
   ]);
   const [color, setColor] = createSignal<string | undefined>(local.defaultValue);
 
-  /* istanbul ignore next -- @preserve internal palette change event relay */
   function handleChange(e: CustomEvent<string>) {
     if (local.value === void 0) {
       setColor(e.detail);
@@ -103,7 +102,6 @@ ColorPicker.registry = () => {
       const el = opts.element;
       const props = mergeProps(
         {
-          /* istanbul ignore next -- @preserve custom element event dispatch */
           onChange(val?: string) {
             el.dispatchEvent(
               new CustomEvent('change', {

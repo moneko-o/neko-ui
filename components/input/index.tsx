@@ -69,7 +69,7 @@ function Input(props: InputProps) {
     if (props.parser) {
       return isFunction(props.parser) ? props.parser(val) : props.parser;
     } else if (props.type === 'number' && typeof val === 'string') {
-      /* istanbul ignore next -- @preserve */ const num = val.replace(/[^\d]/g, '');
+      const num = val.replace(/[^\d]/g, '');
 
       return num.length ? parseFloat(num) : void 0;
     }
@@ -83,7 +83,6 @@ function Input(props: InputProps) {
     props.onMouseDown?.(e);
   }
   function handleKeyDown(e: KeyboardEvent) {
-    /* istanbul ignore next -- @preserve capsLock detection via internal input */
     if (props.capsLockIcon) {
       setCapsLock(e.getModifierState('CapsLock'));
     }

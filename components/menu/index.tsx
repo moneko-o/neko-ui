@@ -227,7 +227,6 @@ function Menu(props: MenuProps | MenuMultipleProps) {
 
   createEffect(() => {
     if (Array.isArray(value()) && value().length) {
-      /* istanbul ignore next -- @preserve scroll-to-selected requires real DOM layout */
       frameCallback(() => {
         const el = ref?.querySelector<HTMLElement>('[aria-selected=true]');
 

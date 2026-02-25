@@ -29,7 +29,6 @@ const notification = (
     close,
     uniqueId,
   });
-  /* istanbul ignore next -- @preserve timer-based auto-remove */
   if (duration && duration > 0) {
     const timer = setTimeout(() => {
       remove(uniqueId);
@@ -70,11 +69,9 @@ const notification = (
                   <Show when={item.close}>
                     <span
                       class="close"
-                      on:click={
-                        /* istanbul ignore next -- @preserve */ () => {
-                          remove(item.uniqueId);
-                        }
-                      }
+                      on:click={() => {
+                        remove(item.uniqueId);
+                      }}
                     />
                   </Show>
                 </div>

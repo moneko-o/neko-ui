@@ -77,9 +77,7 @@ function Checkbox(props: CheckboxBoolProps | CheckboxGroupProps) {
     if (Array.isArray(_val)) {
       val = _val;
     } else if (typeof _val !== 'undefined') {
-      /* istanbul ignore next -- @preserve non-array value coercion */ val = [
-        _val as unknown as string,
-      ];
+      val = [_val as unknown as string];
     }
 
     setValue(val);
@@ -87,7 +85,6 @@ function Checkbox(props: CheckboxBoolProps | CheckboxGroupProps) {
   const options = createMemo(() => {
     const fieldName = fieldNames();
 
-    /* istanbul ignore next -- @preserve undefined options fallback */
     if (typeof props.options === 'undefined') {
       return getOptions([{ value: 1 } as CheckboxOption], fieldName);
     }
@@ -116,7 +113,6 @@ function Checkbox(props: CheckboxBoolProps | CheckboxGroupProps) {
     let _indeterminate = false;
 
     all().forEach((v) => {
-      /* istanbul ignore next -- @preserve indeterminate state calculation */
       if (value().length && !value().includes(v)) {
         _indeterminate = true;
       }

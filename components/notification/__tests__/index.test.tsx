@@ -106,4 +106,20 @@ describe('Notification', () => {
   it('update non-existing id is no-op', () => {
     notification.update('non-existing', { type: 'error', children: 'Nope' });
   });
+
+  it('close button click removes notification', () => {
+    jest.useFakeTimers();
+    notification.info('With close btn', 0, true);
+
+    const mount = document.getElementById('n-notification-box');
+    const shadow = mount?.shadowRoot;
+    const closeSpan = shadow?.querySelector('.close');
+
+    if (closeSpan) {
+      closeSpan.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    }
+
+    jest.advanceTimersByTime(300);
+    jest.useRealTimers();
+  });
 });

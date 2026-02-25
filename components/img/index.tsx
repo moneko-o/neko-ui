@@ -214,7 +214,6 @@ Img.registry = () => {
               }),
             );
           },
-          /* istanbul ignore next -- @preserve onLoad callback relay */
           onLoad() {
             opt.element.dispatchEvent(new CustomEvent('load'));
           },

@@ -79,7 +79,6 @@ function DatePicker(_props: DatePickerProps) {
       openChange(false);
     }
   }
-  /* istanbul ignore next -- @preserve shadow DOM activeElement comparison */
   function inputMouseDown(e: MouseEvent) {
     if (e.target === (ref?.shadowRoot as ShadowRoot | null)?.activeElement) {
       openChange(!untrack(open));

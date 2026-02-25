@@ -210,7 +210,6 @@ function Tree(
     const list = lines();
     const size = _.size || 'normal';
 
-    /* istanbul ignore next -- @preserve DOM layout measurement requires real browser */
     frameCallback(() => {
       const len = list.length;
 

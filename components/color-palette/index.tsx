@@ -88,7 +88,6 @@ function ColorPalette(_: ColorPaletteProps) {
   function formatterOpacity(v?: number | string) {
     return v ? Number(((v as number) * 100).toFixed()) : v;
   }
-  /* istanbul ignore next -- @preserve internal opacity parser triggered by slider subcomponent */
   function parseOpacity(v?: string | number) {
     let _val = v;
 
@@ -174,11 +173,9 @@ function ColorPalette(_: ColorPaletteProps) {
     }));
   }
 
-  /* istanbul ignore next -- @preserve copy/clipboard not available in jsdom */
   function copy(e: MouseEvent) {
     setClipboard(untrack(color).toString(), e.target as HTMLElement);
   }
-  /* istanbul ignore next -- @preserve EyeDropper API not available in jsdom */
   async function eyeDropper() {
     if (window.EyeDropper) {
       const res = await new window.EyeDropper().open();

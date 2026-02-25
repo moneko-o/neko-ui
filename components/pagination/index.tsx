@@ -90,7 +90,6 @@ function Pagination(_: PaginationProps) {
     const p = untrack(page);
     let next = curr === 'n' ? p + maxCount : curr === 'p' ? p - maxCount : curr;
 
-    /* istanbul ignore next -- @preserve page boundary clamp */
     if (next < 1) {
       next = 1;
     } else if (next > untrack(totalPages)) {

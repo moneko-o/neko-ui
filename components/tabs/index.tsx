@@ -128,7 +128,6 @@ function Tabs(props: TabsProps) {
         let deltaY = 0;
 
         if (e) {
-          /* istanbul ignore next -- @preserve passive event support check */
           if (!passiveSupported) {
             e.stopPropagation();
             e.preventDefault();

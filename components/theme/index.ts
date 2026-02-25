@@ -165,7 +165,6 @@ function createTheme() {
     return getHostCss(tokens);
   });
 
-  /* istanbul ignore next -- @preserve MediaQueryList change listener not triggerable in jsdom */
   function update(e: MediaQueryListEvent) {
     setIsDark(e.matches);
   }
