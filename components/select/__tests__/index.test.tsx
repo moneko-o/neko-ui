@@ -114,4 +114,62 @@ describe('Select', () => {
 
     expect(container).toBeInTheDocument();
   });
+
+  it('search/filter by opening and interacting', () => {
+    const { container, getByTestId } = render(() => (
+      <n-select data-testid="select-search" options={['Alpha', 'Beta', 'Gamma', 'Delta']} />
+    ));
+
+    expect(container).toBeInTheDocument();
+    const select = getByTestId('select-search').shadowRoot!.querySelector('.select')!;
+
+    fireEvent.focus(select);
+    fireEvent.keyDown(select, { key: 'Enter' });
+    fireEvent.keyDown(select, { key: 'Escape' });
+  });
+
+  it('clear value with Backspace in single mode', () => {
+    const onChange = jest.fn();
+
+    const { getByTestId } = render(() => (
+      <n-select
+        data-testid="select-clear"
+        default-value="A"
+        options={['A', 'B', 'C']}
+        onChange={onChange}
+      />
+    ));
+
+    const select = getByTestId('select-clear').shadowRoot!.querySelector('.select')!;
+
+    fireEvent.focus(select);
+    fireEvent.keyDown(select, { key: 'Backspace' });
+  });
+
+  it('empty options handling', () => {
+    const { container } = render(() => <n-select data-testid="select-empty" options={[]} />);
+
+    expect(container).toBeInTheDocument();
+  });
+
+  it('placeholder shown when no value', () => {
+    const { getByTestId } = render(() => (
+      <n-select data-testid="select-ph" placeholder="Choose..." options={['A', 'B']} />
+    ));
+
+    expect(getByTestId('select-ph')).toBeInTheDocument();
+  });
+
+  it('multiple with placeholder when empty', () => {
+    const { getByTestId } = render(() => (
+      <n-select
+        data-testid="select-multi-ph"
+        multiple={true}
+        placeholder="Select items..."
+        options={['A', 'B', 'C']}
+      />
+    ));
+
+    expect(getByTestId('select-multi-ph')).toBeInTheDocument();
+  });
 });

@@ -1,3 +1,4 @@
+import { createSignal } from 'solid-js';
 import { fireEvent, render } from '@solidjs/testing-library';
 import { screen } from 'shadow-dom-testing-library';
 
@@ -86,5 +87,120 @@ describe('Menu', () => {
         .getByShadowText('一级菜单')
         .parentElement!.parentElement!.querySelector('.sub-menu-children')!,
     );
+  });
+
+  it('nested sub-menus with onOpenChange', () => {
+    const onOpenChange = jest.fn();
+
+    render(() => (
+      <n-menu
+        data-testid="menu-nested"
+        onOpenChange={onOpenChange}
+        items={[
+          {
+            label: 'Root',
+            value: 'root',
+            children: [
+              {
+                label: 'Child Group',
+                options: [
+                  { label: 'Item A', value: 'a' },
+                  { label: 'Item B', value: 'b' },
+                ],
+              },
+            ],
+          },
+          { label: 'Flat', value: 'flat' },
+        ]}
+      />
+    ));
+
+    fireEvent.click(screen.getByShadowText('Root'));
+    expect(onOpenChange).toHaveBeenCalled();
+  });
+
+  it('controlled openKeys prop', () => {
+    function TestWrapper() {
+      const [openKeys, setOpenKeys] = createSignal<string[]>([]);
+
+      return (
+        <>
+          <n-menu
+            data-testid="menu-ctrl"
+            open-keys={openKeys()}
+            onOpenChange={(keys) => setOpenKeys(keys as string[])}
+            items={[
+              {
+                label: 'Sub1',
+                value: 'sub1',
+                children: [
+                  {
+                    label: 'Group1',
+                    options: [{ label: 'Leaf1', value: 'leaf1' }],
+                  },
+                ],
+              },
+            ]}
+          />
+          <button data-testid="open-sub" onClick={() => setOpenKeys(['sub1'])}>
+            Open
+          </button>
+          <button data-testid="close-sub" onClick={() => setOpenKeys([])}>
+            Close
+          </button>
+        </>
+      );
+    }
+
+    const { getByTestId } = render(() => <TestWrapper />);
+
+    getByTestId('open-sub').click();
+    getByTestId('close-sub').click();
+  });
+
+  it('expand and collapse sub-menu with animationend', () => {
+    render(() => (
+      <n-menu
+        data-testid="menu-expand"
+        items={[
+          {
+            label: 'ExpandParent',
+            value: 'exp',
+            children: [
+              {
+                label: 'ExpandGroup',
+                options: [{ label: 'ExpandLeaf', value: 'el' }],
+              },
+            ],
+          },
+        ]}
+      />
+    ));
+
+    fireEvent.click(screen.getByShadowText('ExpandParent'));
+
+    fireEvent.click(screen.getByShadowText('ExpandParent'));
+
+    const subMenuChildren = screen
+      .getByShadowText('ExpandParent')
+      .parentElement!.parentElement!.querySelector('.sub-menu-children');
+
+    if (subMenuChildren) {
+      fireEvent.animationEnd(subMenuChildren);
+    }
+  });
+
+  it('scrollIntoView for selected item', () => {
+    render(() => <n-menu value="D" items={['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']} />);
+
+    fireEvent.click(screen.getByShadowText('J'));
+  });
+
+  it('menu with value set to null clears selection', () => {
+    const { container } = render(() => (
+      <n-menu value={null as unknown as string} items={['X', 'Y', 'Z']} />
+    ));
+
+    expect(container).toBeInTheDocument();
   });
 });

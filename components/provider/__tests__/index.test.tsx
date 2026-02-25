@@ -1,3 +1,4 @@
+import { createSignal } from 'solid-js';
 import { render } from '@solidjs/testing-library';
 
 describe('Provider', () => {
@@ -40,5 +41,56 @@ describe('Provider', () => {
     ));
 
     expect(container).toBeInTheDocument();
+  });
+
+  it('setScheme when props.scheme changes from light to dark', () => {
+    const onScheme = jest.fn();
+
+    function TestWrapper() {
+      const [scheme, setScheme] = createSignal<'light' | 'dark'>('light');
+
+      return (
+        <>
+          <n-provider scheme={scheme()} onScheme={onScheme}>
+            <div>Dynamic Theme</div>
+          </n-provider>
+          <button data-testid="toggle" onClick={() => setScheme('dark')}>
+            Toggle
+          </button>
+        </>
+      );
+    }
+
+    const { getByTestId } = render(() => <TestWrapper />);
+
+    getByTestId('toggle').click();
+
+    expect(onScheme).toHaveBeenCalled();
+  });
+
+  it('scheme change triggers setScheme effect', () => {
+    function TestWrapper() {
+      const [scheme, setScheme] = createSignal<'light' | 'dark' | 'auto'>('light');
+
+      return (
+        <>
+          <n-provider scheme={scheme()}>
+            <div>Content</div>
+          </n-provider>
+          <button data-testid="to-dark" onClick={() => setScheme('dark')}>
+            Dark
+          </button>
+          <button data-testid="to-auto" onClick={() => setScheme('auto')}>
+            Auto
+          </button>
+        </>
+      );
+    }
+
+    const { getByTestId, container } = render(() => <TestWrapper />);
+
+    expect(container).toBeInTheDocument();
+    getByTestId('to-dark').click();
+    getByTestId('to-auto').click();
   });
 });

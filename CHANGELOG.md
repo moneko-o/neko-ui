@@ -2,6 +2,10 @@
 
 ## Last
 
+### 🚨 Tests
+
+- add Jest tests for utils/registry, icon, and button/loading ([d701327](https://github.com/moneko-o/neko-ui/commit/d7013271fced3854c99a027689e3408ab0b24cfe))
+
 ### 📚 Documentation
 
 - add AGENTS.md with cloud-specific dev instructions ([69f38f2](https://github.com/moneko-o/neko-ui/commit/69f38f2b7e8e3ef897935a989508d95e8314e928))
