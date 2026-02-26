@@ -1,0 +1,36 @@
+diff --git a/dist/component-register.js b/dist/component-register.js
+index 174b9b1117e6fd82babe24cadae97b20f4276cb0..bab72c5942e12890b0064238dd9a6b1a5bc2f718 100644
+--- a/dist/component-register.js
++++ b/dist/component-register.js
+@@ -119,7 +119,12 @@ function createElementType(BaseElement, propDefinition) {
+       this.__updating = {};
+       this.props = {};
+       for (let propKey of propKeys) {
+-        this[propKey] = undefined;
++        Object.defineProperty(this, propKey, {
++          value: undefined,
++          writable: true,
++          configurable: true,
++          enumerable: true
++        });
+       }
+     }
+     connectedCallback() {
+diff --git a/lib/component-register.js b/lib/component-register.js
+index 77ff7af89cfd4175c6330891391c83fd77afa9a7..67a6c2e205e3a4db28444c9e04a42f59490525ca 100644
+--- a/lib/component-register.js
++++ b/lib/component-register.js
+@@ -123,7 +123,12 @@ function createElementType(BaseElement, propDefinition) {
+       this.__updating = {};
+       this.props = {};
+       for (let propKey of propKeys) {
+-        this[propKey] = undefined;
++        Object.defineProperty(this, propKey, {
++          value: undefined,
++          writable: true,
++          configurable: true,
++          enumerable: true
++        });
+       }
+     }
+     connectedCallback() {
