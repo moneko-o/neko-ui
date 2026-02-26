@@ -1,5 +1,3 @@
-import { getUtil } from "@moneko/solid/jest";
-
 const config = {
   preset: '@moneko/solid',
   setupFilesAfterEnv: [
