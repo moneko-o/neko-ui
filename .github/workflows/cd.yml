@@ -43,6 +43,8 @@ jobs:
             - recursive: false
       - name: 'lint'
         run: pnpm run lint
+      - name: 'Test'
+        run: pnpm run coverage
       - name: 'Build UMD'
         run: pnpm run build -- --config=umd
       - name: 'Build Github Pages'
