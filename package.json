@@ -93,10 +93,5 @@
     ">0.3%, defaults",
     "fully supports es6-module",
     "maintained node versions"
-  ],
-  "pnpm": {
-    "patchedDependencies": {
-      "component-register@0.8.8": "patches/component-register@0.8.8.patch"
-    }
-  }
+  ]
 }

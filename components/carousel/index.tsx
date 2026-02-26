@@ -175,7 +175,6 @@ Carousel.registry = () => {
   customElement<CarouselProps>(
     'n-carousel',
     {
-      children: void 0,
       autoplay: void 0,
       class: void 0,
       css: void 0,

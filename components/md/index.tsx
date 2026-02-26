@@ -227,7 +227,6 @@ MD.registry = () => {
       tools: void 0,
       getAnchorContainer: void 0,
       css: void 0,
-      children: void 0,
       notRender: void 0,
       codeTheme: void 0,
       codeClassic: void 0,

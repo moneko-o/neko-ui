@@ -109,26 +109,22 @@ function Spin(props: SpinProps) {
 export type SpinElement = CustomElement<SpinProps>;
 
 Spin.registry = () => {
-  customElement<SpinProps>(
-    'n-spin',
-    { class: void 0, css: void 0, spin: void 0, children: void 0 },
-    (_, opt) => {
-      const el = opt.element;
-      const childNodes = (opt.element.childNodes as NodeList) || [];
-      const nodes = [...childNodes.values()];
-      const [, props] = splitProps(_, ['children']);
+  customElement<SpinProps>('n-spin', { class: void 0, css: void 0, spin: void 0 }, (_, opt) => {
+    const el = opt.element;
+    const childNodes = (opt.element.childNodes as NodeList) || [];
+    const nodes = [...childNodes.values()];
+    const [, props] = splitProps(_, ['children']);
 
-      createEffect(() => {
-        clearAttribute(el, ['css']);
-        el.replaceChildren();
-      });
-      return (
-        <>
-          <style textContent={inline} />
-          <Spin {...props}>{nodes}</Spin>
-        </>
-      );
-    },
-  );
+    createEffect(() => {
+      clearAttribute(el, ['css']);
+      el.replaceChildren();
+    });
+    return (
+      <>
+        <style textContent={inline} />
+        <Spin {...props}>{nodes}</Spin>
+      </>
+    );
+  });
 };
 export default Spin;
