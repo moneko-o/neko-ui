@@ -33,7 +33,8 @@ const config = {
     '\\?url$': '<rootDir>/test/file.mock.ts',
   },
   transform: {
-    '^.+\\.[jt]sx?$': '<rootDir>/test/transform-solid.mjs',
+    // '^.+\\.[jt]sx?$': '<rootDir>/test/transform-solid.mjs',
+    '^.+\\.[jt]sx?$': '@moneko/core/solid-jest',
   },
 };
 
