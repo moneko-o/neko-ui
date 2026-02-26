@@ -13,15 +13,15 @@ See `package.json` `scripts` for the full list. The most important:
 | Command | Purpose |
 |---------|---------|
 | `pnpm start` | Dev server (docs site) on https://localhost:3000 |
-| `pnpm run lint` | ESLint + Stylelint (runs `postlint` automatically) |
-| `npx jest --coverage` | Run tests (do NOT use `pnpm test` — it adds `--watchAll`) |
-| `pnpm run build` | Build library (es/, lib/) |
-| `pnpm run build -- --config=umd` | Build UMD bundle |
+| `pnpm lint` | ESLint + Stylelint (runs `postlint` automatically) |
+| `pnpm coverage` | Run tests with coverage (do NOT use `pnpm test` — it adds `--watchAll`) |
+| `pnpm build` | Build library (es/, lib/, docs/) |
+| `pnpm build config=umd` | Build UMD bundle |
 
 ### Gotchas
 
 - **pnpm version**: CI uses pnpm v9. pnpm v10 blocks postinstall scripts for `@swc/core` and others, breaking the test toolchain. The update script pins pnpm v9 globally.
-- **Jest preset**: The `@moneko/solid` jest-preset.js is ESM and relies on `@moneko/jsx-dom-expressions` + `@moneko/transform-imports` (SWC WASM plugins) that have version-compatibility issues with `@swc/core`. The current `jest.config.mjs` uses `babel-jest` with `babel-preset-solid` instead, which is more reliable.
+- **Jest preset**: The `jest.config.mjs` uses `preset: '@moneko/solid'`. The `@moneko/solid` jest-preset.js is ESM and relies on SWC WASM plugins.
 - **Jest 30**: Uses `toHaveBeenCalled()` not `toBeCalled()` (removed in Jest 30).
 - **testPathIgnorePatterns**: The patterns `/components/code/` and `/components/md/` are intentionally excluded from tests. Use specific paths, not substrings (e.g. `code` would also match `qrcode`).
 - **Dev server HTTPS**: `pnpm start` launches an HTTPS dev server with a self-signed certificate. Browsers will show a certificate warning.
@@ -29,3 +29,4 @@ See `package.json` `scripts` for the full list. The most important:
 - **Pre-commit hooks**: The `prepare` script installs git hooks. Commits run `lint:commit` which includes ESLint, Stylelint, and changelog generation. Always lint before committing. Some pre-existing test files have lint errors that may block commits; use `--no-verify` if blocked by errors outside your changes.
 - **V8 coverage and worker.ts**: The `worker()` function body (lines 24-80 in `md/worker.ts`) is `.toString()`'d into a Blob URL and never executed as JavaScript from the module. V8 coverage cannot attribute eval'd blob content back to the original source file, so these lines will always show as uncovered.
 - **Component css-prop coverage**: Many components have a `<Show when={props.css}>` conditional style block. Rendering with a `css` prop covers that function. The `back-top` component additionally requires scroll state (`show() !== null`) for its outer `<Show>` to render.
+- **customElement children prop**: `component-register@0.8.8` makes `Element.children` a native read-only getter. Components MUST NOT declare `children` in the `customElement` default props. Instead, extract children from `el.children` in the registry callback and pass them as JSX children. Use `splitProps(_, ['children'])` to strip any residual `children` from the reactive props object. Do NOT use c8 ignore comments; do NOT add `component-register` as a direct dependency (it comes through `solid-element`).

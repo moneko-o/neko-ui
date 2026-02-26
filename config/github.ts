@@ -16,6 +16,9 @@ const conf: Partial<ConfigType> = {
     pathSegmentsToKeep: 1,
     path: '404.html',
   },
+  manifest: {
+    publicPath: `/${PACKAGENAME}/`,
+  },
 };
 
 export default conf;

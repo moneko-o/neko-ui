@@ -171,7 +171,6 @@ HighlightText.registry = () => {
       flag: void 0,
       extra: void 0,
       highlightColor: void 0,
-      children: void 0,
     },
     (_, opt) => {
       const el = opt.element;
