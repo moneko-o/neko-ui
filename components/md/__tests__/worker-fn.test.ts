@@ -35,7 +35,7 @@ describe('MD Worker internal function coverage', () => {
           importScripts: jest.fn(),
           postMessage: jest.fn(),
           addEventListener: jest.fn(),
-          marked: Object.assign((text: string, _opts: Record<string, unknown>) => `<p>${text}</p>`, {
+          marked: Object.assign((text: string) => `<p>${text}</p>`, {
             Renderer: class {
               katexBlock = jest.fn();
               katexInline = jest.fn();
