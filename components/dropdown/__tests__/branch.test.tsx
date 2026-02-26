@@ -166,7 +166,7 @@ describe('Dropdown branches', () => {
     menus.forEach((menu) => {
       menu.dispatchEvent(
         new CustomEvent('change', {
-          detail: [undefined, undefined],
+          detail: [void 0, void 0],
           bubbles: true,
         }),
       );

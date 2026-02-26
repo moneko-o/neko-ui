@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@solidjs/testing-library';
+import { fireEvent, render } from '@solidjs/testing-library';
 
 import Select from '../index';
 
@@ -93,9 +93,7 @@ describe('Select branch coverage', () => {
   });
 
   it('Backspace key in non-multiple mode clears value', () => {
-    const { container } = render(() => (
-      <Select options={['A', 'B']} defaultValue="A" />
-    ));
+    const { container } = render(() => <Select options={['A', 'B']} defaultValue="A" />);
     const select = container.querySelector('.select');
 
     if (select) {

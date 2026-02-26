@@ -1,6 +1,5 @@
 import { render } from '@solidjs/testing-library';
 
-import theme from '../../theme';
 import QrCode from '../index';
 
 describe('QrCode branches', () => {

@@ -83,13 +83,7 @@ describe('Modal branches', () => {
 
   it('open state renders portal with all classes (open, mask-blur, centered, moveing)', () => {
     render(() => (
-      <Modal
-        open="open"
-        title="Full"
-        content="Content"
-        centered={true}
-        maskBlur={true}
-      />
+      <Modal open="open" title="Full" content="Content" centered={true} maskBlur={true} />
     ));
   });
 

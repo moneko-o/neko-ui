@@ -47,26 +47,18 @@ describe('Tabs branch coverage', () => {
   });
 
   it('content as function covers isFunction(content) branch', () => {
-    render(() => (
-      <Tabs items={[{ value: 'a', label: 'A', content: () => <div>Dynamic</div> }]} />
-    ));
+    render(() => <Tabs items={[{ value: 'a', label: 'A', content: () => <div>Dynamic</div> }]} />);
   });
 
   it('content as JSX covers non-function content branch', () => {
-    render(() => (
-      <Tabs items={[{ value: 'a', label: 'A', content: <div>Static</div> }]} />
-    ));
+    render(() => <Tabs items={[{ value: 'a', label: 'A', content: <div>Static</div> }]} />);
   });
 
   it('add=true renders add button', () => {
     const onEdit = jest.fn();
 
     render(() => (
-      <Tabs
-        items={[{ value: 'a', label: 'A', content: 'CA' }]}
-        add={true}
-        onEdit={onEdit}
-      />
+      <Tabs items={[{ value: 'a', label: 'A', content: 'CA' }]} add={true} onEdit={onEdit} />
     ));
   });
 
@@ -74,10 +66,7 @@ describe('Tabs branch coverage', () => {
     const onEdit = jest.fn();
 
     render(() => (
-      <Tabs
-        items={[{ value: 'a', label: 'A', content: 'CA', closable: true }]}
-        onEdit={onEdit}
-      />
+      <Tabs items={[{ value: 'a', label: 'A', content: 'CA', closable: true }]} onEdit={onEdit} />
     ));
   });
 
@@ -89,37 +78,27 @@ describe('Tabs branch coverage', () => {
 
   it('item.ref is assigned from items()[i()].ref', () => {
     const { container } = render(() => (
-      <Tabs items={[{ value: 'a', label: 'A', content: 'CA' }, { value: 'b', label: 'B', content: 'CB' }]} />
+      <Tabs
+        items={[
+          { value: 'a', label: 'A', content: 'CA' },
+          { value: 'b', label: 'B', content: 'CB' },
+        ]}
+      />
     ));
 
     expect(container).toBeInTheDocument();
   });
 
   it('animated=true sets slide-in animation class', () => {
-    render(() => (
-      <Tabs
-        items={[{ value: 'a', label: 'A', content: 'CA' }]}
-        animated={true}
-      />
-    ));
+    render(() => <Tabs items={[{ value: 'a', label: 'A', content: 'CA' }]} animated={true} />);
   });
 
   it('animated=false does not set animation', () => {
-    render(() => (
-      <Tabs
-        items={[{ value: 'a', label: 'A', content: 'CA' }]}
-        animated={false}
-      />
-    ));
+    render(() => <Tabs items={[{ value: 'a', label: 'A', content: 'CA' }]} animated={false} />);
   });
 
   it('centered=true sets centered class', () => {
-    render(() => (
-      <Tabs
-        items={[{ value: 'a', label: 'A', content: 'CA' }]}
-        centered={true}
-      />
-    ));
+    render(() => <Tabs items={[{ value: 'a', label: 'A', content: 'CA' }]} centered={true} />);
   });
 
   it('disabled tab prevents onChange', () => {
@@ -177,19 +156,17 @@ describe('Tabs branch coverage', () => {
   });
 
   it('type=card renders card style tabs', () => {
-    render(() => (
-      <Tabs
-        items={[{ value: 'a', label: 'A', content: 'CA' }]}
-        type="card"
-      />
-    ));
+    render(() => <Tabs items={[{ value: 'a', label: 'A', content: 'CA' }]} type="card" />);
   });
 
   it('keyUp with Enter triggers onChange', () => {
     const onChange = jest.fn();
     const { container } = render(() => (
       <Tabs
-        items={[{ value: 'a', label: 'A', content: 'CA' }, { value: 'b', label: 'B', content: 'CB' }]}
+        items={[
+          { value: 'a', label: 'A', content: 'CA' },
+          { value: 'b', label: 'B', content: 'CB' },
+        ]}
         onChange={onChange}
       />
     ));
@@ -201,8 +178,6 @@ describe('Tabs branch coverage', () => {
   });
 
   it('class prop on tabs component', () => {
-    render(() => (
-      <Tabs items={[{ value: 'a', label: 'A', content: 'CA' }]} class="my-tabs" />
-    ));
+    render(() => <Tabs items={[{ value: 'a', label: 'A', content: 'CA' }]} class="my-tabs" />);
   });
 });

@@ -87,7 +87,12 @@ describe('Segmented branches', () => {
 
   it('option ref is assigned to each label element', () => {
     const { container } = render(() => (
-      <Segmented options={[{ value: 'a', label: 'A' }, { value: 'b', label: 'B' }]} />
+      <Segmented
+        options={[
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+        ]}
+      />
     ));
     const labels = container.querySelectorAll('.label');
 

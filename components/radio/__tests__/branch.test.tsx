@@ -80,7 +80,13 @@ describe('Radio branches', () => {
   it('uncontrolled onChange triggers setValue', () => {
     const onChange = jest.fn();
     const { container } = render(() => (
-      <Radio options={[{ value: 'a', label: 'A' }, { value: 'b', label: 'B' }]} onChange={onChange} />
+      <Radio
+        options={[
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+        ]}
+        onChange={onChange}
+      />
     ));
     const items = container.querySelectorAll('.item');
 

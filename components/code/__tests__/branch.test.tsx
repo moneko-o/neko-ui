@@ -152,7 +152,7 @@ describe('Code CSS.highlights missing', () => {
     const origHighlights = CSS.highlights;
 
     Object.defineProperty(CSS, 'highlights', {
-      value: undefined,
+      value: void 0,
       configurable: true,
       writable: true,
     });
