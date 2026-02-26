@@ -7,7 +7,7 @@ const ignorePatterns = [
 ];
 
 const config = {
-  preset: ['@moneko/core/solid-jest'],
+  preset: '@moneko/core/solid-jest',
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
