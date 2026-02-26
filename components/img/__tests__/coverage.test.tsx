@@ -143,33 +143,27 @@ describe('Img coverage', () => {
     expect(onOpenChange).toHaveBeenCalledWith(true);
   });
 
-  it('onLoad in custom element dispatches load CustomEvent', () => {
+  it('onLoad in custom element dispatches load CustomEvent without user onLoad', () => {
     const loadFn = jest.fn();
-    const el = document.createElement('n-img') as HTMLElement;
 
-    el.setAttribute('src', 'https://example.com/img.jpg');
-    el.setAttribute('alt', 'test');
-    el.setAttribute('lazy', 'false');
-    el.addEventListener('load', loadFn);
-    document.body.appendChild(el);
+    const { getByTestId } = render(() => (
+      <n-img data-testid="img-ce-load" src="https://example.com/img.jpg" alt="test" lazy={false} />
+    ));
 
-    const shadow = el.shadowRoot;
+    const nImg = getByTestId('img-ce-load');
+
+    nImg.addEventListener('load', loadFn);
+
+    const shadow = nImg.shadowRoot;
 
     if (shadow) {
-      const allImgs = shadow.querySelectorAll('img');
-
-      allImgs.forEach((imgEl) => {
-        imgEl.dispatchEvent(new Event('load', { bubbles: false }));
-      });
-
       const spin = shadow.querySelector('n-spin');
-      const spinImgs = spin?.shadowRoot?.querySelectorAll('img');
+      const spinShadow = spin?.shadowRoot;
+      const imgs = spinShadow?.querySelectorAll('img') || shadow.querySelectorAll('img');
 
-      spinImgs?.forEach((imgEl) => {
+      imgs.forEach((imgEl) => {
         imgEl.dispatchEvent(new Event('load', { bubbles: false }));
       });
     }
-
-    document.body.removeChild(el);
   });
 });
