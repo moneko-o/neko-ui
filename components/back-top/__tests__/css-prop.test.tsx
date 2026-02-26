@@ -45,6 +45,11 @@ describe('BackTop css prop coverage', () => {
         return 500;
       },
     });
+    Object.defineProperty(HTMLElement.prototype, 'scrollTo', {
+      configurable: true,
+      writable: true,
+      value: jest.fn(),
+    });
 
     render(() => (
       <BackTop css=".custom{color:blue}" target={document.body} mount={document.body} visibilityHeight={100} />

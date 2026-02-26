@@ -24,18 +24,39 @@ describe('HighlightText (direct render)', () => {
 
 describe('HighlightText else branches (new Highlight creation)', () => {
   const origHighlights = CSS.highlights;
+  const origHighlightCtor = globalThis.Highlight;
+
+  beforeEach(() => {
+    if (typeof globalThis.Highlight === 'undefined') {
+      (globalThis as Record<string, unknown>).Highlight = class MockHighlight {
+        private ranges: unknown[] = [];
+
+        add(range: unknown) {
+          this.ranges.push(range);
+          return this;
+        }
+
+        clear() {
+          this.ranges = [];
+        }
+      };
+    }
+  });
 
   afterEach(() => {
     CSS.highlights = origHighlights;
+    if (origHighlightCtor) {
+      (globalThis as Record<string, unknown>).Highlight = origHighlightCtor;
+    }
   });
 
   function makeMockHighlights() {
-    const store = new Map<string, { add: jest.Mock; clear: jest.Mock }>();
+    const store = new Map<string, unknown>();
 
     return {
       get: (key: string) => store.get(key),
       set: (key: string, value: unknown) => {
-        store.set(key, value as { add: jest.Mock; clear: jest.Mock });
+        store.set(key, value);
         return CSS.highlights as unknown as HighlightRegistry;
       },
       keys: () => store.keys(),

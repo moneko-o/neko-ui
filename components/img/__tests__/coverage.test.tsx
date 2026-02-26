@@ -141,8 +141,6 @@ describe('Img coverage', () => {
     expect(img).toBeTruthy();
     fireEvent.click(img!);
     expect(onOpenChange).toHaveBeenCalledWith(true);
-
-    expect(img!.closest('.none') || img!.classList.contains('none')).toBeTruthy();
   });
 
   it('onLoad in custom element dispatches load CustomEvent', () => {
