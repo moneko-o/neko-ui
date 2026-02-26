@@ -2,8 +2,15 @@
 
 ## Last
 
+### 🐛 Bug Fixes
+
+- adapt all components to component-register@0.8.8 readonly children ([502c4a9](https://github.com/moneko-o/neko-ui/commit/502c4a9ffa843c1ee2db0e71e8d53f29a5d1f109))
+
+## [v2.14.15](https://github.com/moneko-o/neko-ui/compare/v2.14.14...v2.14.15) (2-26-2026)
+
 ### ♻️ Chores
 
+- bump version to 2.14.15 ([becaab3](https://github.com/moneko-o/neko-ui/commit/becaab34672c0369aa2be3d4ad64f7312dfb437e))
 - upgrade @moneko/core from 4.7.8-beta.0 to 4.7.8 ([11d03d7](https://github.com/moneko-o/neko-ui/commit/11d03d728a0cdfdc195ec78e800dec57679451cd))
 - update ESLint and Jest configurations; remove unused transform-solid test file ([13250ea](https://github.com/moneko-o/neko-ui/commit/13250ea5eb1e2b917b86937143286d3177643946))
 - remove moduleResolution option from tsconfig.json ([53be65f](https://github.com/moneko-o/neko-ui/commit/53be65f91ec63c422bb516d89e6063bff00af6fc))
