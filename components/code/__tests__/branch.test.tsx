@@ -1,5 +1,6 @@
 import { render } from '@solidjs/testing-library';
 
+import theme from '../../theme';
 import Code from '../index';
 
 describe('Code branches', () => {
@@ -114,10 +115,20 @@ describe('Code branches', () => {
   });
 
   it('no theme prop with isDark() false covers line 121 lightCss', () => {
+    theme.setScheme('light');
     const { container } = render(() => <Code code="const h = 8;" language="javascript" />);
 
     jest.advanceTimersByTime(100);
     expect(container).toBeInTheDocument();
+  });
+
+  it('no theme prop with isDark() true covers line 121 darkCss', () => {
+    theme.setScheme('dark');
+    const { container } = render(() => <Code code="const i = 9;" language="javascript" />);
+
+    jest.advanceTimersByTime(100);
+    expect(container).toBeInTheDocument();
+    theme.setScheme('light');
   });
 
   it('edit input triggers change handler', () => {

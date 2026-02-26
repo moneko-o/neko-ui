@@ -115,4 +115,18 @@ describe('HighlightText additional branches', () => {
       <HighlightText text="hello world" highlight={[{ highlight: 'world', flag: 'gi' }]} />
     ));
   });
+
+  it('highlight array object without flag uses props.flag via ?? fallback', () => {
+    render(() => (
+      <HighlightText text="hello world" highlight={[{ highlight: 'world' }]} flag="g" />
+    ));
+  });
+
+  it('highlight as number covers String() conversion', () => {
+    render(() => <HighlightText text="item 42 here" highlight={42 as never} />);
+  });
+
+  it('highlight as empty string (non-array) skips highlight call', () => {
+    render(() => <HighlightText text="nothing" highlight="" />);
+  });
 });
