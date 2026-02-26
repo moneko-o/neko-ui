@@ -4,7 +4,7 @@
 
 ### 🐛 Bug Fixes
 
-- adapt all components to component-register@0.8.8 readonly children ([502c4a9](https://github.com/moneko-o/neko-ui/commit/502c4a9ffa843c1ee2db0e71e8d53f29a5d1f109))
+- component-register 依赖问题 (#26) ([aa82660](https://github.com/moneko-o/neko-ui/commit/aa826609e5038b3a18e51925aaf10d0e7cb155f0))
 
 ## [v2.14.15](https://github.com/moneko-o/neko-ui/compare/v2.14.14...v2.14.15) (2-26-2026)
 
