@@ -2,6 +2,13 @@
 
 ## Last
 
+### ♻️ Chores
+
+- upgrade @moneko/core from 4.7.8-beta.0 to 4.7.8 ([11d03d7](https://github.com/moneko-o/neko-ui/commit/11d03d728a0cdfdc195ec78e800dec57679451cd))
+- update ESLint and Jest configurations; remove unused transform-solid test file ([13250ea](https://github.com/moneko-o/neko-ui/commit/13250ea5eb1e2b917b86937143286d3177643946))
+- remove moduleResolution option from tsconfig.json ([53be65f](https://github.com/moneko-o/neko-ui/commit/53be65f91ec63c422bb516d89e6063bff00af6fc))
+- upgrade @moneko/core from 4.7.2 to 4.7.7 ([26c2c8f](https://github.com/moneko-o/neko-ui/commit/26c2c8fef24088477260f3c8f706e0c764ec872f))
+
 ### 🚀 Performance Improvements
 
 - switch to V8 coverage provider for more accurate metrics ([42d138d](https://github.com/moneko-o/neko-ui/commit/42d138d240d82a31ddc6063237fa3829a90c174f))
@@ -34,12 +41,6 @@
 - resolve jest Worker/URL.createObjectURL/CSS.highlights errors ([47fbd3f](https://github.com/moneko-o/neko-ui/commit/47fbd3f7528c7aa00beb56ebdede76a118026abd))
 - update GlassPanel component props and test cases for filter properties ([acae9c1](https://github.com/moneko-o/neko-ui/commit/acae9c18e716d87bbebfee4c8f43d3e479334c5e))
 - update jest config to use babel-jest and fix toBeCalled deprecation ([f0a262f](https://github.com/moneko-o/neko-ui/commit/f0a262fa38d5d2cad7ed469cb63d3144ada66e26))
-
-### ♻️ Chores
-
-- update ESLint and Jest configurations; remove unused transform-solid test file ([13250ea](https://github.com/moneko-o/neko-ui/commit/13250ea5eb1e2b917b86937143286d3177643946))
-- remove moduleResolution option from tsconfig.json ([53be65f](https://github.com/moneko-o/neko-ui/commit/53be65f91ec63c422bb516d89e6063bff00af6fc))
-- upgrade @moneko/core from 4.7.2 to 4.7.7 ([26c2c8f](https://github.com/moneko-o/neko-ui/commit/26c2c8fef24088477260f3c8f706e0c764ec872f))
 
 ### 📦 Code Refactoring
 
