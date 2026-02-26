@@ -6,6 +6,7 @@ import {
   mergeProps,
   onCleanup,
   Show,
+  splitProps,
 } from 'solid-js';
 import { isFunction } from '@moneko/common';
 import { css, cx } from '@moneko/css';
@@ -185,6 +186,9 @@ Carousel.registry = () => {
     },
     (_, opt) => {
       const el = opt.element;
+      const childNodes = (opt.element.childNodes as NodeList) || [];
+      const nodes = [...childNodes.values()];
+      const [, restProps] = splitProps(_, ['children']);
       const props = mergeProps(
         {
           onChange(key: number) {
@@ -196,7 +200,7 @@ Carousel.registry = () => {
             );
           },
         },
-        _,
+        restProps,
       );
 
       createEffect(() => {
@@ -206,7 +210,7 @@ Carousel.registry = () => {
       return (
         <>
           <style textContent={block} />
-          <Carousel {...props} />
+          <Carousel {...props}>{nodes}</Carousel>
         </>
       );
     },

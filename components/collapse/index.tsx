@@ -1,4 +1,4 @@
-import { createEffect, createMemo, Index, mergeProps } from 'solid-js';
+import { createEffect, createMemo, Index, mergeProps, splitProps } from 'solid-js';
 import { css } from '@moneko/css';
 import { customElement } from 'solid-element';
 
@@ -102,12 +102,15 @@ Collapse.registry = () => {
     },
     (props, opt) => {
       const el = opt.element;
+      const childNodes = (opt.element.childNodes as NodeList) || [];
+      const nodes = [...childNodes.values()];
+      const [, restProps] = splitProps(props, ['children']);
 
       createEffect(() => {
         clearAttribute(el, ['css', 'title']);
         el.replaceChildren();
       });
-      return <Collapse {...props} />;
+      return <Collapse {...restProps}>{nodes}</Collapse>;
     },
   );
 };

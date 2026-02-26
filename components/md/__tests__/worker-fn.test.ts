@@ -15,7 +15,6 @@ describe('MD Worker internal function coverage', () => {
 
   it('worker function executes message handler', async () => {
     jest.isolateModules(async () => {
-      
       const { create, dispose } = await import('../worker');
 
       create();

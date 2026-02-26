@@ -1,4 +1,13 @@
-import { createEffect, For, Match, mergeProps, onCleanup, Show, Switch } from 'solid-js';
+import {
+  createEffect,
+  For,
+  Match,
+  mergeProps,
+  onCleanup,
+  Show,
+  splitProps,
+  Switch,
+} from 'solid-js';
 import { css, cx } from '@moneko/css';
 import { customElement } from 'solid-element';
 
@@ -225,6 +234,9 @@ MD.registry = () => {
     },
     (_, opt) => {
       const el = opt.element;
+      const childNodes = (opt.element.childNodes as NodeList) || [];
+      const nodes = [...childNodes.values()];
+      const [, restProps] = splitProps(_, ['children']);
       const props = mergeProps(
         {
           text: (!_.notRender && el.textContent) || el.text,
@@ -232,7 +244,7 @@ MD.registry = () => {
           tools: el.tools,
           getAnchorContainer: el.getAnchorContainer,
         },
-        _,
+        restProps,
       );
 
       createEffect(() => {
@@ -242,7 +254,7 @@ MD.registry = () => {
       return (
         <>
           <style textContent={block} />
-          <MD {...props} />
+          <MD {...props}>{nodes}</MD>
         </>
       );
     },
