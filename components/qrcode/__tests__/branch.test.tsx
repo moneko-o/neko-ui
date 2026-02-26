@@ -1,5 +1,6 @@
 import { render } from '@solidjs/testing-library';
 
+import theme from '../../theme';
 import QrCode from '../index';
 
 describe('QrCode branches', () => {
@@ -135,5 +136,14 @@ describe('QrCode branches', () => {
 
   it('renders with class prop', () => {
     render(() => <QrCode value="classed" type="svg" class="my-qr" />);
+  });
+
+  it('canvas without explicit color uses computed style fallback', () => {
+    mockCanvas();
+    render(() => <QrCode value="no-color-canvas" type="canvas" size={160} />);
+  });
+
+  it('svg without explicit color uses computed style fallback', () => {
+    render(() => <QrCode value="no-color-svg" type="svg" size={160} />);
   });
 });

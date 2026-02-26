@@ -31,8 +31,12 @@ describe('DatePicker Panel branches', () => {
     render(() => <DatePicker showHeader={false} />);
   });
 
-  it('renders without type prop covers type || date fallback', () => {
+  it('renders without type prop covers type truthy branch', () => {
     render(() => <DatePicker showHeader={true} />);
+  });
+
+  it('type=null covers type || date fallback branch', () => {
+    render(() => <DatePicker type={null as never} showHeader={true} />);
   });
 
   it('renders with disabled prop covers handleMouseDown disabled branch', () => {
