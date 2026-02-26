@@ -1,4 +1,10 @@
+import { getUtil } from '@moneko/solid/jest';
 import '@testing-library/jest-dom';
+
+await Promise.all([getUtil('css-highlights.js'),
+    getUtil('canvas.js'),
+    getUtil('event.js'),
+    getUtil('structured-clone.js')].map((mock) =>import(mock)));
 
 export const mockMatchMedia = (matches: boolean) => {
   Object.defineProperty(window, 'matchMedia', {
