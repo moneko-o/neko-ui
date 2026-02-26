@@ -308,7 +308,6 @@ Code.registry = () => {
       class: void 0,
       code: void 0,
       language: void 0,
-      children: void 0,
       edit: void 0,
       toolbar: void 0,
       css: void 0,
