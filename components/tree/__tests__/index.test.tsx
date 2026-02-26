@@ -206,4 +206,63 @@ describe('Tree', () => {
     render(() => <n-tree data={'\n/\n/'} />);
     render(() => <n-tree data={'\n/\n||\n'} size="large" />);
   });
+  it('single select with value', () => {
+    const change = jest.fn();
+
+    render(() => <n-tree value="b" data={data} onChange={change} />);
+  });
+  it('custom fieldNames', () => {
+    render(() => (
+      <n-tree
+        data={[{ name: 'Root', id: 'root', items: [{ name: 'Child', id: 'child' }] }]}
+        field-names={{ title: 'name', key: 'id', children: 'items' }}
+      />
+    ));
+  });
+  it('multiple select toggle off', () => {
+    const change = jest.fn();
+
+    render(() => (
+      <n-tree value={['b2']} multiple={true} toggle={true} data={data} onChange={change} />
+    ));
+
+    fireEvent.click(screen.getByShadowText('是否有效'));
+    fireEvent.click(screen.getByShadowText('是否有效'));
+  });
+  it('multiple select remove item (splice)', () => {
+    const change = jest.fn();
+
+    render(() => <n-tree value={['a', 'b']} multiple={true} data={data} onChange={change} />);
+
+    fireEvent.click(screen.getByShadowText('文件名称'));
+  });
+  it('single toggle deselect', () => {
+    const change = jest.fn();
+
+    render(() => <n-tree value="a" toggle={true} data={data} onChange={change} />);
+
+    fireEvent.click(screen.getByShadowText('文件名称'));
+    expect(change).toHaveBeenCalled();
+  });
+  it('layout rendering with mocked RAF and getBoundingClientRect', () => {
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
+      cb(performance.now());
+      return 0;
+    });
+    jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({
+      width: 200,
+      height: 30,
+      top: 50,
+      left: 0,
+      right: 200,
+      bottom: 80,
+      x: 0,
+      y: 50,
+      toJSON: () => {},
+    });
+
+    render(() => <n-tree data={data} />);
+
+    jest.restoreAllMocks();
+  });
 });

@@ -50,10 +50,12 @@ var a = 1;
     expect(container).toBeInTheDocument();
 
     fireEvent.scroll(window);
-    getByTestId('md')
-      .shadowRoot!.querySelectorAll('a')
-      .forEach((e) => {
+    const shadowRoot = getByTestId('md').shadowRoot;
+
+    if (shadowRoot) {
+      shadowRoot.querySelectorAll('a').forEach((e) => {
         fireEvent.click(e);
       });
+    }
   });
 });

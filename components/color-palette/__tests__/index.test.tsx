@@ -134,4 +134,76 @@ describe('ColorPalette', () => {
     });
     expect(screen.getByTestId(testId)).toBeInTheDocument();
   });
+
+  it('mouse drag interaction on picker', () => {
+    const onChange = jest.fn();
+
+    const { getByTestId } = render(() => (
+      <n-color-palette data-testid="palette-drag" onChange={onChange} />
+    ));
+
+    const picker = getByTestId('palette-drag')?.shadowRoot?.querySelector(
+      '.picker',
+    ) as HTMLCanvasElement;
+
+    fireEvent.mouseDown(picker);
+
+    fireEvent.mouseMove(document.body, {
+      clientX: 50,
+      clientY: 50,
+    });
+    fireEvent.mouseMove(document.body, {
+      clientX: 100,
+      clientY: 30,
+    });
+
+    fireEvent.mouseUp(document.body);
+  });
+
+  it('gradient picker hue slider', () => {
+    const { getByTestId } = render(() => <n-color-palette data-testid="palette-hue" />);
+
+    const hue = getByTestId('palette-hue').shadowRoot!.querySelector<HTMLInputElement>('.hue');
+
+    fireEvent.input(hue as HTMLInputElement, { target: { value: 180 } });
+    fireEvent.input(hue as HTMLInputElement, { target: { value: 0 } });
+    fireEvent.input(hue as HTMLInputElement, { target: { value: 360 } });
+  });
+
+  it('alpha slider interaction', () => {
+    const { getByTestId } = render(() => <n-color-palette data-testid="palette-alpha" />);
+
+    const opacity =
+      getByTestId('palette-alpha').shadowRoot!.querySelector<HTMLInputElement>('.opacity');
+
+    fireEvent.input(opacity as HTMLInputElement, { target: { value: 0 } });
+    fireEvent.input(opacity as HTMLInputElement, { target: { value: 0.5 } });
+    fireEvent.input(opacity as HTMLInputElement, { target: { value: 1 } });
+  });
+
+  it('with custom css prop', () => {
+    const { getByTestId } = render(() => (
+      <n-color-palette data-testid="palette-css" css=".palette { border: 1px solid red; }" />
+    ));
+
+    expect(getByTestId('palette-css')).toBeInTheDocument();
+  });
+
+  it('material color swatch click', () => {
+    const { getByTestId } = render(() => <n-color-palette data-testid="palette-swatch" />);
+
+    const swatches = getByTestId('palette-swatch').shadowRoot!.querySelectorAll('.color i');
+
+    if (swatches.length > 1) {
+      fireEvent.click(swatches[1] as HTMLElement);
+    }
+  });
+
+  it('default value initialization', () => {
+    const { getByTestId } = render(() => (
+      <n-color-palette data-testid="palette-def" default-value="#ff0000" />
+    ));
+
+    expect(getByTestId('palette-def')).toBeInTheDocument();
+  });
 });

@@ -15,7 +15,7 @@ describe('Switch', () => {
     expect(el).toBeInTheDocument();
     fireEvent.focus(el);
     fireEvent.keyUp(el, { key: 'Enter' });
-    expect(change).toBeCalled();
+    expect(change).toHaveBeenCalled();
   });
   it('disabled', () => {
     const change = jest.fn();
@@ -31,7 +31,7 @@ describe('Switch', () => {
 
     expect(getByTestId('disabled')).toBeInTheDocument();
     fireEvent.click(getByTestId('disabled'));
-    expect(change).not.toBeCalled();
+    expect(change).not.toHaveBeenCalled();
   });
   it('loading', () => {
     const change = jest.fn();
@@ -41,6 +41,6 @@ describe('Switch', () => {
 
     expect(getByTestId('loading')).toBeInTheDocument();
     fireEvent.click(getByTestId('loading'));
-    expect(change).not.toBeCalled();
+    expect(change).not.toHaveBeenCalled();
   });
 });

@@ -39,3 +39,38 @@ const mockObserveFn = () => {
 
 window.IntersectionObserver =
   window.IntersectionObserver || jest.fn().mockImplementation(mockObserveFn);
+
+if (typeof URL.createObjectURL !== 'function') {
+  URL.createObjectURL = jest.fn(() => 'blob:mock');
+  URL.revokeObjectURL = jest.fn();
+}
+
+if (typeof Worker === 'undefined') {
+  (globalThis as Record<string, unknown>).Worker = class MockWorker {
+    private listeners: Record<string, Function[]> = {};
+
+    constructor() {}
+    postMessage(data: unknown) {
+      const d = data as Record<string, unknown>;
+
+      setTimeout(() => {
+        const html = `<div>${d?.text || ''}</div>`;
+
+        this.listeners['message']?.forEach((fn) => fn({ data: html }));
+      }, 0);
+    }
+    terminate() {}
+    addEventListener(event: string, fn: Function) {
+      if (!this.listeners[event]) this.listeners[event] = [];
+      this.listeners[event].push(fn);
+    }
+    removeEventListener(event: string, fn: Function) {
+      if (this.listeners[event]) {
+        this.listeners[event] = this.listeners[event].filter((f) => f !== fn);
+      }
+    }
+    dispatchEvent() {
+      return true;
+    }
+  };
+}

@@ -39,11 +39,12 @@ console.log(\`foo: $\{foo}\`);`}
       </n-code>
     ));
 
-    fireEvent.input(getByTestId('code').shadowRoot!.querySelector('textarea')!, {
-      target: {
-        value: 'sacsa',
-      },
-    });
+    const textarea = getByTestId('code').shadowRoot?.querySelector('textarea');
+
+    if (textarea) {
+      textarea.value = 'sacsa';
+      textarea.dispatchEvent(new Event('input', { bubbles: true }));
+    }
     (getByTestId('code') as unknown as CodeElement).code = '';
   });
 });

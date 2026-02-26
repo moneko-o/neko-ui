@@ -70,4 +70,26 @@ describe('BackTop', () => {
     });
     jest.clearAllTimers();
   });
+
+  it('autoplay with fractional value between 0 and 1 clears interval', async () => {
+    jest.useFakeTimers();
+    render(() => (
+      <n-carousel data-testid="carousel-frac" dots={true} autoplay={0.5}>
+        <div>F / 1</div>
+        <div>F / 2</div>
+        <div>F / 3</div>
+      </n-carousel>
+    ));
+
+    await waitFor(() => {
+      jest.advanceTimersByTime(100);
+    });
+
+    await waitFor(() => {
+      jest.advanceTimersByTime(600);
+    });
+
+    jest.clearAllTimers();
+    jest.useRealTimers();
+  });
 });
