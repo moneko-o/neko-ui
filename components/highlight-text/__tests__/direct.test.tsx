@@ -21,3 +21,49 @@ describe('HighlightText (direct render)', () => {
     render(() => <HighlightText text="foo bar baz" highlight="bar" highlightColor="#ff0000" />);
   });
 });
+
+describe('HighlightText else branches (new Highlight creation)', () => {
+  const origHighlights = CSS.highlights;
+
+  afterEach(() => {
+    CSS.highlights = origHighlights;
+  });
+
+  function makeMockHighlights() {
+    const store = new Map<string, { add: jest.Mock; clear: jest.Mock }>();
+
+    return {
+      get: (key: string) => store.get(key),
+      set: (key: string, value: unknown) => {
+        store.set(key, value as { add: jest.Mock; clear: jest.Mock });
+        return CSS.highlights as unknown as HighlightRegistry;
+      },
+      keys: () => store.keys(),
+      delete: (key: string) => store.delete(key),
+      has: (key: string) => store.has(key),
+      clear: () => store.clear(),
+      forEach: (cb: (value: unknown, key: string) => void) => store.forEach(cb),
+      entries: () => store.entries(),
+      values: () => store.values(),
+      size: store.size,
+      [Symbol.iterator]: () => store[Symbol.iterator](),
+    } as unknown as HighlightRegistry;
+  }
+
+  it('highlight() else branch creates new Highlight when get returns undefined', () => {
+    CSS.highlights = makeMockHighlights();
+    render(() => <HighlightText text="hello world" highlight="hello" />);
+  });
+
+  it('extra effect else branch creates new Highlight when get returns undefined', () => {
+    CSS.highlights = makeMockHighlights();
+    render(() => <HighlightText text="base" extra=" suffix" />);
+  });
+
+  it('highlight array + extra both hit else branch', () => {
+    CSS.highlights = makeMockHighlights();
+    render(() => (
+      <HighlightText text="foo bar" highlight={['foo', 'bar']} extra=" baz" flag="g" />
+    ));
+  });
+});

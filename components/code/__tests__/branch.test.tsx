@@ -1,5 +1,7 @@
 import { render } from '@solidjs/testing-library';
 
+import Code from '../index';
+
 describe('Code branches', () => {
   beforeEach(() => {
     jest.useFakeTimers();
@@ -109,5 +111,35 @@ describe('Code branches', () => {
 
     jest.advanceTimersByTime(100);
     expect(container).toBeInTheDocument();
+  });
+});
+
+describe('Code CSS.highlights missing', () => {
+  it('throws when CSS.highlights is undefined', async () => {
+    const origHighlights = CSS.highlights;
+
+    Object.defineProperty(CSS, 'highlights', {
+      value: undefined,
+      configurable: true,
+      writable: true,
+    });
+    (window as Record<string, unknown>).Prism = {
+      disableWorkerMessageHandler: false,
+      manual: false,
+      languages: { javascript: { keyword: /\bconst\b/ } },
+      tokenize: () => [{ type: 'keyword', content: 'const' }],
+    };
+
+    jest.useFakeTimers();
+    render(() => <Code code="const x = 1;" language="javascript" />);
+    await Promise.resolve();
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(() => jest.advanceTimersByTime(10)).toThrow('不支持 CSS Highlights');
+
+    CSS.highlights = origHighlights;
+    delete (window as Record<string, unknown>).Prism;
+    jest.useRealTimers();
   });
 });

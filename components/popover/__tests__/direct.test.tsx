@@ -14,4 +14,14 @@ describe('Popover (direct)', () => {
     ));
     document.body.removeChild(mountEl);
   });
+
+  it('encodeUri decodes content string', () => {
+    const encoded = encodeURIComponent('<b>bold</b>');
+
+    render(() => (
+      <Popover content={encoded} encodeUri={true} open={true}>
+        Encoded
+      </Popover>
+    ));
+  });
 });

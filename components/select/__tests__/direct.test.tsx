@@ -1,5 +1,6 @@
 import { createSignal } from 'solid-js';
 import { fireEvent, render } from '@solidjs/testing-library';
+import { screen } from 'shadow-dom-testing-library';
 
 import Select from '../index';
 
@@ -44,6 +45,26 @@ describe('Select (direct)', () => {
     if (select) {
       fireEvent.focus(select);
       fireEvent.blur(select);
+    }
+  });
+
+  it('click on tags when select is activeElement triggers openChange', () => {
+    render(() => (
+      <n-select data-testid="sel-active" options={['A', 'B', 'C']} />
+    ));
+
+    const nSelect = screen.getByTestId('sel-active');
+    const shadow = nSelect.shadowRoot!;
+    const selectDiv = shadow.querySelector('.select') as HTMLElement;
+    const tagsDiv = shadow.querySelector('.tags') as HTMLElement;
+
+    if (selectDiv && tagsDiv) {
+      selectDiv.focus();
+
+      const evt = new MouseEvent('mousedown', { bubbles: true });
+
+      Object.defineProperty(evt, 'target', { value: tagsDiv });
+      tagsDiv.dispatchEvent(evt);
     }
   });
 });

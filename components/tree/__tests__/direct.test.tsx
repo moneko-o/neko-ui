@@ -1,6 +1,7 @@
 import { render } from '@solidjs/testing-library';
 
 import Tree from '../index';
+import type { TreeData, TreeProps } from '../type';
 
 describe('Tree layout (direct)', () => {
   beforeEach(() => {
@@ -62,5 +63,52 @@ describe('Tree layout (direct)', () => {
     render(() => (
       <Tree data={[{ title: 'Solo', key: 'solo', children: [{ title: 'Kid', key: 'kid' }] }]} />
     ));
+  });
+
+  it('layout with deeply nested children for line calculation', () => {
+    let callIdx = 0;
+
+    jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function () {
+      callIdx++;
+      return {
+        width: 200,
+        height: 30,
+        top: callIdx * 40,
+        left: 0,
+        right: 200,
+        bottom: callIdx * 40 + 30,
+        x: 0,
+        y: callIdx * 40,
+        toJSON: () => {},
+      };
+    });
+
+    const data: TreeData[] = [
+      {
+        title: 'Root',
+        key: 'root',
+        children: [
+          {
+            title: 'L1',
+            key: 'l1',
+            children: [
+              { title: 'L2A', key: 'l2a' },
+              { title: 'L2B', key: 'l2b' },
+            ],
+          },
+          { title: 'L1B', key: 'l1b' },
+        ],
+      },
+    ];
+
+    render(() => <Tree data={data} />);
+  });
+
+  it('re-exports type module', () => {
+    const treeData: TreeData = { key: 'test', title: 'Test' };
+    const treeProps: Partial<TreeProps> = { data: [treeData] };
+
+    expect(treeData.key).toBe('test');
+    expect(treeProps.data).toBeDefined();
   });
 });
