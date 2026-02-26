@@ -7,6 +7,7 @@ const ignorePatterns = [
 ];
 
 const config = {
+  preset: ['@moneko/core/solid-jest'],
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
@@ -34,7 +35,7 @@ const config = {
   },
   transform: {
     // '^.+\\.[jt]sx?$': '<rootDir>/test/transform-solid.mjs',
-    '^.+\\.[jt]sx?$': '@moneko/core/solid-jest',
+    // '^.+\\.[jt]sx?$': '@moneko/core/solid-jest',
   },
 };
 
