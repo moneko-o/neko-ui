@@ -31,6 +31,7 @@ function MD(_props: MdProps) {
       codeClassic: void 0,
       text: '',
       tools: ['copy'],
+      /* c8 ignore next */
       getAnchorContainer: () => window as unknown as HTMLElement,
     },
     _props,

@@ -128,7 +128,8 @@ function Segmented(props: SegmentedProps) {
                   }}
                   on:click={handleChange}
                   aria-disabled={readOnly}
-                  ref={options()[i()].ref} // c8 ignore next
+                  /* c8 ignore next */
+                  ref={options()[i()].ref}
                 >
                   <Show when={item[fieldName.icon]}>
                     <span class="icon">{item[fieldName.icon] as JSXElement}</span>

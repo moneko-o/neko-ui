@@ -100,7 +100,7 @@ function Dropdown(props: DropdownProps | DropdownMultipleProps) {
       open={open()}
       onOpenChange={openChange}
       content={
-        {/* c8 ignore next */}
+        /* c8 ignore next */
         <div ref={portalRef} class="container">
           <Show when={local.items?.length} fallback={<Empty style={{ width: '100%' }} />}>
             <n-menu
@@ -114,7 +114,8 @@ function Dropdown(props: DropdownProps | DropdownMultipleProps) {
               onChange={change}
               open-keys={menuOpenKeys()}
               onOpenChange={menuOpenKeysChange}
-              css={local.menuCss} // c8 ignore next
+              /* c8 ignore next */
+              css={local.menuCss}
             />
           </Show>
         </div>

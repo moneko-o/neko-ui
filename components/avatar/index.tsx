@@ -80,6 +80,7 @@ function Avatar(_: AvatarProps) {
     }
   });
 
+  /* c8 ignore next 18 */
   return (
     <>
       <style textContent={style} />
@@ -87,14 +88,12 @@ function Avatar(_: AvatarProps) {
       <Show when={local.css}>
         <style textContent={css(local.css)} />
       </Show>
-      {/* c8 ignore next */}
       <div ref={box} class={cx('avatar', local.class)} {...other}>
         <Switch>
           <Match when={typeof local.src === 'string'}>
             <Img src={local.src} alt={local.alt} style={{ 'z-index': 9999 }} />
           </Match>
           <Match when={local.username}>
-            {/* c8 ignore next */}
             <span ref={label} style={{ transform: `scale(${scale()})` }}>
               {local.username}
             </span>

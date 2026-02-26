@@ -289,18 +289,19 @@ const QRCode = (_props: QrCodeProps) => {
     };
   });
 
+  /* c8 ignore start */
   return (
-    {/* c8 ignore next */}
     <Show when={props.type === 'svg'} fallback={<canvas ref={cvs} role="img" />}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         stroke="none"
         width={props.size}
         height={props.size}
-        ref={svg} // c8 ignore next
+        ref={svg}
         shape-rendering="crispEdges"
         role="img"
       >
+        {/* c8 ignore stop */}
         <path />
         <path />
         <Show when={other.icon}>

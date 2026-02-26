@@ -293,7 +293,8 @@ function Tabs(props: TabsProps) {
                   onClick={onChange.bind(null, item)}
                   disabled={readOnly()}
                   icon={item[icon]}
-                  ref={items()[i()].ref} // c8 ignore next
+                  /* c8 ignore next */
+                  ref={items()[i()].ref}
                   css={btnCss}
                 >
                   {item[label]}

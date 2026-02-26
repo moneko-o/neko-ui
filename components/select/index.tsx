@@ -256,7 +256,8 @@ function Select(props: SelectProps) {
                   icon={kv()[v]?.icon}
                   close-icon={!other.disabled && !kv()[v]?.disabled}
                   onClose={deleteValue.bind(null, v)}
-                  disabled={other.disabled || kv()[v]?.disabled} // c8 ignore next
+                  /* c8 ignore next */
+                  disabled={other.disabled || kv()[v]?.disabled}
                 >
                   {kv()[v]?.[fieldNames().label] || v}
                 </n-tag>
