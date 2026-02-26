@@ -67,4 +67,19 @@ describe('DatePicker inputMouseDown (direct)', () => {
       nInput.dispatchEvent(evt);
     }
   });
+
+  it('inputMouseDown condition met when e.target equals shadowRoot.activeElement', () => {
+    const onOpenChange = jest.fn();
+
+    const { container } = render(() => <DatePicker onOpenChange={onOpenChange} />);
+    const nInput = container.querySelector('n-input') as HTMLElement | null;
+
+    if (nInput?.shadowRoot) {
+      Object.defineProperty(nInput.shadowRoot, 'activeElement', {
+        value: nInput,
+        configurable: true,
+      });
+      fireEvent.mouseDown(nInput);
+    }
+  });
 });

@@ -4,17 +4,29 @@ import Tree from '../index';
 import type { TreeData, TreeProps } from '../type';
 
 describe('Tree layout (direct)', () => {
+  let rafCallbacks: FrameRequestCallback[] = [];
+
   beforeEach(() => {
+    rafCallbacks = [];
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
-      cb(performance.now());
-      return 0;
+      rafCallbacks.push(cb);
+      return rafCallbacks.length;
     });
   });
+
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  it('frameCallback layout with multiple path elements', () => {
+  function flushRaf() {
+    const now = performance.now() + 20;
+    while (rafCallbacks.length) {
+      const cb = rafCallbacks.shift()!;
+      cb(now);
+    }
+  }
+
+  it('frameCallback layout with multiple path elements (al.length > 1)', () => {
     let callCount = 0;
 
     jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function () {
@@ -45,27 +57,40 @@ describe('Tree layout (direct)', () => {
     ];
 
     render(() => <Tree data={data} />);
+    flushRaf();
   });
 
-  it('layout with single path element at index 0', () => {
+  it('single root with children hits else-if i===0 branch', () => {
     jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({
       width: 200,
       height: 30,
-      top: 0,
+      top: 50,
       left: 0,
       right: 200,
-      bottom: 30,
+      bottom: 80,
       x: 0,
-      y: 0,
+      y: 50,
       toJSON: () => {},
     });
 
     render(() => (
-      <Tree data={[{ title: 'Solo', key: 'solo', children: [{ title: 'Kid', key: 'kid' }] }]} />
+      <Tree
+        data={[
+          {
+            title: 'Root',
+            key: 'root',
+            children: [
+              { title: 'A', key: 'a' },
+              { title: 'B', key: 'b' },
+            ],
+          },
+        ]}
+      />
     ));
+    flushRaf();
   });
 
-  it('layout with deeply nested children for line calculation', () => {
+  it('deeply nested tree covers i !== 0 sideLen calculation', () => {
     let callIdx = 0;
 
     jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function () {
@@ -102,6 +127,7 @@ describe('Tree layout (direct)', () => {
     ];
 
     render(() => <Tree data={data} />);
+    flushRaf();
   });
 
   it('re-exports type module', () => {

@@ -3,6 +3,10 @@ import { render } from '@solidjs/testing-library';
 import Tabs from '../index';
 
 describe('Tabs (direct)', () => {
+  it('no current tab resets offsetStyle', () => {
+    render(() => <Tabs items={[]} />);
+  });
+
   it('wheel scroll with wide content', () => {
     const scrollToSpy = jest.fn();
 
