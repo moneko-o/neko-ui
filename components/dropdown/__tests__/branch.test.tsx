@@ -53,7 +53,7 @@ describe('Dropdown branches', () => {
 
   it('undefined items shows Empty fallback via optional chaining', () => {
     render(() => (
-      <Dropdown items={undefined as never} open={true}>
+      <Dropdown items={void 0 as never} open={true}>
         Trigger
       </Dropdown>
     ));
@@ -61,11 +61,7 @@ describe('Dropdown branches', () => {
 
   it('menuCss prop is passed through when items have length', () => {
     render(() => (
-      <Dropdown
-        items={[{ value: 'a', label: 'A' }]}
-        menuCss=".menu { color: red; }"
-        open={true}
-      >
+      <Dropdown items={[{ value: 'a', label: 'A' }]} menuCss=".menu { color: red; }" open={true}>
         Trigger
       </Dropdown>
     ));

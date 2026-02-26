@@ -65,11 +65,7 @@ describe('Md (direct render)', () => {
   });
 
   it('children array covers children.length > 0 branch', () => {
-    render(() => (
-      <Md>
-        {[<p>Paragraph 1</p>, <p>Paragraph 2</p>]}
-      </Md>
-    ));
+    render(() => <Md>{[<p>Paragraph 1</p>, <p>Paragraph 2</p>]}</Md>);
     jest.advanceTimersByTime(500);
   });
 

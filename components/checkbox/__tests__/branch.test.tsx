@@ -4,7 +4,7 @@ import Checkbox from '../index';
 
 describe('Checkbox branches', () => {
   it('options || [] when checkAll=true and options=undefined', () => {
-    render(() => <Checkbox checkAll={true} options={undefined} />);
+    render(() => <Checkbox checkAll={true} options={void 0} />);
   });
 
   it('bool mode onChange fires with !!newVal[0]', () => {
@@ -142,10 +142,7 @@ describe('Checkbox branches', () => {
 
   it('name prop is passed to input elements', () => {
     const { container } = render(() => (
-      <Checkbox
-        name="test-checkbox"
-        options={[{ value: 'a', label: 'A' }]}
-      />
+      <Checkbox name="test-checkbox" options={[{ value: 'a', label: 'A' }]} />
     ));
     const input = container.querySelector('input');
 

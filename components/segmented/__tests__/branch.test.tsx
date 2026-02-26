@@ -46,26 +46,16 @@ describe('Segmented branches', () => {
   });
 
   it('option with icon covers icon Show branch', () => {
-    render(() => (
-      <Segmented
-        options={[{ value: 'a', label: 'A', icon: '★' }]}
-      />
-    ));
+    render(() => <Segmented options={[{ value: 'a', label: 'A', icon: '★' }]} />);
   });
 
   it('option with suffix covers suffix Show branch', () => {
-    render(() => (
-      <Segmented
-        options={[{ value: 'a', label: 'A', suffix: '(1)' }]}
-      />
-    ));
+    render(() => <Segmented options={[{ value: 'a', label: 'A', suffix: '(1)' }]} />);
   });
 
   it('keyUp with Enter triggers onChange', () => {
     const onChange = jest.fn();
-    const { container } = render(() => (
-      <Segmented options={['A', 'B']} onChange={onChange} />
-    ));
+    const { container } = render(() => <Segmented options={['A', 'B']} onChange={onChange} />);
     const label = container.querySelector('.label');
 
     label?.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter', bubbles: true }));
@@ -73,9 +63,7 @@ describe('Segmented branches', () => {
 
   it('keyUp with non-Enter does nothing', () => {
     const onChange = jest.fn();
-    const { container } = render(() => (
-      <Segmented options={['A', 'B']} onChange={onChange} />
-    ));
+    const { container } = render(() => <Segmented options={['A', 'B']} onChange={onChange} />);
     const label = container.querySelector('.label');
 
     label?.dispatchEvent(new KeyboardEvent('keyup', { key: 'Tab', bubbles: true }));
@@ -83,8 +71,6 @@ describe('Segmented branches', () => {
   });
 
   it('controlled value with class prop', () => {
-    render(() => (
-      <Segmented options={['A', 'B']} value="A" class="my-segment" />
-    ));
+    render(() => <Segmented options={['A', 'B']} value="A" class="my-segment" />);
   });
 });

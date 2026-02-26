@@ -34,7 +34,7 @@ describe('Avatar branches', () => {
   });
 
   it('group with data=undefined covers data || [] fallback', () => {
-    render(() => <AvatarGroup data={undefined} />);
+    render(() => <AvatarGroup data={void 0} />);
   });
 
   it('group with maxCount less than data.length covers more() branch', () => {

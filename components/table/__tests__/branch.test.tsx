@@ -35,11 +35,7 @@ describe('Table branches', () => {
 
   it('pagination without pageSize/total triggers || fallbacks', () => {
     render(() => (
-      <Table
-        columns={{ name: 'Name' }}
-        data={[{ name: 'A' }]}
-        pagination={{ page: 1 } as never}
-      />
+      <Table columns={{ name: 'Name' }} data={[{ name: 'A' }]} pagination={{ page: 1 } as never} />
     ));
   });
 
@@ -84,7 +80,10 @@ describe('Table branches', () => {
     render(() => (
       <Table
         columns={{ name: 'Name', age: 'Age' }}
-        data={[{ name: 'A', age: null }, { name: null, age: undefined }]}
+        data={[
+          { name: 'A', age: null },
+          { name: null, age: void 0 },
+        ]}
         emptyVal="—"
       />
     ));
@@ -97,9 +96,7 @@ describe('Table branches', () => {
   });
 
   it('renders with title', () => {
-    render(() => (
-      <Table columns={{ name: 'Name' }} data={[{ name: 'A' }]} title="My Table" />
-    ));
+    render(() => <Table columns={{ name: 'Name' }} data={[{ name: 'A' }]} title="My Table" />);
   });
 
   it('custom render function in column', () => {
@@ -123,7 +120,10 @@ describe('Table branches', () => {
           amount: { label: 'Amount', key: 'amount' },
           note: { label: 'Note', key: 'note' },
         }}
-        data={[{ amount: 10, note: 'a' }, { amount: 20, note: 'b' }]}
+        data={[
+          { amount: 10, note: 'a' },
+          { amount: 20, note: 'b' },
+        ]}
         summary={['amount', 'note']}
       />
     ));

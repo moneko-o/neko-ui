@@ -35,7 +35,7 @@ describe('getOptions branches', () => {
   });
 
   it('returns empty array when list is undefined', () => {
-    const result = getOptions(undefined);
+    const result = getOptions(void 0);
 
     expect(result).toEqual([]);
   });

@@ -53,9 +53,7 @@ describe('QrCode branches', () => {
 
   it('canvas with explicit color and bgColor covers prop || branches', () => {
     mockCanvas();
-    render(() => (
-      <QrCode value="color-test" type="canvas" color="#ff0000" bgColor="#ffffff" />
-    ));
+    render(() => <QrCode value="color-test" type="canvas" color="#ff0000" bgColor="#ffffff" />);
   });
 
   it('svg with shape=circle covers SVG circle path', () => {
@@ -79,9 +77,7 @@ describe('QrCode branches', () => {
   });
 
   it('svg with custom color and bgColor covers prop || branches', () => {
-    render(() => (
-      <QrCode value="svg-color" type="svg" color="#ff0000" bgColor="#ffffff" />
-    ));
+    render(() => <QrCode value="svg-color" type="svg" color="#ff0000" bgColor="#ffffff" />);
   });
 
   it('svg without icon does not render image', () => {
