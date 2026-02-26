@@ -160,6 +160,7 @@ function Img(_: ImgProps) {
         classList={{
           none: !!open(),
         }}
+        onLoad={props.onLoad}
         onClick={handleOpen}
       />
       <Show when={open() !== null}>

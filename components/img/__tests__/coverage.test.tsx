@@ -141,9 +141,10 @@ describe('Img coverage', () => {
     expect(img).toBeTruthy();
     fireEvent.click(img!);
     expect(onOpenChange).toHaveBeenCalledWith(true);
+    expect(img!.classList.contains('none')).toBe(true);
   });
 
-  it('onLoad in custom element dispatches load CustomEvent without user onLoad', () => {
+  it('default onLoad in custom element dispatches load CustomEvent', () => {
     const loadFn = jest.fn();
 
     const { getByTestId } = render(() => (
@@ -156,14 +157,15 @@ describe('Img coverage', () => {
 
     const shadow = nImg.shadowRoot;
 
-    if (shadow) {
-      const spin = shadow.querySelector('n-spin');
-      const spinShadow = spin?.shadowRoot;
-      const imgs = spinShadow?.querySelectorAll('img') || shadow.querySelectorAll('img');
+    expect(shadow).toBeTruthy();
+    const spin = shadow!.querySelector('n-spin');
+    const spinShadow = spin?.shadowRoot;
+    const imgs = spinShadow?.querySelectorAll('img') || shadow!.querySelectorAll('img');
 
-      imgs.forEach((imgEl) => {
-        imgEl.dispatchEvent(new Event('load', { bubbles: false }));
-      });
-    }
+    expect(imgs.length).toBeGreaterThan(0);
+    imgs.forEach((imgEl) => {
+      imgEl.dispatchEvent(new Event('load', { bubbles: false }));
+    });
+    expect(loadFn).toHaveBeenCalled();
   });
 });

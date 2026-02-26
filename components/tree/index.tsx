@@ -262,7 +262,7 @@ function Tree(
   );
 }
 
-export * from './type';
+export type * from './type';
 Tree.registry = () => {
   customElement<TreeProps>(
     'n-tree',

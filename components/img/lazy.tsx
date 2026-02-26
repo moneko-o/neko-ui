@@ -78,6 +78,7 @@ function ImgLazy(_: ImgLazyProps) {
           classList={{
             img: true,
             error: isError(),
+            ...(other.classList as Record<string, boolean | undefined>),
           }}
           part={other.part || 'img'}
           src={isIntersecting() ? other.src : void 0}
