@@ -78,4 +78,15 @@ describe('ImgLazy branches', () => {
   it('renders with class prop', () => {
     render(() => <ImgLazy src="test.jpg" lazy={false} class="my-img" />);
   });
+
+  it('renders without part prop uses default img part', () => {
+    render(() => <ImgLazy src="test.jpg" lazy={false} />);
+  });
+
+  it('lazy=false renders img with src directly (no observer)', () => {
+    const { container } = render(() => <ImgLazy src="direct.jpg" lazy={false} />);
+    const img = container.querySelector('img');
+
+    expect(img?.getAttribute('src')).toBeTruthy();
+  });
 });

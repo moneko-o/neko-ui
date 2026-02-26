@@ -30,4 +30,24 @@ describe('DatePicker Panel branches', () => {
   it('renders without showHeader to cover fallback', () => {
     render(() => <DatePicker showHeader={false} />);
   });
+
+  it('renders without type prop covers type || date fallback', () => {
+    render(() => <DatePicker showHeader={true} />);
+  });
+
+  it('renders with disabled prop covers handleMouseDown disabled branch', () => {
+    render(() => <DatePicker disabled={true} showHeader={true} />);
+  });
+
+  it('renders with onOpenChange callback', () => {
+    const onOpenChange = jest.fn();
+
+    render(() => <DatePicker onOpenChange={onOpenChange} showHeader={true} />);
+  });
+
+  it('renders with suffixIcon and prefixIcon', () => {
+    render(() => (
+      <DatePicker suffixIcon={<span>S</span>} prefixIcon={<span>P</span>} showHeader={true} />
+    ));
+  });
 });

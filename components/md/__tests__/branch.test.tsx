@@ -118,4 +118,54 @@ describe('Md (direct render)', () => {
     render(() => <Md text="Class test" class="custom-md" />);
     jest.advanceTimersByTime(500);
   });
+
+  it('observer entry not intersecting and in active array covers splice branch', () => {
+    const observeCalls: IntersectionObserverCallback[] = [];
+
+    Object.defineProperty(window, 'IntersectionObserver', {
+      writable: true,
+      value: jest.fn((cb: IntersectionObserverCallback) => {
+        observeCalls.push(cb);
+        return { observe: jest.fn(), unobserve: jest.fn(), disconnect: jest.fn() };
+      }),
+    });
+
+    render(() => <Md text="[TOC]\n## H1\n## H2" />);
+    jest.advanceTimersByTime(500);
+
+    const fakeTarget = {
+      getAttribute: () => 'h1',
+      querySelectorAll: () => [] as unknown as NodeListOf<HTMLAnchorElement>,
+    };
+
+    observeCalls.forEach((cb) => {
+      cb(
+        [{ isIntersecting: true, target: fakeTarget } as unknown as IntersectionObserverEntry],
+        {} as IntersectionObserver,
+      );
+      cb(
+        [{ isIntersecting: false, target: fakeTarget } as unknown as IntersectionObserverEntry],
+        {} as IntersectionObserver,
+      );
+    });
+  });
+
+  it('n-md custom element with children covers childNodes truthy path', () => {
+    render(() => (
+      <n-md not-render={true}>
+        <p>CE child</p>
+      </n-md>
+    ));
+    jest.advanceTimersByTime(500);
+  });
+
+  it('n-md custom element without children covers childNodes fallback', () => {
+    render(() => <n-md text="## Hello" />);
+    jest.advanceTimersByTime(500);
+  });
+
+  it('renders with neither children nor text covers empty Switch', () => {
+    render(() => <Md text="" />);
+    jest.advanceTimersByTime(500);
+  });
 });

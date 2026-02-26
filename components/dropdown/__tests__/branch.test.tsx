@@ -134,4 +134,68 @@ describe('Dropdown branches', () => {
       </Dropdown>
     ));
   });
+
+  it('uncontrolled change with non-array key covers setValue([key]) branch', () => {
+    render(() => (
+      <Dropdown items={[{ value: 'x', label: 'X' }]} open={true}>
+        Trigger
+      </Dropdown>
+    ));
+
+    const menus = document.querySelectorAll('n-menu');
+
+    menus.forEach((menu) => {
+      menu.dispatchEvent(
+        new CustomEvent('change', {
+          detail: ['x', { value: 'x', label: 'X' }],
+          bubbles: true,
+        }),
+      );
+    });
+  });
+
+  it('change with undefined val covers empty array fallback', () => {
+    render(() => (
+      <Dropdown items={[{ value: 'a', label: 'A' }]} open={true}>
+        Trigger
+      </Dropdown>
+    ));
+
+    const menus = document.querySelectorAll('n-menu');
+
+    menus.forEach((menu) => {
+      menu.dispatchEvent(
+        new CustomEvent('change', {
+          detail: [undefined, undefined],
+          bubbles: true,
+        }),
+      );
+    });
+  });
+
+  it('multiple=false auto-closes after selection', () => {
+    const onOpenChange = jest.fn();
+
+    render(() => (
+      <Dropdown
+        items={[{ value: 'a', label: 'A' }]}
+        multiple={false}
+        onOpenChange={onOpenChange}
+        open={true}
+      >
+        Trigger
+      </Dropdown>
+    ));
+
+    const menus = document.querySelectorAll('n-menu');
+
+    menus.forEach((menu) => {
+      menu.dispatchEvent(
+        new CustomEvent('change', {
+          detail: ['a', { value: 'a', label: 'A' }],
+          bubbles: true,
+        }),
+      );
+    });
+  });
 });

@@ -40,4 +40,8 @@ describe('Cron branches', () => {
   it('nts with NaN returns undefined', () => {
     render(() => <Cron value="0 0 0 * * ? *" showCron={true} />);
   });
+
+  it('closeWorkDay with 0 value covers || 1 fallback', () => {
+    render(() => <Cron value="0 0 0 0W * ? *" />);
+  });
 });

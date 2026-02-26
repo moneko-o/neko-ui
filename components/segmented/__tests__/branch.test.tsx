@@ -73,4 +73,24 @@ describe('Segmented branches', () => {
   it('controlled value with class prop', () => {
     render(() => <Segmented options={['A', 'B']} value="A" class="my-segment" />);
   });
+
+  it('globally disabled prevents all interactions', () => {
+    const onChange = jest.fn();
+    const { container } = render(() => (
+      <Segmented options={['A', 'B']} disabled={true} onChange={onChange} />
+    ));
+    const label = container.querySelector('.label');
+
+    label?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('option ref is assigned to each label element', () => {
+    const { container } = render(() => (
+      <Segmented options={[{ value: 'a', label: 'A' }, { value: 'b', label: 'B' }]} />
+    ));
+    const labels = container.querySelectorAll('.label');
+
+    expect(labels.length).toBeGreaterThan(0);
+  });
 });

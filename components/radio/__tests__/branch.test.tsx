@@ -67,4 +67,24 @@ describe('Radio branches', () => {
       />
     ));
   });
+
+  it('name prop is passed to radio input elements', () => {
+    const { container } = render(() => (
+      <Radio name="test-radio" options={[{ value: 'a', label: 'A' }]} />
+    ));
+    const input = container.querySelector('input');
+
+    expect(input?.getAttribute('name')).toBe('test-radio');
+  });
+
+  it('uncontrolled onChange triggers setValue', () => {
+    const onChange = jest.fn();
+    const { container } = render(() => (
+      <Radio options={[{ value: 'a', label: 'A' }, { value: 'b', label: 'B' }]} onChange={onChange} />
+    ));
+    const items = container.querySelectorAll('.item');
+
+    items[1]?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    expect(onChange).toHaveBeenCalled();
+  });
 });

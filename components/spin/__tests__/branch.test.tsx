@@ -30,4 +30,12 @@ describe('Spin branches', () => {
   it('childNodes || [] fallback via custom element without children', () => {
     render(() => <n-spin />);
   });
+
+  it('custom element with children covers childNodes truthy path', () => {
+    render(() => (
+      <n-spin>
+        <div>Spin child</div>
+      </n-spin>
+    ));
+  });
 });

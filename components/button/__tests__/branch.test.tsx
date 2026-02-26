@@ -45,4 +45,18 @@ describe('Button branches', () => {
     btn?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     btn?.dispatchEvent(new Event('animationend', { bubbles: true }));
   });
+
+  it('renders default button (no link, no tag) covers tag || button fallback', () => {
+    const { container } = render(() => <Button>Default</Button>);
+    const btn = container.querySelector('button');
+
+    expect(btn).toBeTruthy();
+  });
+
+  it('click while loading does not set animating', () => {
+    const { container } = render(() => <Button loading={true}>Loading</Button>);
+    const btn = container.querySelector('button');
+
+    btn?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  });
 });

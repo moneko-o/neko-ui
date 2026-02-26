@@ -110,4 +110,30 @@ describe('QrCode branches', () => {
   it('svg border=0 renders with no border margin', () => {
     render(() => <QrCode value="no-border" type="svg" border={0 as never} />);
   });
+
+  it('canvas with icon renders drawImage path', () => {
+    mockCanvas();
+    render(() => <QrCode value="icon-canvas" type="canvas" icon="icon.png" iconSize={7} />);
+  });
+
+  it('svg type=svg covers Show when type===svg truthy branch', () => {
+    render(() => <QrCode value="svg-show" type="svg" />);
+  });
+
+  it('canvas type=canvas covers Show when type===svg fallback (canvas)', () => {
+    mockCanvas();
+    render(() => <QrCode value="canvas-show" type="canvas" />);
+  });
+
+  it('svg without icon does not render image element', () => {
+    render(() => <QrCode value="svg-no-icon" type="svg" icon={void 0} />);
+  });
+
+  it('renders with css prop', () => {
+    render(() => <QrCode value="styled" type="svg" css=".qrcode { border: 1px solid; }" />);
+  });
+
+  it('renders with class prop', () => {
+    render(() => <QrCode value="classed" type="svg" class="my-qr" />);
+  });
 });

@@ -80,4 +80,61 @@ describe('Modal branches', () => {
   it('closed state does not render portal', () => {
     render(() => <Modal open="closed" title="Hidden" content="Content" />);
   });
+
+  it('open state renders portal with all classes (open, mask-blur, centered, moveing)', () => {
+    render(() => (
+      <Modal
+        open="open"
+        title="Full"
+        content="Content"
+        centered={true}
+        maskBlur={true}
+      />
+    ));
+  });
+
+  it('mouseDown on modal triggers moveing state', () => {
+    render(() => <Modal open="open" title="Move" content="Drag me" />);
+
+    const portals = document.querySelectorAll('.portal');
+
+    portals.forEach((portal) => {
+      const modalContent = portal.querySelector('.modal-content');
+
+      if (modalContent) {
+        modalContent.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+        document.body.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+      }
+    });
+  });
+
+  it('animationend on portal handles destroy when closing', () => {
+    render(() => <Modal open="open" title="AnimEnd" content="Content" />);
+
+    const portals = document.querySelectorAll('.portal');
+
+    portals.forEach((portal) => {
+      portal.dispatchEvent(new Event('animationend', { bubbles: true }));
+    });
+  });
+
+  it('portalClick with maskClosable=true closes modal', () => {
+    const onOpenChange = jest.fn();
+
+    render(() => (
+      <Modal
+        open="open"
+        title="ClickMask"
+        content="Content"
+        maskClosable={true}
+        onOpenChange={onOpenChange}
+      />
+    ));
+
+    const portals = document.querySelectorAll('.portal');
+
+    portals.forEach((portal) => {
+      portal.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+  });
 });

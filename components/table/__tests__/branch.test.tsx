@@ -128,4 +128,26 @@ describe('Table branches', () => {
       />
     ));
   });
+
+  it('pagination.size with explicit value overrides local.size', () => {
+    render(() => (
+      <Table
+        columns={{ name: 'Name' }}
+        data={[{ name: 'A' }]}
+        pagination={{ page: 1, pageSize: 10, total: 50, size: 'large' }}
+        size="small"
+      />
+    ));
+  });
+
+  it('pagination without size falls back to local.size', () => {
+    render(() => (
+      <Table
+        columns={{ name: 'Name' }}
+        data={[{ name: 'A' }]}
+        pagination={{ page: 1, pageSize: 10, total: 50 }}
+        size="small"
+      />
+    ));
+  });
 });

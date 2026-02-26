@@ -161,4 +161,24 @@ describe('Input branches', () => {
 
     input?.dispatchEvent(new KeyboardEvent('keydown', { key: 'a', bubbles: true }));
   });
+
+  it('renders with all optional props for full input element coverage', () => {
+    render(() => (
+      <Input
+        type="text"
+        placeholder="enter"
+        autoComplete="off"
+        accept=".txt"
+        value="test"
+        label="Label"
+        prefixIcon={<span>P</span>}
+        suffixIcon={<span>S</span>}
+        capsLockIcon={<span>CL</span>}
+      />
+    ));
+  });
+
+  it('renders with disabled state', () => {
+    render(() => <Input disabled={true} value="disabled" />);
+  });
 });

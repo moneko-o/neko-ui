@@ -70,4 +70,18 @@ describe('InputNumber branches', () => {
       document.body.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
     }
   });
+
+  it('mouseMove with NaN string covers || 0 fallback', () => {
+    const onChange = jest.fn();
+    const { container } = render(() => (
+      <InputNumber value={'abc' as unknown as number} step={1} onChange={onChange} />
+    ));
+    const el = container.querySelector('.input-number') || container.firstElementChild;
+
+    if (el) {
+      fireEvent.mouseDown(el);
+      fireEvent.mouseMove(document, { movementX: 3, movementY: 0 });
+      fireEvent.mouseUp(document);
+    }
+  });
 });

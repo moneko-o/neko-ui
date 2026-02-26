@@ -112,6 +112,28 @@ describe('Code branches', () => {
     jest.advanceTimersByTime(100);
     expect(container).toBeInTheDocument();
   });
+
+  it('no theme prop with isDark() false covers line 121 lightCss', () => {
+    const { container } = render(() => <Code code="const h = 8;" language="javascript" />);
+
+    jest.advanceTimersByTime(100);
+    expect(container).toBeInTheDocument();
+  });
+
+  it('edit input triggers change handler', () => {
+    const onChange = jest.fn();
+    const { container } = render(() => (
+      <Code code="let x = 1;" language="javascript" edit={true} onChange={onChange} />
+    ));
+
+    jest.advanceTimersByTime(100);
+    const codeEl = container.querySelector('code');
+
+    if (codeEl) {
+      codeEl.textContent = 'let x = 2;';
+      codeEl.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  });
 });
 
 describe('Code CSS.highlights missing', () => {

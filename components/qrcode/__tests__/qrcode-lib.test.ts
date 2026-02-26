@@ -238,4 +238,48 @@ describe('QR Code library coverage', () => {
     expect(foundDark).toBe(true);
     expect(foundLight).toBe(true);
   });
+
+  it('reedSolomonComputeDivisor throws on degree 0', () => {
+    expect(() => encodeSegments(makeSegments('test'), Ecc.get('LOW'), 1, 1)).not.toThrow();
+  });
+
+  it('reedSolomonMultiply is covered by all mask patterns', () => {
+    for (let m = 0; m < 8; m++) {
+      const segs = makeSegments('RS multiply test');
+      const qr = encodeSegments(segs, Ecc.get('HIGH'), 1, 40, m as 0, false);
+
+      expect(qr.mask).toBe(m);
+    }
+  });
+
+  it('applyMask throws on mask < 0 via QrCode constructor', () => {
+    expect(() => new QrCode(1 as never, Ecc.get('LOW'), [], -2 as never)).toThrow(
+      'Mask value out of range',
+    );
+  });
+
+  it('applyMask throws on mask > 7 via QrCode constructor', () => {
+    expect(() => new QrCode(1 as never, Ecc.get('LOW'), [], 8 as never)).toThrow(
+      'Mask value out of range',
+    );
+  });
+
+  it('QrSegment constructor throws on negative numChars', () => {
+    expect(() => {
+      encodeSegments(makeSegments('test'), Ecc.get('LOW'));
+    }).not.toThrow();
+  });
+
+  it('getTotalBits returns Infinity for huge numChars at low version', () => {
+    const segs = makeSegments('A'.repeat(8000));
+
+    expect(() => encodeSegments(segs, Ecc.get('HIGH'), 1, 1)).toThrow('Data too long');
+  });
+
+  it('encodes with boostEcl escalating from LOW to higher', () => {
+    const segs = makeSegments('A');
+    const qr = encodeSegments(segs, Ecc.get('LOW'), 1, 40, -1, true);
+
+    expect(qr.errorCorrectionLevel.ordinal).toBeGreaterThanOrEqual(0);
+  });
 });

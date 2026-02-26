@@ -19,8 +19,10 @@ describe('Menu scroll-to-selected direct render', () => {
 
   function flushRaf() {
     const now = performance.now() + 20;
+
     while (rafCallbacks.length) {
       const cb = rafCallbacks.shift()!;
+
       cb(now);
     }
   }

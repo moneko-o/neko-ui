@@ -83,8 +83,36 @@ describe('HighlightText else branches (new Highlight creation)', () => {
 
   it('highlight array + extra both hit else branch', () => {
     CSS.highlights = makeMockHighlights();
+    render(() => <HighlightText text="foo bar" highlight={['foo', 'bar']} extra=" baz" flag="g" />);
+  });
+
+  it('empty highlight string skips highlight call (hitStr.length === 0)', () => {
+    CSS.highlights = makeMockHighlights();
+    render(() => <HighlightText text="test" highlight={['']} />);
+  });
+
+  it('highlight=false (non-array/non-string) covers no-op', () => {
+    CSS.highlights = makeMockHighlights();
+    render(() => <HighlightText text="test" highlight={false as never} />);
+  });
+});
+
+describe('HighlightText additional branches', () => {
+  it('renders with css prop', () => {
+    render(() => <HighlightText text="styled" css=".text { color: red; }" />);
+  });
+
+  it('renders with class prop', () => {
+    render(() => <HighlightText text="classed" class="my-highlight" />);
+  });
+
+  it('extra without firstChild covers firstChild guard', () => {
+    render(() => <HighlightText text="" extra="suffix" />);
+  });
+
+  it('highlight array with object item uses item.flag', () => {
     render(() => (
-      <HighlightText text="foo bar" highlight={['foo', 'bar']} extra=" baz" flag="g" />
+      <HighlightText text="hello world" highlight={[{ highlight: 'world', flag: 'gi' }]} />
     ));
   });
 });

@@ -49,4 +49,13 @@ describe('Carousel branches', () => {
   it('childNodes || [] fallback via n-carousel with no children', () => {
     render(() => <n-carousel />);
   });
+
+  it('n-carousel custom element with children covers childNodes truthy path', () => {
+    render(() => (
+      <n-carousel>
+        <div>X</div>
+        <div>Y</div>
+      </n-carousel>
+    ));
+  });
 });

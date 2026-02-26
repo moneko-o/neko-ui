@@ -32,4 +32,23 @@ describe('CaptureScreen branches', () => {
   it('renders with css prop to cover <Show when={local.css}>', () => {
     render(() => <CaptureScreen css=".capture-screen { border: 1px solid; }" />);
   });
+
+  it('controls=true with active mediaStream covers controls && mediaStream !== null', async () => {
+    const mockStream = { getTracks: () => [], active: true };
+    const origGetDisplayMedia = navigator.mediaDevices?.getDisplayMedia;
+
+    Object.defineProperty(navigator, 'mediaDevices', {
+      value: {
+        getDisplayMedia: jest.fn().mockResolvedValue(mockStream),
+      },
+      configurable: true,
+    });
+    render(() => <CaptureScreen controls={true} preview={true} />);
+    if (origGetDisplayMedia) {
+      Object.defineProperty(navigator.mediaDevices, 'getDisplayMedia', {
+        value: origGetDisplayMedia,
+        configurable: true,
+      });
+    }
+  });
 });

@@ -41,5 +41,4 @@ describe('Tabs (direct)', () => {
       tabs.dispatchEvent(new WheelEvent('wheel', { deltaX: 0, deltaY: 5, bubbles: true }));
     }
   });
-
 });

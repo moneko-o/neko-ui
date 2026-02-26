@@ -49,9 +49,7 @@ describe('Select (direct)', () => {
   });
 
   it('click on tags when select is activeElement triggers openChange', () => {
-    render(() => (
-      <n-select data-testid="sel-active" options={['A', 'B', 'C']} />
-    ));
+    render(() => <n-select data-testid="sel-active" options={['A', 'B', 'C']} />);
 
     const nSelect = screen.getByTestId('sel-active');
     const shadow = nSelect.shadowRoot!;

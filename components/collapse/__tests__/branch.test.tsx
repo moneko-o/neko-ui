@@ -26,4 +26,12 @@ describe('Collapse branches', () => {
   it('direct render with children covers list memo', () => {
     render(() => <Collapse title="Direct">{[<div>A</div>, <div>B</div>]}</Collapse>);
   });
+
+  it('n-collapse custom element with children covers childNodes truthy path', () => {
+    render(() => (
+      <n-collapse title="With Children">
+        <div>Child content</div>
+      </n-collapse>
+    ));
+  });
 });

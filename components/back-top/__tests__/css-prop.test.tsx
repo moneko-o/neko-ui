@@ -52,7 +52,12 @@ describe('BackTop css prop coverage', () => {
     });
 
     render(() => (
-      <BackTop css=".custom{color:blue}" target={document.body} mount={document.body} visibilityHeight={100} />
+      <BackTop
+        css=".custom{color:blue}"
+        target={document.body}
+        mount={document.body}
+        visibilityHeight={100}
+      />
     ));
 
     fireEvent.scroll(document.body);

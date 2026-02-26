@@ -165,4 +165,35 @@ describe('Checkbox branches', () => {
     items[0]?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     expect(onChange).not.toHaveBeenCalled();
   });
+
+  it('indeterminate item uses checkedAll() for checked', () => {
+    const { container } = render(() => (
+      <Checkbox
+        checkAll={true}
+        defaultValue={[1]}
+        options={[
+          { value: 1, label: 'A' },
+          { value: 2, label: 'B' },
+        ]}
+      />
+    ));
+    const inputs = container.querySelectorAll('input');
+
+    expect(inputs.length).toBeGreaterThan(0);
+  });
+
+  it('non-indeterminate item uses value().includes(realVal) for checked', () => {
+    const { container } = render(() => (
+      <Checkbox
+        defaultValue={['a']}
+        options={[
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+        ]}
+      />
+    ));
+    const inputs = container.querySelectorAll('input');
+
+    expect(inputs.length).toBeGreaterThan(0);
+  });
 });

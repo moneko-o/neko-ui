@@ -52,4 +52,16 @@ describe('Avatar branches', () => {
   it('group with css prop covers <Show when={local.css}>', () => {
     render(() => <AvatarGroup data={[{ username: 'X' }]} css=".group { gap: 4px; }" />);
   });
+
+  it('group with data=null covers || [] fallback (bypassing mergeProps)', () => {
+    render(() => <AvatarGroup data={null as never} />);
+  });
+
+  it('avatar with class prop covers cx(avatar, local.class)', () => {
+    render(() => <Avatar username="CL" class="my-avatar" />);
+  });
+
+  it('avatar with neither src nor username covers Switch fallthrough', () => {
+    render(() => <Avatar />);
+  });
 });

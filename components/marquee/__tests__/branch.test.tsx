@@ -57,4 +57,20 @@ describe('Marquee branches', () => {
       </Marquee>
     ));
   });
+
+  it('mask=true and hoverPause=true covers both truthy cx branches', () => {
+    render(() => (
+      <Marquee mask={true} hoverPause={true}>
+        <span>Both flags</span>
+      </Marquee>
+    ));
+  });
+
+  it('renders with class prop', () => {
+    render(() => (
+      <Marquee class="custom-marquee">
+        <span>Classed</span>
+      </Marquee>
+    ));
+  });
 });
