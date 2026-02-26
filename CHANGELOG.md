@@ -2,8 +2,14 @@
 
 ## Last
 
+### 🚀 Performance Improvements
+
+- switch to V8 coverage provider for more accurate metrics ([42d138d](https://github.com/moneko-o/neko-ui/commit/42d138d240d82a31ddc6063237fa3829a90c174f))
+
 ### 🚨 Tests
 
+- coverage 96.58% stmts, 97.52% funcs - 701 tests ([1ff4fc1](https://github.com/moneko-o/neko-ui/commit/1ff4fc134afd2a490f54212f3001309ec3ffe9c8))
+- add coverage tests for glass-panel, img, marquee, cron, pagination ([56b5964](https://github.com/moneko-o/neko-ui/commit/56b596427e1dd517a01e1e932911e83478b08012))
 - add full.test.tsx coverage tests for 9 components ([ee7e5f5](https://github.com/moneko-o/neko-ui/commit/ee7e5f53e84c3c1050b53b2dd102f299b3528ac7))
 - add direct-render tests for tree, menu, tabs, md ([1fa26ae](https://github.com/moneko-o/neko-ui/commit/1fa26ae02ad5393cf72c74cfb00f2c86aebd807d))
 - improve Worker mock to simulate message handling ([4b09171](https://github.com/moneko-o/neko-ui/commit/4b091717f6c81f2abf17ae5ea8bd2b88a53fe70e))
