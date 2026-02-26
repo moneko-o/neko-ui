@@ -31,7 +31,7 @@ function MD(_props: MdProps) {
       codeClassic: void 0,
       text: '',
       tools: ['copy'],
-      /* c8 ignore next */
+
       getAnchorContainer: () => window as unknown as HTMLElement,
     },
     _props,
@@ -112,7 +112,6 @@ function MD(_props: MdProps) {
         }
         if (active[0]) {
           active[0].classList.add('active');
-          /* c8 ignore next 3 */
           active[0].offsetParent?.scrollTo({
             top: active[0].offsetTop,
           });
@@ -166,7 +165,6 @@ function MD(_props: MdProps) {
           </article>
         </Match>
         <Match when={props.text}>
-          {/* c8 ignore next */}
           <article ref={ref} class={cx('n-md-box', props.class)} part="box" />
         </Match>
       </Switch>
@@ -236,7 +234,7 @@ MD.registry = () => {
     },
     (_, opt) => {
       const el = opt.element;
-      /* c8 ignore next */
+
       const childNodes = (opt.element.childNodes as NodeList) || [];
       const nodes = [...childNodes.values()];
       const [, restProps] = splitProps(_, ['children']);

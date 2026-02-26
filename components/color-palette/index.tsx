@@ -227,7 +227,6 @@ function ColorPalette(_: ColorPaletteProps) {
         <style textContent={css(props.css)} />
       </Show>
       <div class={cx('palette', props.class)}>
-        {/* c8 ignore next */}
         <div ref={picker} class="picker" on:mousedown={mouseDown} />
         <div class="chooser">
           <div class="range">

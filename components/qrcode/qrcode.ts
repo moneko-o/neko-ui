@@ -176,7 +176,6 @@ export function makeSegments(text: string): QrSegment[] {
 }
 
 function reedSolomonComputeDivisor(degree: number): number[] {
-  /* c8 ignore next */
   if (degree < 1 || degree > 255) throw new RangeError('Degree out of range');
   // 多项式系数按从高到低的幂次存储,不包括始终为1的首项。
   // 例如多项式 x^3 + 255x^2 + 8x + 93 存储为uint8数组 [255, 8, 93]。
@@ -221,7 +220,6 @@ function reedSolomonComputeRemainder(
 // 返回两个给定域元素模GF(2^8/0x11D)的乘积。参数和结果
 // 都是无符号8位整数。这可以实现为256*256个uint8条目的查找表。
 function reedSolomonMultiply(x: number, y: number): number {
-  /* c8 ignore next */
   if (x >>> 8 !== 0 || y >>> 8 !== 0) throw new RangeError('Byte out of range');
   // 俄罗斯农民乘法
   let z: number = 0;
@@ -530,7 +528,6 @@ export class QrCode {
   ] as const;
   // 使用给定的掩码模式对此QR码中的码字模块进行XOR运算。在掩码之前必须标记功能模块并绘制码字位。
   private applyMask(mask: number): void {
-    /* c8 ignore next */
     if (mask < 0 || mask > 7) throw new RangeError('Mask value out of range');
     const maskPattern = this.MASK_PATTERNS[mask];
 
@@ -691,7 +688,6 @@ function getBit(x: number, i: number): boolean {
 }
 // 如果给定条件为false则抛出异常。
 function assert(cond: boolean): void {
-  /* c8 ignore next */
   if (!cond) throw new Error('Assertion error');
 }
 /*
@@ -707,7 +703,6 @@ class QrSegment {
     // 此段的数据位。通过getData()访问。
     readonly bitData: number[],
   ) {
-    /* c8 ignore next */
     if (numChars < 0) throw new RangeError('Invalid argument');
     this.bitData = bitData.slice(); // 进行防御性拷贝
   }

@@ -71,7 +71,6 @@ function ImgLazy(_: ImgLazyProps) {
     <>
       <style textContent={imgCss} />
       <Spin spin={loading()}>
-        {/* c8 ignore next 2 */}
         <img
           ref={imgRef}
           {...props}

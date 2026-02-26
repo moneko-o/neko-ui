@@ -98,10 +98,10 @@ Collapse.registry = () => {
       class: void 0,
       css: void 0,
       title: void 0,
+      children: [],
     },
     (props, opt) => {
       const el = opt.element;
-      /* c8 ignore next */
       const childNodes = (opt.element.childNodes as NodeList) || [];
       const nodes = [...childNodes.values()];
       const [, restProps] = splitProps(props, ['children']);

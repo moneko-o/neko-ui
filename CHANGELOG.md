@@ -2,8 +2,30 @@
 
 ## Last
 
+### 🚨 Tests
+
+- achieve 100% coverage across all metrics ([692057f](https://github.com/moneko-o/neko-ui/commit/692057f699b91e1c0e164b158e8034d0510bc719))
+- improve coverage across all components ([080b33c](https://github.com/moneko-o/neko-ui/commit/080b33c25e06e26631006069c292d2aca339fbc8))
+- add coverage tests for back-top, code, highlight-text, img, popover, select, date-picker, menu, tabs, tree ([f7325d0](https://github.com/moneko-o/neko-ui/commit/f7325d0b67a92575f49050af841cc971214290d6))
+- add branch coverage tests for 22 components ([cd775a7](https://github.com/moneko-o/neko-ui/commit/cd775a7c5e1c3f530d3de6fa2705e6cb8e1ed993))
+
+### 🐛 Bug Fixes
+
+- improve test coverage for menu, tree, tabs, and date-picker components ([b0a521c](https://github.com/moneko-o/neko-ui/commit/b0a521c7b2e71a6d82c547c3f064906bf828ea50))
+- resolve test failures in back-top, highlight-text, img, tabs ([a1e873e](https://github.com/moneko-o/neko-ui/commit/a1e873e5d7cf2f01e3d959dca3086c109561f7f4))
+- replace undefined with void 0 to satisfy no-undefined lint rule ([40ae9d0](https://github.com/moneko-o/neko-ui/commit/40ae9d02028cb5cd4bfc717bef3d8885688a0df0))
+- remove children from customElement default props for component-register@0.8.8 compatibility ([7a7fb7a](https://github.com/moneko-o/neko-ui/commit/7a7fb7a2655294847f49c43839739cce8c463419))
+- extract children from DOM in carousel, collapse, and md components ([e83dda5](https://github.com/moneko-o/neko-ui/commit/e83dda58a3627f6745c26718a04fd6e4eb56efc0))
+
 ### ♻️ Chores
 
+- update component-register to 0.8.8 with patch for readonly property initialization ([e7d7ea6](https://github.com/moneko-o/neko-ui/commit/e7d7ea68f486fe35975b91b853534cd312b12a35))
+
+## [v2.14.15](https://github.com/moneko-o/neko-ui/compare/v2.14.14...v2.14.15) (2-26-2026)
+
+### ♻️ Chores
+
+- bump version to 2.14.15 ([becaab3](https://github.com/moneko-o/neko-ui/commit/becaab34672c0369aa2be3d4ad64f7312dfb437e))
 - upgrade @moneko/core from 4.7.8-beta.0 to 4.7.8 ([11d03d7](https://github.com/moneko-o/neko-ui/commit/11d03d728a0cdfdc195ec78e800dec57679451cd))
 - update ESLint and Jest configurations; remove unused transform-solid test file ([13250ea](https://github.com/moneko-o/neko-ui/commit/13250ea5eb1e2b917b86937143286d3177643946))
 - remove moduleResolution option from tsconfig.json ([53be65f](https://github.com/moneko-o/neko-ui/commit/53be65f91ec63c422bb516d89e6063bff00af6fc))

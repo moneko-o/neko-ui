@@ -185,7 +185,6 @@ Carousel.registry = () => {
     },
     (_, opt) => {
       const el = opt.element;
-      /* c8 ignore next */
       const childNodes = (opt.element.childNodes as NodeList) || [];
       const nodes = [...childNodes.values()];
       const [, restProps] = splitProps(_, ['children']);

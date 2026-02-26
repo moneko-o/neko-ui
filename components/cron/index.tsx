@@ -262,7 +262,6 @@ function Cron(props: CronProps) {
         if (isWeek) return `${nts(item.beginEvery)}#${nts(item.begin)}`;
         return `${nts(item.begin)}/${nts(item.beginEvery)}`;
       case 'closeWorkDay':
-        /* c8 ignore next */
         return `${nts(item.closeWorkDay || 1)}W`;
       case 'last':
         return isWeek ? `${nts(item.last)}L` : 'L';

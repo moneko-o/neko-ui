@@ -105,7 +105,7 @@ function Button(_: ButtonProps) {
       <Show when={local.css}>
         <style textContent={css(local.css)} />
       </Show>
-      {/* c8 ignore next 2 */}
+
       <Dynamic
         ref={ref}
         component={local.link ? 'a' : local.tag || 'button'}

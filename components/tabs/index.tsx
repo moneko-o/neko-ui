@@ -121,7 +121,7 @@ function Tabs(props: TabsProps) {
   function handleWheel(e?: WheelEvent) {
     if (wrapRef) {
       const pwid = box!.offsetWidth;
-      /* c8 ignore next */
+
       const addWid = add?.offsetWidth || 0;
       const scrollWidth = wrapRef.scrollWidth;
 
@@ -254,7 +254,7 @@ function Tabs(props: TabsProps) {
       <Show when={props.css}>
         <style textContent={css(props.css)} />
       </Show>
-      {/* c8 ignore next 2 */}
+
       <div
         ref={box}
         class={cx('tabs', props.type, props.class)}
@@ -264,7 +264,7 @@ function Tabs(props: TabsProps) {
         aria-disabled={props.disabled}
       >
         <Show when={left()}>{left()}</Show>
-        {/* c8 ignore next 2 */}
+
         <div
           ref={wrapRef}
           class="items"
@@ -293,7 +293,6 @@ function Tabs(props: TabsProps) {
                   onClick={onChange.bind(null, item)}
                   disabled={readOnly()}
                   icon={item[icon]}
-                  /* c8 ignore next */
                   ref={items()[i()].ref}
                   css={btnCss}
                 >
@@ -309,7 +308,6 @@ function Tabs(props: TabsProps) {
           </For>
         </div>
         <Show when={props.add}>
-          {/* c8 ignore next 2 */}
           <n-button
             ref={add}
             link={true}

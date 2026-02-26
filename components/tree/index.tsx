@@ -151,7 +151,6 @@ function Tree(
     _.onRowClick?.(e, item[fields.key] as never, item as TreeData<never>);
   }
   function renderItem(item: TreeData, title: JSXElement, subTitle?: JSXElement): JSXElement[] {
-    /* c8 ignore next */
     const row = _.renderRow?.(item, title, subTitle) || [title, subTitle];
 
     return rtl() ? row.reverse() : row;
@@ -248,7 +247,7 @@ function Tree(
       <Show when={_.css}>
         <style textContent={css(_.css)} />
       </Show>
-      {/* c8 ignore next 2 */}
+
       <ul
         ref={el}
         class="tree"

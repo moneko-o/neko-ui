@@ -169,7 +169,6 @@ function Img(_: ImgProps) {
           <style textContent={imgCss} />
           <style textContent={style} />
           <div
-            /* c8 ignore next */
             ref={portal}
             class="portal"
             classList={{

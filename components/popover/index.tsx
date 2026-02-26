@@ -177,7 +177,6 @@ function Popover(props: PopoverProps) {
         }
         const isContains = isElementInside(e.target as Element, ref);
 
-        /* c8 ignore next 3 */
         if ((open() && !isContains) || (isContains && e.type !== 'mousedown')) {
           openChange(false);
         }
@@ -211,7 +210,6 @@ function Popover(props: PopoverProps) {
       const arrowHeight = local.arrow ? 8 : 4;
       const _posi: Posi = {};
 
-      /* c8 ignore start */
       switch (local.placement) {
         case 'bottomLeft':
         case 'left':
@@ -232,7 +230,6 @@ function Popover(props: PopoverProps) {
           _posi['--x'] = -(_posi.left - elRect.left + offsetX);
           break;
       }
-      /* c8 ignore stop */
       if (_isBottom) {
         _posi.top = elRect.bottom + arrowHeight;
       } else {
@@ -350,7 +347,7 @@ function Popover(props: PopoverProps) {
       <Show when={local.css}>
         <style textContent={css(local.css)} />
       </Show>
-      {/* c8 ignore next */}
+
       <span ref={childRef} class={cx('popover', local.size, local.class)} {...childrenProps()}>
         {local.children}
       </span>
@@ -364,7 +361,7 @@ function Popover(props: PopoverProps) {
           <Show when={local.popupCss}>
             <style textContent={css(local.popupCss)} />
           </Show>
-          {/* c8 ignore next */}
+
           <div ref={ref} on:animationend={exit} class={portalCls()} {...childrenProps()}>
             <Show when={!!local.content} fallback={<Empty />}>
               <Show when={typeof local.content === 'string'} fallback={<>{local.content}</>}>

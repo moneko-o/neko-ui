@@ -80,7 +80,6 @@ function Avatar(_: AvatarProps) {
     }
   });
 
-  /* c8 ignore next 18 */
   return (
     <>
       <style textContent={style} />

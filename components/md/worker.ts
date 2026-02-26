@@ -20,7 +20,6 @@ function createMarked() {
   );
 }
 function createURL() {
-  /* c8 ignore start -- worker body is .toString()'d into a Blob URL, never executed as JS */
   function worker() {
     self.importScripts('MARKED_URL');
     let renderer: Renderer;
@@ -79,7 +78,6 @@ function createURL() {
     }
     self.addEventListener('message', onMessage, false);
   }
-  /* c8 ignore stop */
 
   return URL.createObjectURL(
     new Blob([`(${worker.toString().replace('MARKED_URL', MARKED_URL!)})(self)`], {

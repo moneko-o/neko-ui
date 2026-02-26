@@ -191,7 +191,6 @@ function Checkbox(props: CheckboxBoolProps | CheckboxGroupProps) {
                 on:keyup={onKeyUp.bind(null, item)}
                 on:click={onChange.bind(null, item)}
               >
-                {/* c8 ignore next 3 */}
                 <input
                   ref={item.ref}
                   class="checkbox"

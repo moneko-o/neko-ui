@@ -99,7 +99,7 @@ function Segmented(props: SegmentedProps) {
       <Show when={props.css}>
         <style textContent={css(props.css)} />
       </Show>
-      {/* c8 ignore next */}
+
       <div ref={box} class={cx('box', props.class)}>
         <For each={options()}>
           {(item, i) => {
@@ -128,7 +128,6 @@ function Segmented(props: SegmentedProps) {
                   }}
                   on:click={handleChange}
                   aria-disabled={readOnly}
-                  /* c8 ignore next */
                   ref={options()[i()].ref}
                 >
                   <Show when={item[fieldName.icon]}>

@@ -130,7 +130,6 @@ const QRCode = (_props: QrCodeProps) => {
       cvs.height = props.size;
       styles = window.getComputedStyle(cvs as unknown as Element);
       const ctx = cvs.getContext('2d') as CanvasRenderingContext2D;
-      /* c8 ignore next 2 */
       const color = props.color || prev?.color || styles.color;
       const bgColor = props.bgColor || prev?.bg || styles.backgroundColor;
 
@@ -262,14 +261,12 @@ const QRCode = (_props: QrCodeProps) => {
 
       svg?.setAttribute('viewBox', `0 0 ${box_size} ${box_size}`);
       styles = window.getComputedStyle(svg as unknown as Element);
-      /* c8 ignore start */
       if (paths.length > 0) {
         paths[0].setAttribute('d', `M0,0 h${box_size}v${box_size}H0z`);
         paths[0].setAttribute('fill', props.bgColor || prev?.bg || styles.backgroundColor);
         paths[1].setAttribute('d', parts.join(' '));
         paths[1].setAttribute('fill', props.color || prev?.color || styles.color);
       }
-      /* c8 ignore stop */
       // icon
       const icon = svg?.querySelector('image');
 
@@ -289,7 +286,6 @@ const QRCode = (_props: QrCodeProps) => {
     };
   });
 
-  /* c8 ignore start */
   return (
     <Show when={props.type === 'svg'} fallback={<canvas ref={cvs} role="img" />}>
       <svg
@@ -301,7 +297,6 @@ const QRCode = (_props: QrCodeProps) => {
         shape-rendering="crispEdges"
         role="img"
       >
-        {/* c8 ignore stop */}
         <path />
         <path />
         <Show when={other.icon}>

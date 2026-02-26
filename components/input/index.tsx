@@ -123,7 +123,7 @@ function Input(props: InputProps) {
         <Show when={props.prefixIcon}>
           <span class="prefix">{props.prefixIcon}</span>
         </Show>
-        {/* c8 ignore next 2 */}
+
         <input
           ref={inputRef}
           class="input"

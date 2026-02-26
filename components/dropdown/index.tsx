@@ -69,7 +69,6 @@ function Dropdown(props: DropdownProps | DropdownMultipleProps) {
       local.onChange(key, item);
     }
     if (local.value === void 0) {
-      /* c8 ignore next */
       setValue(Array.isArray(key) ? key : [key]);
     }
     if (!local.multiple) {
@@ -100,7 +99,6 @@ function Dropdown(props: DropdownProps | DropdownMultipleProps) {
       open={open()}
       onOpenChange={openChange}
       content={
-        /* c8 ignore next */
         <div ref={portalRef} class="container">
           <Show when={local.items?.length} fallback={<Empty style={{ width: '100%' }} />}>
             <n-menu
@@ -114,7 +112,6 @@ function Dropdown(props: DropdownProps | DropdownMultipleProps) {
               onChange={change}
               open-keys={menuOpenKeys()}
               onOpenChange={menuOpenKeysChange}
-              /* c8 ignore next */
               css={local.menuCss}
             />
           </Show>
