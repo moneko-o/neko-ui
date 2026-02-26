@@ -44,7 +44,7 @@ const NUM_ERROR_CORRECTION_BLOCKS = [
 ];
 
 // 返回在给定版本的QR码中可以存储的数据位数，已排除所有功能模块。这包括余数位，因此可能不是8的倍数。结果范围在[208, 29648]之间。这可以实现为一个40项的查找表。
-function getNumRawDataModules(ver: number): number {
+export function getNumRawDataModules(ver: number): number {
   if (ver < QrCode.VERSION.MIN || ver > QrCode.VERSION.MAX) {
     throw new RangeError('Version number out of range');
   }
@@ -237,7 +237,7 @@ function reedSolomonMultiply(x: number, y: number): number {
  * 此类的实例表示一个不可变的暗/亮单元方格网。
  * 该类遵循 QR 码模型 2 规范，支持所有版本（尺寸）从 1 到 40、4 种纠错等级以及 4 种字符编码模式。
  */
-class QrCode {
+export class QrCode {
   // QR Code 的模块（false 表示浅色，true 表示深色）。构造函数完成后不可更改。通过 getModule() 访问。
   private readonly modules: boolean[][] = [];
   // 表示不受掩模影响的功能模块。构造函数完成后即被丢弃。
@@ -673,7 +673,7 @@ class QrCode {
   }
 }
 // 将给定数值的低位比特位追加到给定缓冲区。要求 0 <= len <= 31 且 0 <= val < 2^len。
-function appendBits(val: number, len: number, bb: number[]): void {
+export function appendBits(val: number, len: number, bb: number[]): void {
   if (len < 0 || len > 31 || val >>> len !== 0) {
     throw new RangeError('Value out of range');
   }
@@ -749,7 +749,7 @@ function getTotalBits(segs: Readonly<QrSegment[]>, version: number): number {
   return result;
 }
 // 返回一个表示以数字模式编码的给定十进制数字字符串的段。
-function makeNumeric(digits: string): QrSegment {
+export function makeNumeric(digits: string): QrSegment {
   if (!isNumeric(digits)) {
     throw new RangeError('String contains non-numeric characters');
   }
@@ -765,7 +765,7 @@ function makeNumeric(digits: string): QrSegment {
   return new QrSegment(QrMode.get('NUMERIC'), digits.length, bb);
 }
 // 返回一个表示以字母数字模式编码的给定文本字符串的段。允许的字符是：0到9、A到Z（仅大写）、空格、美元符号、百分号、星号、加号、连字符、句点、斜杠、冒号。
-function makeAlphanumeric(text: string): QrSegment {
+export function makeAlphanumeric(text: string): QrSegment {
   if (!isAlphanumeric(text)) {
     throw new RangeError('String contains unencodable characters in alphanumeric mode');
   }

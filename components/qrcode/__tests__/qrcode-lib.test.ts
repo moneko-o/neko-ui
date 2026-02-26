@@ -1,4 +1,13 @@
-import { Ecc, encodeSegments, makeSegments } from '../qrcode';
+import {
+  appendBits,
+  Ecc,
+  encodeSegments,
+  getNumRawDataModules,
+  makeAlphanumeric,
+  makeNumeric,
+  makeSegments,
+  QrCode,
+} from '../qrcode';
 
 describe('QR Code library coverage', () => {
   it('encodes numeric-only string (makeNumeric path)', () => {
@@ -148,5 +157,85 @@ describe('QR Code library coverage', () => {
     const qr = encodeSegments(segs, Ecc.get('HIGH'));
 
     expect(qr.version).toBeGreaterThanOrEqual(7);
+  });
+
+  it('getNumRawDataModules throws on version < 1', () => {
+    expect(() => getNumRawDataModules(0)).toThrow(RangeError);
+  });
+
+  it('getNumRawDataModules throws on version > 40', () => {
+    expect(() => getNumRawDataModules(41)).toThrow(RangeError);
+  });
+
+  it('QrCode constructor throws on version out of range', () => {
+    expect(() => new QrCode(0 as never, Ecc.get('LOW'), [], -1)).toThrow(
+      'Version value out of range',
+    );
+    expect(() => new QrCode(41 as never, Ecc.get('LOW'), [], -1)).toThrow(
+      'Version value out of range',
+    );
+  });
+
+  it('addEccAndInterleave throws when data length mismatches', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const addEcc = (QrCode.prototype as any).addEccAndInterleave;
+
+    expect(() => addEcc.call({ version: 1, errorCorrectionLevel: Ecc.get('LOW') }, [])).toThrow(
+      'Invalid argument',
+    );
+  });
+
+  it('drawCodewords throws when data length mismatches', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const draw = (QrCode.prototype as any).drawCodewords;
+
+    expect(() => draw.call({ version: 1 }, [])).toThrow('Invalid argument');
+  });
+
+  it('appendBits throws on negative length', () => {
+    expect(() => appendBits(0, -1, [])).toThrow(RangeError);
+  });
+
+  it('appendBits throws on length > 31', () => {
+    expect(() => appendBits(0, 32, [])).toThrow(RangeError);
+  });
+
+  it('appendBits throws when value exceeds bit length', () => {
+    expect(() => appendBits(16, 4, [])).toThrow(RangeError);
+  });
+
+  it('makeNumeric throws on non-numeric characters', () => {
+    expect(() => makeNumeric('abc')).toThrow('String contains non-numeric characters');
+  });
+
+  it('makeAlphanumeric throws on unencodable characters', () => {
+    expect(() => makeAlphanumeric('hello')).toThrow(
+      'String contains unencodable characters in alphanumeric mode',
+    );
+  });
+
+  it('QrCode constructor throws on mask value out of range', () => {
+    expect(() => new QrCode(1 as never, Ecc.get('LOW'), [], 8 as never)).toThrow(
+      'Mask value out of range',
+    );
+    expect(() => new QrCode(1 as never, Ecc.get('LOW'), [], -2 as never)).toThrow(
+      'Mask value out of range',
+    );
+  });
+
+  it('getModule returns true for dark modules and false for light modules', () => {
+    const segs = makeSegments('test');
+    const qr = encodeSegments(segs, Ecc.get('LOW'));
+    let foundDark = false;
+    let foundLight = false;
+
+    for (let y = 0; y < qr.size && !(foundDark && foundLight); y++) {
+      for (let x = 0; x < qr.size && !(foundDark && foundLight); x++) {
+        if (qr.getModule(x, y)) foundDark = true;
+        else foundLight = true;
+      }
+    }
+    expect(foundDark).toBe(true);
+    expect(foundLight).toBe(true);
   });
 });
