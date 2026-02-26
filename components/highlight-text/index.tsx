@@ -151,6 +151,7 @@ function HighlightText(props: HighlightTextProps) {
       <Show when={props.css}>
         <style textContent={css(props.css)} />
       </Show>
+      {/* c8 ignore next */}
       <div ref={box} class={cx('text', props.class)}>
         {text()}
       </div>

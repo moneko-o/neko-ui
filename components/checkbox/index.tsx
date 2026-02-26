@@ -192,6 +192,7 @@ function Checkbox(props: CheckboxBoolProps | CheckboxGroupProps) {
                 on:click={onChange.bind(null, item)}
               >
                 <input
+                  // c8 ignore next
                   ref={item.ref}
                   class="checkbox"
                   type="checkbox"

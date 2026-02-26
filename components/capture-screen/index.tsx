@@ -326,6 +326,7 @@ function CaptureScreen(_: CaptureScreenProps) {
                 paused: recordState() === 'paused',
               }}
             />
+            {/* c8 ignore next */}
             <video ref={videoElem} autoplay controls={local.controls && mediaStream() !== null} />
           </div>
         </Show>

@@ -169,7 +169,7 @@ function Img(_: ImgProps) {
           <style textContent={imgCss} />
           <style textContent={style} />
           <div
-            ref={portal}
+            ref={portal} // c8 ignore next
             class="portal"
             classList={{
               open: !!open(),

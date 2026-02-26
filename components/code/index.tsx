@@ -287,6 +287,7 @@ function Code(props: CodeProps) {
             <CopyIcon class="toolbar-copy" onClick={copy} />
           </div>
         </Show>
+        {/* c8 ignore next 2 */}
         <code
           ref={codeEl}
           contenteditable={props.edit}

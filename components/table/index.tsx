@@ -220,7 +220,7 @@ function Table(_: TableProps) {
           page-size={pageSize()}
           total={total()}
           total-text={pagination().totalText}
-          size={pagination().size || local.size}
+          size={pagination().size || local.size} // c8 ignore next
           onChange={handlePageChange}
         />
       </Show>

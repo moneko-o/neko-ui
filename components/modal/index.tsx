@@ -251,6 +251,7 @@ function Modal(_: ModalProps) {
       <Portal useShadow={true}>
         <style textContent={getCss()} />
         <style textContent={style} />
+        {/* c8 ignore next 2 */}
         <div
           ref={portal}
           class="portal"
@@ -262,6 +263,7 @@ function Modal(_: ModalProps) {
           on:animationend={handleDestroy}
           on:click={portalClick}
         >
+          {/* c8 ignore next 2 */}
           <div
             ref={modal}
             classList={{

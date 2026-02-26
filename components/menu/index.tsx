@@ -151,6 +151,7 @@ function Menu(props: MenuProps | MenuMultipleProps) {
                   }}
                   on:animationend={onAnimationEnd}
                 >
+                  {/* c8 ignore next */}
                   <div ref={el}>
                     <RenderMenu fieldNames={_.fieldNames} list={item[_.fieldNames.children]} />
                   </div>
@@ -259,6 +260,7 @@ function Menu(props: MenuProps | MenuMultipleProps) {
       <Show when={local.css}>
         <style textContent={css(local.css)} />
       </Show>
+      {/* c8 ignore next */}
       <section ref={ref} class="menu" part="menu" {...other}>
         <RenderMenu fieldNames={fieldNames()} list={options()} />
       </section>

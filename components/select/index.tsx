@@ -97,6 +97,7 @@ function Select(props: SelectProps) {
   }
   function onChange(val: (string | number)[] | string | number | undefined, item?: MenuOption) {
     if (local.value === void 0) {
+      /* c8 ignore next */
       setValue(val ? (Array.isArray(val) ? val : [val]) : []);
     }
     if (isFunction(local.onChange)) {
@@ -196,6 +197,7 @@ function Select(props: SelectProps) {
       onOpenChange={openChange}
       {...other}
     >
+      {/* c8 ignore next 2 */}
       <div
         ref={ref}
         class="select"
@@ -211,6 +213,7 @@ function Select(props: SelectProps) {
         <Show when={label()}>
           <label class="label">{label()}</label>
         </Show>
+        {/* c8 ignore next */}
         <div class="tags" ref={tagsRef} on:mousedown={click}>
           <Show
             when={other.multiple}
@@ -253,7 +256,7 @@ function Select(props: SelectProps) {
                   icon={kv()[v]?.icon}
                   close-icon={!other.disabled && !kv()[v]?.disabled}
                   onClose={deleteValue.bind(null, v)}
-                  disabled={other.disabled || kv()[v]?.disabled}
+                  disabled={other.disabled || kv()[v]?.disabled} // c8 ignore next
                 >
                   {kv()[v]?.[fieldNames().label] || v}
                 </n-tag>

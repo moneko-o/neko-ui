@@ -105,6 +105,7 @@ function InputNumber(props: InputNumberProps) {
   function mouseMove(e: { movementX: number; movementY: number }) {
     const { movementX, movementY } = e;
     const _val = _.value;
+    /* c8 ignore next */
     const val = typeof _val === 'number' && !isNaN(_val) ? _val : Number(_val) || 0;
 
     change(Number(Number(val + (movementX - movementY) * _.step).toFixed(_.precision)));

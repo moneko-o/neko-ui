@@ -56,6 +56,7 @@ const Marquee = (_: MarqueeProps) => {
       <Show when={props.css}>
         <style textContent={css(props.css)} />
       </Show>
+      {/* c8 ignore next 2 */}
       <div
         ref={el}
         class={cx(

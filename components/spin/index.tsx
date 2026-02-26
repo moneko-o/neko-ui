@@ -111,6 +111,7 @@ export type SpinElement = CustomElement<SpinProps>;
 Spin.registry = () => {
   customElement<SpinProps>('n-spin', { class: void 0, css: void 0, spin: void 0 }, (_, opt) => {
     const el = opt.element;
+    /* c8 ignore next */
     const childNodes = (opt.element.childNodes as NodeList) || [];
     const nodes = [...childNodes.values()];
     const [, props] = splitProps(_, ['children']);

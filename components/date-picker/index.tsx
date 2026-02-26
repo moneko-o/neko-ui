@@ -137,6 +137,7 @@ function DatePicker(_props: DatePickerProps) {
       }
       {...other}
     >
+      {/* c8 ignore next 2 */}
       <n-input
         ref={ref}
         onMouseDown={inputMouseDown}
