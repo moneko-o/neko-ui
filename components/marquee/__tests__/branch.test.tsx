@@ -33,4 +33,28 @@ describe('Marquee branches', () => {
       </Marquee>
     ));
   });
+
+  it('mask=false disables mask class', () => {
+    render(() => (
+      <Marquee mask={false}>
+        <span>No Mask</span>
+      </Marquee>
+    ));
+  });
+
+  it('hoverPause=false disables hover-pause class', () => {
+    render(() => (
+      <Marquee hoverPause={false}>
+        <span>No Pause</span>
+      </Marquee>
+    ));
+  });
+
+  it('renders with css prop', () => {
+    render(() => (
+      <Marquee css=".n-marquee { background: red; }">
+        <span>Styled</span>
+      </Marquee>
+    ));
+  });
 });

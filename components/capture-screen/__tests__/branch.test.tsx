@@ -24,4 +24,12 @@ describe('CaptureScreen branches', () => {
   it('stream inactive branch', () => {
     render(() => <CaptureScreen />);
   });
+
+  it('controls=true covers controls && mediaStream branch', () => {
+    render(() => <CaptureScreen controls={true} preview={true} />);
+  });
+
+  it('renders with css prop to cover <Show when={local.css}>', () => {
+    render(() => <CaptureScreen css=".capture-screen { border: 1px solid; }" />);
+  });
 });

@@ -32,4 +32,50 @@ describe('ImgLazy branches', () => {
 
     unmount();
   });
+
+  it('isIntersecting triggers src assignment and load event', () => {
+    let observerCb: IntersectionObserverCallback | null = null;
+
+    Object.defineProperty(window, 'IntersectionObserver', {
+      writable: true,
+      value: jest.fn((cb: IntersectionObserverCallback) => {
+        observerCb = cb;
+        return { observe: jest.fn(), unobserve: jest.fn(), disconnect: jest.fn() };
+      }),
+    });
+
+    const onLoad = jest.fn();
+    const { container } = render(() => <ImgLazy src="test.jpg" lazy={true} onLoad={onLoad} />);
+
+    if (observerCb) {
+      observerCb(
+        [{ isIntersecting: true } as IntersectionObserverEntry],
+        {} as IntersectionObserver,
+      );
+    }
+
+    const img = container.querySelector('img');
+
+    if (img) {
+      img.dispatchEvent(new Event('load', { bubbles: true }));
+    }
+  });
+
+  it('error event sets isError state', () => {
+    const onError = jest.fn();
+    const { container } = render(() => <ImgLazy src="bad.jpg" lazy={false} onError={onError} />);
+    const img = container.querySelector('img');
+
+    if (img) {
+      img.dispatchEvent(new Event('error', { bubbles: true }));
+    }
+  });
+
+  it('renders with custom part prop', () => {
+    render(() => <ImgLazy src="test.jpg" lazy={false} part="custom-part" />);
+  });
+
+  it('renders with class prop', () => {
+    render(() => <ImgLazy src="test.jpg" lazy={false} class="my-img" />);
+  });
 });

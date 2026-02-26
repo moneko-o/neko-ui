@@ -1,5 +1,7 @@
 import { render } from '@solidjs/testing-library';
 
+import Collapse from '../index';
+
 describe('Collapse branches', () => {
   it('renders with css prop', () => {
     render(() => (
@@ -15,5 +17,13 @@ describe('Collapse branches', () => {
         <div>Content</div>
       </n-collapse>
     ));
+  });
+
+  it('childNodes || [] fallback via custom element with no children', () => {
+    render(() => <n-collapse title="Empty" />);
+  });
+
+  it('direct render with children covers list memo', () => {
+    render(() => <Collapse title="Direct">{[<div>A</div>, <div>B</div>]}</Collapse>);
   });
 });

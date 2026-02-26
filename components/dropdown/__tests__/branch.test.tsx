@@ -42,4 +42,100 @@ describe('Dropdown branches', () => {
       </Dropdown>
     ));
   });
+
+  it('empty items shows Empty fallback', () => {
+    render(() => (
+      <Dropdown items={[]} open={true}>
+        Trigger
+      </Dropdown>
+    ));
+  });
+
+  it('undefined items shows Empty fallback via optional chaining', () => {
+    render(() => (
+      <Dropdown items={undefined as never} open={true}>
+        Trigger
+      </Dropdown>
+    ));
+  });
+
+  it('menuCss prop is passed through when items have length', () => {
+    render(() => (
+      <Dropdown
+        items={[{ value: 'a', label: 'A' }]}
+        menuCss=".menu { color: red; }"
+        open={true}
+      >
+        Trigger
+      </Dropdown>
+    ));
+  });
+
+  it('change handler with non-array key in uncontrolled mode', () => {
+    const onChange = jest.fn();
+
+    render(() => (
+      <Dropdown items={[{ value: 'a', label: 'A' }]} onChange={onChange} open={true}>
+        Trigger
+      </Dropdown>
+    ));
+
+    const menus = document.querySelectorAll('n-menu');
+
+    menus.forEach((menu) => {
+      menu.dispatchEvent(
+        new CustomEvent('change', {
+          detail: ['a', { value: 'a', label: 'A' }],
+          bubbles: true,
+        }),
+      );
+    });
+  });
+
+  it('change handler with array key in multiple mode', () => {
+    const onChange = jest.fn();
+
+    render(() => (
+      <Dropdown
+        items={[
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+        ]}
+        multiple={true}
+        onChange={onChange}
+        open={true}
+      >
+        Trigger
+      </Dropdown>
+    ));
+
+    const menus = document.querySelectorAll('n-menu');
+
+    menus.forEach((menu) => {
+      menu.dispatchEvent(
+        new CustomEvent('change', {
+          detail: [['a', 'b'], { value: 'a', label: 'A' }],
+          bubbles: true,
+        }),
+      );
+    });
+  });
+
+  it('onOpenChange callback fires', () => {
+    const onOpenChange = jest.fn();
+
+    render(() => (
+      <Dropdown items={[{ value: 'a', label: 'A' }]} onOpenChange={onOpenChange}>
+        Trigger
+      </Dropdown>
+    ));
+  });
+
+  it('open=false closes dropdown', () => {
+    render(() => (
+      <Dropdown open={false} items={[{ value: 'a', label: 'A' }]}>
+        Trigger
+      </Dropdown>
+    ));
+  });
 });

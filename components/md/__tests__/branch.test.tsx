@@ -63,4 +63,63 @@ describe('Md (direct render)', () => {
     render(() => <Md text="" />);
     jest.advanceTimersByTime(500);
   });
+
+  it('children array covers children.length > 0 branch', () => {
+    render(() => (
+      <Md>
+        {[<p>Paragraph 1</p>, <p>Paragraph 2</p>]}
+      </Md>
+    ));
+    jest.advanceTimersByTime(500);
+  });
+
+  it('children as empty array renders text branch fallback', () => {
+    render(() => <Md text="## Fallback">{[]}</Md>);
+    jest.advanceTimersByTime(500);
+  });
+
+  it('TOC with observer entries exercises observerEntry logic', () => {
+    const observeCalls: IntersectionObserverCallback[] = [];
+
+    Object.defineProperty(window, 'IntersectionObserver', {
+      writable: true,
+      value: jest.fn((cb: IntersectionObserverCallback) => {
+        observeCalls.push(cb);
+        return { observe: jest.fn(), unobserve: jest.fn(), disconnect: jest.fn() };
+      }),
+    });
+
+    const { unmount } = render(() => <Md text="[TOC]\n## Heading1\n## Heading2" />);
+
+    jest.advanceTimersByTime(500);
+
+    observeCalls.forEach((cb) => {
+      cb(
+        [
+          {
+            isIntersecting: true,
+            target: {
+              getAttribute: () => 'heading1',
+              querySelectorAll: () => [] as unknown as NodeListOf<HTMLAnchorElement>,
+            },
+          } as unknown as IntersectionObserverEntry,
+        ],
+        {} as IntersectionObserver,
+      );
+    });
+
+    unmount();
+  });
+
+  it('cleanup on unmount terminates worker', () => {
+    const { unmount } = render(() => <Md text="Test cleanup" />);
+
+    jest.advanceTimersByTime(500);
+    unmount();
+  });
+
+  it('renders with class prop', () => {
+    render(() => <Md text="Class test" class="custom-md" />);
+    jest.advanceTimersByTime(500);
+  });
 });

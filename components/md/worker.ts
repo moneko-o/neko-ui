@@ -20,6 +20,7 @@ function createMarked() {
   );
 }
 function createURL() {
+  /* istanbul ignore next -- worker body is .toString()'d into a Blob URL, never executed as JS */
   function worker() {
     self.importScripts('MARKED_URL');
     let renderer: Renderer;
