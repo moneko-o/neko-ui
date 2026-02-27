@@ -102,9 +102,10 @@ Marquee.registry = () => {
     },
     (_, opt) => {
       const el = opt.element;
+      const children = [...el.childNodes.values()].map((node) => node.cloneNode(true) as ChildNode);
       const props = mergeProps(
         {
-          children: [...el.childNodes.values()],
+          children,
         },
         _,
       );

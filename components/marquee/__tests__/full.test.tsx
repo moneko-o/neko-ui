@@ -14,6 +14,37 @@ describe('Marquee full coverage', () => {
     });
   });
 
+  it('preserves child custom element attributes when cloning', () => {
+    const { container } = render(() => (
+      <n-marquee>
+        <n-md class="test" css="h1{color:red;}">
+          # test
+        </n-md>
+      </n-marquee>
+    ));
+
+    const marquee = container.querySelector('n-marquee');
+
+    expect(marquee).toBeInTheDocument();
+    const shadow = marquee?.shadowRoot;
+
+    if (shadow) {
+      const mdElements = shadow.querySelectorAll('n-md');
+
+      expect(mdElements.length).toBeGreaterThan(0);
+      mdElements.forEach((md) => {
+        const mdShadow = md.shadowRoot;
+
+        if (mdShadow) {
+          const styles = [...mdShadow.querySelectorAll('style')];
+          const hasCss = styles.some((s) => s.textContent?.includes('color'));
+
+          expect(hasCss).toBe(true);
+        }
+      });
+    }
+  });
+
   it('renders with array children to cover Array.isArray branch', () => {
     render(() => (
       <Marquee>
