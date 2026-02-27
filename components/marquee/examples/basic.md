@@ -6,11 +6,7 @@ order: 1
 ```html
 <n-marquee style="width: 500px;">
   平台操作手册请点击
-  <n-typography
-    tag="a"
-    href="https://poizon.feishu.cn/docx/QmnVd7fNeoWi5Vx4QC0cjZ6rnrB"
-    target="blank"
-  >
+  <n-typography tag="a" href="https://moneko-o.github.io/neko-ui" target="blank">
     【平台操作手册】
   </n-typography>
   进行查看！
@@ -20,11 +16,7 @@ order: 1
 ```jsx
 <n-marquee style="width: 500px;">
   平台操作手册请点击
-  <n-typography
-    tag="a"
-    href="https://poizon.feishu.cn/docx/QmnVd7fNeoWi5Vx4QC0cjZ6rnrB"
-    target="blank"
-  >
+  <n-typography tag="a" href="https://moneko-o.github.io/neko-ui" target="blank">
     【平台操作手册】
   </n-typography>
   进行查看！

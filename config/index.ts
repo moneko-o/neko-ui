@@ -13,9 +13,6 @@ const conf: Partial<ConfigType> = {
     },
   },
   fallbackCompPath: '@/components/fallback',
-  devServer: {
-    https: true,
-  },
   manifest: {
     screenshots: [
       {

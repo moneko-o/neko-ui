@@ -6,13 +6,21 @@ import { customElement } from 'solid-element';
 import { clearAttribute, type JSXElement } from '../basic-config';
 import theme, { block } from '../theme';
 
-import { style } from './style';
+import { marqueeMdStyle, style } from './style';
 
 export interface MarqueeProps {
   /** 自定义类名 */
   class?: string;
   /** 自定义样式表 */
   css?: string;
+  /** Markdown 样式表
+   * @since 2.15.0
+   */
+  mdCss?: string;
+  /** 是否使用 Markdown 样式
+   * @since 2.15.0
+   */
+  isMarkdown?: boolean;
   /** 是否在 hover 时暂停
    * @default true
    */
@@ -25,7 +33,7 @@ export interface MarqueeProps {
    * @default true
    */
   mask?: boolean;
-  children?: JSXElement | JSXElement[];
+  children?: JSXElement | JSXElement[] | string;
 }
 
 /** 跑马灯 */
@@ -68,18 +76,31 @@ const Marquee = (_: MarqueeProps) => {
         <For each={Array.from({ length: count() })}>
           {() => (
             <div class="n-marquee-item">
-              {Array.isArray(props.children) ? (
-                <For each={props.children}>
-                  {(item) => {
-                    const node = item as HTMLElement;
-                    const next = isFunction(node.cloneNode) ? node.cloneNode(true) : node;
+              <Show
+                when={props.isMarkdown}
+                fallback={
+                  Array.isArray(props.children) ? (
+                    <For each={props.children}>
+                      {(item) => {
+                        const node = item as HTMLElement;
+                        const next = isFunction(node.cloneNode) ? node.cloneNode(true) : node;
 
-                    return next;
-                  }}
-                </For>
-              ) : (
-                props.children
-              )}
+                        return next;
+                      }}
+                    </For>
+                  ) : (
+                    props.children
+                  )
+                }
+              >
+                <n-md
+                  css={cx(marqueeMdStyle, props.mdCss)}
+                  picture-viewer="true"
+                  code-classic="false"
+                >
+                  {props.children}
+                </n-md>
+              </Show>
             </div>
           )}
         </For>
@@ -99,6 +120,8 @@ Marquee.registry = () => {
       speed: 15,
       hoverPause: true,
       mask: true,
+      mdCss: void 0,
+      isMarkdown: void 0,
     },
     (_, opt) => {
       const el = opt.element;
@@ -110,7 +133,7 @@ Marquee.registry = () => {
       );
 
       createEffect(() => {
-        clearAttribute(el, ['css']);
+        clearAttribute(el, ['css', 'mdCss']);
       });
       return (
         <>

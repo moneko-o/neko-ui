@@ -49,3 +49,24 @@ export const style = css`
     }
   }
 `;
+
+export const marqueeMdStyle = css`
+  .n-md-body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: var(--primary-color);
+
+    &:visited {
+      color: var(--primary-active);
+    }
+  }
+`;
