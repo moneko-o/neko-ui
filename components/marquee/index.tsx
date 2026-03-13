@@ -1,7 +1,10 @@
 import { createEffect, createSignal, For, mergeProps, Show } from 'solid-js';
 import { isFunction } from '@moneko/common';
 import { css, cx } from '@moneko/css';
-import { customElement, noShadowDOM } from 'solid-element';
+import {
+  customElement,
+  //noShadowDOM
+} from 'solid-element';
 
 import { clearAttribute, type JSXElement } from '../basic-config';
 import theme, { block } from '../theme';
@@ -128,9 +131,9 @@ Marquee.registry = () => {
       noShadow: void 0,
     },
     (_, opt) => {
-      if (_.noShadow) {
-        noShadowDOM();
-      }
+      // if (_.noShadow) {
+      //  noShadowDOM();
+      // }
       const el = opt.element;
       const props = mergeProps(
         {
