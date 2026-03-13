@@ -1,7 +1,7 @@
 import { createEffect, createSignal, For, mergeProps, Show } from 'solid-js';
 import { isFunction } from '@moneko/common';
 import { css, cx } from '@moneko/css';
-import { customElement } from 'solid-element';
+import { customElement, noShadowDOM } from 'solid-element';
 
 import { clearAttribute, type JSXElement } from '../basic-config';
 import theme, { block } from '../theme';
@@ -33,6 +33,9 @@ export interface MarqueeProps {
    * @default true
    */
   mask?: boolean;
+  /** 是否 ShadowDOM
+   */
+  noShadow?: boolean;
   children?: JSXElement | JSXElement[] | string;
 }
 
@@ -122,8 +125,12 @@ Marquee.registry = () => {
       mask: true,
       mdCss: void 0,
       isMarkdown: void 0,
+      noShadow: void 0,
     },
     (_, opt) => {
+      if (noShadow) {
+        noShadowDOM();
+      }
       const el = opt.element;
       const props = mergeProps(
         {
