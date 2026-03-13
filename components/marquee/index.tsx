@@ -128,7 +128,7 @@ Marquee.registry = () => {
       noShadow: void 0,
     },
     (_, opt) => {
-      if (noShadow) {
+      if (_.noShadow) {
         noShadowDOM();
       }
       const el = opt.element;
