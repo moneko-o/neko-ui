@@ -34,6 +34,7 @@ export interface MarqueeProps {
    */
   mask?: boolean;
   /** 是否 ShadowDOM
+   * @since 2.15.1
    */
   noShadow?: boolean;
   children?: JSXElement | JSXElement[] | string;

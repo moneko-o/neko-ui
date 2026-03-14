@@ -2,6 +2,10 @@
 
 ## Last
 
+### ✨ Features
+
+- n-collapse ([3a6e023](https://github.com/moneko-o/neko-ui/commit/3a6e0233098406413dedfe4326c8a22a94bb5da6))
+
 ## [v2.15.0](https://github.com/moneko-o/neko-ui/compare/v2.14.17...v2.15.0) (2-28-2026)
 
 ### ✨ Features
