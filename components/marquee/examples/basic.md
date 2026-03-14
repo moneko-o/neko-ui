@@ -11,9 +11,23 @@ order: 1
   </n-typography>
   进行查看！
 </n-marquee>
+<n-marquee style="width: 500px;" no-shadow="true">
+  平台操作手册请点击
+  <n-typography tag="a" href="https://moneko-o.github.io/neko-ui" target="blank">
+    【平台操作手册】
+  </n-typography>
+  进行查看！
+</n-marquee>
 ```
 
 ```jsx
+<n-marquee style="width: 500px;" no-shadow={true}>
+  平台操作手册请点击
+  <n-typography tag="a" href="https://moneko-o.github.io/neko-ui" target="blank">
+    【平台操作手册】
+  </n-typography>
+  进行查看！
+</n-marquee>
 <n-marquee style="width: 500px;">
   平台操作手册请点击
   <n-typography tag="a" href="https://moneko-o.github.io/neko-ui" target="blank">

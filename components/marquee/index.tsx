@@ -1,10 +1,7 @@
 import { createEffect, createSignal, For, mergeProps, Show } from 'solid-js';
 import { isFunction } from '@moneko/common';
 import { css, cx } from '@moneko/css';
-import {
-  customElement,
-  //noShadowDOM
-} from 'solid-element';
+import { customElement, noShadowDOM } from 'solid-element';
 
 import { clearAttribute, type JSXElement } from '../basic-config';
 import theme, { block } from '../theme';
@@ -63,6 +60,7 @@ const Marquee = (_: MarqueeProps) => {
       setCount(Math.ceil(el.offsetWidth / item.offsetWidth) + 1);
     }
   });
+
   return (
     <>
       <style textContent={baseStyle()} />
@@ -80,35 +78,35 @@ const Marquee = (_: MarqueeProps) => {
         style={{ '--speed': `${props.speed}s` }}
       >
         <For each={Array.from({ length: count() })}>
-          {() => (
-            <div class="n-marquee-item">
-              <Show
-                when={props.isMarkdown}
-                fallback={
-                  Array.isArray(props.children) ? (
-                    <For each={props.children}>
-                      {(item) => {
-                        const node = item as HTMLElement;
-                        const next = isFunction(node.cloneNode) ? node.cloneNode(true) : node;
+          {() => {
+            const Children = () =>
+              Array.isArray(props.children) ? (
+                <For each={props.children}>
+                  {(item) => {
+                    const node = item as HTMLElement;
+                    const next = isFunction(node.cloneNode) ? node.cloneNode(true) : node;
 
-                        return next;
-                      }}
-                    </For>
-                  ) : (
-                    props.children
-                  )
-                }
-              >
-                <n-md
-                  css={cx(marqueeMdStyle, props.mdCss)}
-                  picture-viewer="true"
-                  code-classic="false"
-                >
-                  {props.children}
-                </n-md>
-              </Show>
-            </div>
-          )}
+                    return next;
+                  }}
+                </For>
+              ) : (
+                props.children
+              );
+
+            return (
+              <div class="n-marquee-item">
+                <Show when={props.isMarkdown} fallback={<Children />}>
+                  <n-md
+                    css={cx(marqueeMdStyle, props.mdCss)}
+                    picture-viewer="true"
+                    code-classic="false"
+                  >
+                    <Children />
+                  </n-md>
+                </Show>
+              </div>
+            );
+          }}
         </For>
       </div>
     </>
@@ -131,9 +129,9 @@ Marquee.registry = () => {
       noShadow: void 0,
     },
     (_, opt) => {
-      // if (_.noShadow) {
-      //  noShadowDOM();
-      // }
+      if (_.noShadow) {
+        noShadowDOM();
+      }
       const el = opt.element;
       const props = mergeProps(
         {
@@ -142,12 +140,18 @@ Marquee.registry = () => {
         _,
       );
 
+      el.replaceChildren();
       createEffect(() => {
         clearAttribute(el, ['css', 'mdCss']);
+        if (_.noShadow) {
+          el.style.display = 'block';
+        }
       });
       return (
         <>
-          <style textContent={block} />
+          <Show when={_.noShadow} fallback={<style textContent={block} />}>
+            <></>
+          </Show>
           <Marquee {...props} />
         </>
       );

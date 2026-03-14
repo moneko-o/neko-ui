@@ -1,5 +1,13 @@
 # Change log
 
+## Last
+
+## [v2.15.0](https://github.com/moneko-o/neko-ui/compare/v2.14.17...v2.15.0) (2-28-2026)
+
+### ✨ Features
+
+- marquee 支持 markdown 格式 ([83d840d](https://github.com/moneko-o/neko-ui/commit/83d840dd36655811243d6d1d723c7da8fa203441))
+
 ## [v2.14.17](https://github.com/moneko-o/neko-ui/compare/v2.14.16-beta.0...v2.14.17) (2-27-2026)
 
 ## [v2.14.16-beta.0](https://github.com/moneko-o/neko-ui/compare/v2.14.16...v2.14.16-beta.0) (2-27-2026)
