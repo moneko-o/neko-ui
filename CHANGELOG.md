@@ -2,8 +2,15 @@
 
 ## Last
 
+### ♻️ Chores
+
+- 更新 devDependencies:@moneko/core 和 @moneko/solid 版本 ([fc16efb](https://github.com/moneko-o/neko-ui/commit/fc16efba1cca326a418fc4bf1dcfe603428501bb))
+
+## [v2.15.1](https://github.com/moneko-o/neko-ui/compare/v2.15.0...v2.15.1) (3-14-2026)
+
 ### ✨ Features
 
+- marquee 支持 no-shadow ([afebd78](https://github.com/moneko-o/neko-ui/commit/afebd78bbd0545a783fc10cfc6e74777fc9e02bb))
 - n-collapse ([3a6e023](https://github.com/moneko-o/neko-ui/commit/3a6e0233098406413dedfe4326c8a22a94bb5da6))
 
 ## [v2.15.0](https://github.com/moneko-o/neko-ui/compare/v2.14.17...v2.15.0) (2-28-2026)

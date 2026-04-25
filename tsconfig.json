@@ -1,11 +1,11 @@
 {
   "extends": "@moneko/init.d",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["site/*"],
-      "@pkg/*": ["components/*"],
-      "neko-ui/*": ["components/*"]
+      "@/*": ["./site/*"],
+      "@pkg/*": ["./components/*"],
+      "neko-ui/*": ["./components/*"],
+      "*": ["./*"]
     }
   },
   "exclude": ["types/*"]
