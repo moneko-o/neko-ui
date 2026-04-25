@@ -2,6 +2,10 @@
 
 ## Last
 
+### 🚨 Tests
+
+- enhance avatar component tests with async rendering and shadow DOM style validation ([4a129df](https://github.com/moneko-o/neko-ui/commit/4a129dfc3665e74ba345a94b90caa1f959c1f075))
+
 ### ♻️ Chores
 
 - 更新版本至 2.15.2，调整依赖 @moneko/core 和 @moneko/css 版本，移除 n-collapse 组件 ([f2b191e](https://github.com/moneko-o/neko-ui/commit/f2b191ee14480153f32e0438a205121fedb438f0))
