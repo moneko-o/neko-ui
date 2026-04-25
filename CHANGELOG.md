@@ -4,6 +4,7 @@
 
 ### ♻️ Chores
 
+- 更新 tsconfig.json 中的路径配置 ([6a0f160](https://github.com/moneko-o/neko-ui/commit/6a0f1604c950a1b2ae154835eb61ceb56a70f6fa))
 - 更新 devDependencies:@moneko/core 和 @moneko/solid 版本 ([fc16efb](https://github.com/moneko-o/neko-ui/commit/fc16efba1cca326a418fc4bf1dcfe603428501bb))
 
 ## [v2.15.1](https://github.com/moneko-o/neko-ui/compare/v2.15.0...v2.15.1) (3-14-2026)
