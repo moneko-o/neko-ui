@@ -4,6 +4,7 @@
 
 ### ♻️ Chores
 
+- 更新版本至 2.15.2，调整依赖 @moneko/core 和 @moneko/css 版本，移除 n-collapse 组件 ([f2b191e](https://github.com/moneko-o/neko-ui/commit/f2b191ee14480153f32e0438a205121fedb438f0))
 - 更新 @moneko/solid 版本至 2.2.2 ([6f25886](https://github.com/moneko-o/neko-ui/commit/6f25886a79efb05599f076ffa1b9c329456467b0))
 - 更新 @moneko/solid 版本至 2.2.0 ([42598c2](https://github.com/moneko-o/neko-ui/commit/42598c20a4b40cfd5eda08342f96fabccb5dd533))
 - 更新 tsconfig.json 中的路径配置 ([6a0f160](https://github.com/moneko-o/neko-ui/commit/6a0f1604c950a1b2ae154835eb61ceb56a70f6fa))

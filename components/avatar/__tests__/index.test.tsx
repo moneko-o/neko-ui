@@ -9,6 +9,12 @@ describe('Avatar', () => {
     writable: true,
     value: jest.fn(),
   });
+
+  const getShadowStylesText = (el: HTMLElement) =>
+    Array.from(el.shadowRoot?.querySelectorAll('style') ?? [])
+      .map((style) => style.textContent ?? '')
+      .join('');
+
   it('basic', () => {
     render(() => <n-avatar />);
   });
@@ -26,44 +32,35 @@ describe('Avatar', () => {
       expect(e.alt).toBe(avatarAlt);
     });
   });
-  it('Avatar size number', () => {
+  it('Avatar size number', async () => {
     const { findByTestId } = render(() => (
       <n-avatar data-testid="avatar-size" size={16} src={avatarSrc} alt={avatarAlt} />
     ));
 
-    findByTestId('avatar-size').then((e) => {
-      expect(
-        e.shadowRoot
-          ?.querySelectorAll('style')[3]
-          ?.innerHTML.endsWith('.avatar{inline-size:1rem;block-size:1rem;}'),
-      ).toBe(true);
-    });
+    const e = await findByTestId('avatar-size');
+    const styles = getShadowStylesText(e);
+
+    expect(styles).toMatch(/\.avatar\{[^}]*inline-size:1rem;block-size:1rem;\}/);
   });
-  it('Avatar size type', () => {
+  it('Avatar size type', async () => {
     const { findByTestId } = render(() => (
       <n-avatar data-testid="avatar-size-type" size="large" src={avatarSrc} alt={avatarAlt} />
     ));
 
-    findByTestId('avatar-size-type').then((e) => {
-      expect(
-        e.shadowRoot
-          ?.querySelectorAll('style')[3]
-          ?.innerHTML.endsWith('.avatar{inline-size:2.5rem;block-size:2.5rem;}'),
-      ).toBe(true);
-    });
+    const e = await findByTestId('avatar-size-type');
+    const styles = getShadowStylesText(e);
+
+    expect(styles).toMatch(/\.avatar\{[^}]*inline-size:2\.5rem;block-size:2\.5rem;\}/);
   });
-  it('Avatar color', () => {
+  it('Avatar color', async () => {
     const { findByTestId } = render(() => (
       <n-avatar data-testid="avatar-color" color="red" src={avatarSrc} alt={avatarAlt} />
     ));
 
-    findByTestId('avatar-color').then((e) => {
-      expect(
-        e.shadowRoot
-          ?.querySelectorAll('style')[3]
-          ?.innerHTML.endsWith('.avatar{--avatar-color:red;inline-size:2rem;block-size:2rem;}'),
-      ).toBe(true);
-    });
+    const e = await findByTestId('avatar-color');
+    const styles = getShadowStylesText(e);
+
+    expect(styles).toMatch(/\.avatar\{--avatar-color:red;inline-size:2rem;block-size:2rem;\}/);
   });
   it('scale username', () => {
     render(() => (
