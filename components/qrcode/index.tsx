@@ -1,4 +1,5 @@
 import { createEffect, JSX, mergeProps, Show, splitProps } from 'solid-js';
+import type { CustomElement } from 'custom-element-type';
 import { customElement } from 'solid-element';
 
 import { clearAttribute } from '../basic-config';

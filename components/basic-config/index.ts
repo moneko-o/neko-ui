@@ -1,4 +1,5 @@
 import type { JSX } from 'solid-js';
+import type { ICustomElement } from 'custom-element-type';
 
 export type JSXElement = JSX.Element | HTMLElement | string | number | boolean;
 export interface BasicConfig {

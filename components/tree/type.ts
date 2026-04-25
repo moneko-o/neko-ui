@@ -1,3 +1,5 @@
+import type { CustomElement } from 'custom-element-type';
+
 import type { BasicConfig, JSXElement } from '../basic-config';
 import type { Schema } from '../from-schema';
 

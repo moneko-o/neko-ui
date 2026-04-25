@@ -1,6 +1,7 @@
 import { createEffect, createSignal, For, mergeProps, Show } from 'solid-js';
 import { isFunction } from '@moneko/common';
 import { css, cx } from '@moneko/css';
+import type { CustomElement } from 'custom-element-type';
 import { customElement, noShadowDOM } from 'solid-element';
 
 import { clearAttribute, type JSXElement } from '../basic-config';

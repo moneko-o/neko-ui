@@ -154,7 +154,6 @@ import type {
   CheckboxBoolElement,
   CheckboxGroupElement,
   CodeElement,
-  CollapseElement,
   ColorPaletteElement,
   ColorPickerElement,
   CronElement,
@@ -291,11 +290,6 @@ interface CustomElementTags {
    * @since 2.9.0
    */
   'n-qrcode': QrCodeElement;
-  /**
-   * 折叠面板
-   * @since 2.10.0
-   */
-  'n-collapse': CollapseElement;
   /**
    * 玻璃面板
    * @since 2.12.0
