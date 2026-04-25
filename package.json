@@ -68,7 +68,7 @@
   ],
   "devDependencies": {
     "@moneko/core": "4.8.6-beta.18",
-    "@moneko/solid": "2.2.0",
+    "@moneko/solid": "2.2.2",
     "@solidjs/testing-library": "0.8.10",
     "@testing-library/jest-dom": "6.9.1",
     "@types/jest": "30.0.0",
