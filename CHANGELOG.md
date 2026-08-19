@@ -1,5 +1,11 @@
 # Change log
 
+## Last
+
+### ✨ Features
+
+- add Safari detection and adjust backdrop-filter support in GlassPanel component ([e7ed092](https://github.com/moneko-o/neko-ui/commit/e7ed092e6d74ae3236d410d5b5e7d42464e932a8))
+
 ## [v2.15.2](https://github.com/moneko-o/neko-ui/compare/v2.15.1...v2.15.2) (4-26-2026)
 
 ### ♻️ Chores

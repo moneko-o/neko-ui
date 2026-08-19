@@ -20,7 +20,6 @@ function isSafari() {
   return ua.includes('safari') && !ua.includes('chrome');
 }
 
-console.log('isSafari', isSafari());
 export interface GlassPanelProps {
   /**
    * 子元素
