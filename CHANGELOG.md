@@ -1,18 +1,19 @@
 # Change log
 
-## Last
-
-### 🚨 Tests
-
-- enhance avatar component tests with async rendering and shadow DOM style validation ([4a129df](https://github.com/moneko-o/neko-ui/commit/4a129dfc3665e74ba345a94b90caa1f959c1f075))
+## [v2.15.2](https://github.com/moneko-o/neko-ui/compare/v2.15.1...v2.15.2) (4-26-2026)
 
 ### ♻️ Chores
 
+- remove types exclusion from tsconfig.json ([6dc7295](https://github.com/moneko-o/neko-ui/commit/6dc72954006a820615941190cad323686b500e4e))
 - 更新版本至 2.15.2，调整依赖 @moneko/core 和 @moneko/css 版本，移除 n-collapse 组件 ([f2b191e](https://github.com/moneko-o/neko-ui/commit/f2b191ee14480153f32e0438a205121fedb438f0))
 - 更新 @moneko/solid 版本至 2.2.2 ([6f25886](https://github.com/moneko-o/neko-ui/commit/6f25886a79efb05599f076ffa1b9c329456467b0))
 - 更新 @moneko/solid 版本至 2.2.0 ([42598c2](https://github.com/moneko-o/neko-ui/commit/42598c20a4b40cfd5eda08342f96fabccb5dd533))
 - 更新 tsconfig.json 中的路径配置 ([6a0f160](https://github.com/moneko-o/neko-ui/commit/6a0f1604c950a1b2ae154835eb61ceb56a70f6fa))
 - 更新 devDependencies:@moneko/core 和 @moneko/solid 版本 ([fc16efb](https://github.com/moneko-o/neko-ui/commit/fc16efba1cca326a418fc4bf1dcfe603428501bb))
+
+### 🚨 Tests
+
+- enhance avatar component tests with async rendering and shadow DOM style validation ([4a129df](https://github.com/moneko-o/neko-ui/commit/4a129dfc3665e74ba345a94b90caa1f959c1f075))
 
 ## [v2.15.1](https://github.com/moneko-o/neko-ui/compare/v2.15.0...v2.15.1) (3-14-2026)
 

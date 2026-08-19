@@ -14,6 +14,13 @@ import type { CustomElement } from '..';
 import { clearAttribute, type JSXElement } from '../basic-config';
 import { inline } from '../theme';
 
+function isSafari() {
+  const ua = navigator.userAgent.toLowerCase();
+
+  return ua.includes('safari') && !ua.includes('chrome');
+}
+
+console.log('isSafari', isSafari());
 export interface GlassPanelProps {
   /**
    * 子元素
@@ -125,11 +132,13 @@ const GlassPanel = (_: GlassPanelProps) => {
         backdrop-filter: ${normal};
       }
 
-      @supports (backdrop-filter: url(#${id})) {
+      ${isSafari()
+        ? ''
+        : `@supports (backdrop-filter: url(#${id})) {
         #backdrop-slot {
           backdrop-filter: ${normal} url(#${id});
         }
-      }
+      }`}
     `;
   });
 
